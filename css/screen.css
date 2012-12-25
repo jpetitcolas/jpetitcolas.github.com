@@ -6,6 +6,9 @@ body { background-color: #eee; font: 14px helvetica, arial, clean, sans-serif; c
 
 h1 { font-size: 140%; margin-bottom: 1em; color: #222; }
 h2 { font-size: 120%; color: #222; }
+h3 { font-size: 100%; margin-top: 1em; }
+
+blockquote { margin: 1em 3em 0 3em; background: #ddd; border: 1px solid #bbb; padding: 0 1em; }
 
 p { margin: 1em 0; }
 
