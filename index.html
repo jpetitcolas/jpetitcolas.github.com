@@ -1,0 +1,27 @@
+---
+layout: default
+title: Jonathan Petitcolas
+---
+
+<div id="home">
+
+  <h1>Blog posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h1>
+
+  <h1>Major open-source contributions</h1>
+  <ul class="posts">
+    <li><a href="#">Propel ORM:</a> .</li>
+    <li><a href="#">Geolocator Propel behavior:</a>.</li>
+    <li><a href="#">XPath tester:</a> an open-source and lightning fast XPath tester in PHP using JQuery and Foundation.</li>
+    <li><a href="#">sfGearmanPlugin:</a>.</li>
+  </ul>
+
+  <p>Discover all my contributions directly on my <a href="http://github.com/jpetitcolas/">GitHub profile</a>.</p>
+
+</div>

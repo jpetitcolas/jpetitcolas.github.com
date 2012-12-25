@@ -1,0 +1,27 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Jonathan Petitcolas - Web developer and open-source aficionado</title>
+ <link href="http://www.jonathan-petitcolas.com/atom.xml" rel="self"/>
+ <link href="http://www.jonathan-petitcolas.com/"/>
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+ <id>http://www.jonathan-petitcolas.com/</id>
+ <author>
+   <name>Jonathan Petitcolas</name>
+   <email>petitcolas.jonathan+blog@gmail.com</email>
+ </author>
+
+ {% for post in site.posts %}
+ <entry>
+   <title>{{ post.title }}</title>
+   <link href="http://www.jonathan-petitcolas.com{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://www.jonathan-petitcolas.com{{ post.id }}</id>
+   <content type="html">{{ post.content | xml_escape }}</content>
+ </entry>
+ {% endfor %}
+ 
+</feed>
