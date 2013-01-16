@@ -18,7 +18,7 @@ I was also implicated into the development of an analytics API and back-office f
 
 By the way, they are still looking for a developer replacing me. Here is the [job proposal (in French)](http://remixjobs.com/emploi/Developpement/Developpeur-PHP-Symfony-confirme-H-F/17089) if you are interested in.
 
-## Joining Marmelab, an digital innovation company
+## Joining Marmelab, a digital innovation company
 
 I moved in Nancy (my birth city, in the East of France) a year ago. Yet, I still worked in Paris (at 90 minutes of train from Nancy). I moved there for personal reasons (better way of life, a lot of friends and family there, etc.). I did not know that [François Zaninotto](http://dotheweb.posterous.com/), the former technical director of [eTF1](http://www.tf1.fr) (the interactive department of the first French channel) would take the same decision, a few months later.
 
