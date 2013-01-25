@@ -129,20 +129,23 @@ li > p {
   margin-top: 0.2em;
 }
 
-pre {
-  font-family: monospace;
-  font-size: 1.0em;
-}
-
 strong, b {
   font-weight: bold;
 }
 
-blockquote {
+pre, blockquote {
   margin: 1.2em 2.4em 1.2em 2.4em;
   border-left: 2px solid #bbb;
   padding: 0 1.2em;
+}
+
+blockquote {
   font-style: italic;
+}
+
+pre {
+  font-family: monospace;
+  font-size: 1.1em;
 }
 
 /** Home **/
@@ -151,3 +154,6 @@ blockquote {
   width: 70px;
   text-align: right;
 }
+
+/** Coding **/
+.s2 { color: #A00; }
