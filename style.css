@@ -95,6 +95,19 @@ h6 {
   font-weight: bold;
 }
 
+hgroup {
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+hgroup > * {
+  margin: 0.3em 0 0 0;
+}
+
+hgroup h4 {
+  font-weight: normal;
+  font-style: italic;
+}
+
 img {
   border: 0;
 }
