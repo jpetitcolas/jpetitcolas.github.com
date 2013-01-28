@@ -1,0 +1,35 @@
+---
+layout: default
+title: Archives of the blog
+---
+
+<div id="archives">
+
+  {% for post in site.posts %}
+
+    {% if post.next %}
+      {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+      {% capture next_year %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+    {% endif %}
+
+    {% if forloop.first %}
+      <h2>{{ post.date | date: '%Y' }}</h2>
+      <ul>
+    {% endif %}
+
+    {% if year != next_year %}
+      </ul>
+
+      <h2>{{ year }}</h2>
+      <ul>
+    {% endif %}
+
+    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+
+  {% endfor %}
+
+</div>

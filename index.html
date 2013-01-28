@@ -5,12 +5,14 @@ title: Web developer and open-source aficionado
 
 <div id="home">
 
-  <h1>Blog posts</h1>
+  <h1>Recent posts</h1>
   <ul class="posts">
-    {% for post in site.posts %}
+    {% for post in site.posts limit:5 %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
+
+  <p>Get more articles by browsing the <a href="/archives">blog archives</a>.</p>
 
   <h1>
 
