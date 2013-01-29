@@ -14,14 +14,14 @@ title: Archives of the blog
 
     {% if forloop.first %}
       <h2>{{ post.date | date: '%Y' }}</h2>
-      <ul>
+      <ul class="posts">
     {% endif %}
 
     {% if year != next_year %}
       </ul>
 
       <h2>{{ year }}</h2>
-      <ul>
+      <ul class="posts">
     {% endif %}
 
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>

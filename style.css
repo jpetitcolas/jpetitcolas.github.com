@@ -37,7 +37,7 @@ header {
     }
 
 footer {
-  font-size: 1em;
+  font-size: 0.9em;
   margin-top: 3.6em;
   text-align: center;
 }
@@ -148,8 +148,7 @@ pre {
   font-size: 1.1em;
 }
 
-/** Home **/
-#home .posts span {
+#home .posts span, #archives .posts span {
   display: inline-block;
   width: 70px;
   text-align: right;
