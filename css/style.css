@@ -1,0 +1,155 @@
+/**
+ * This CSS was inspired by the great Noodle Incident template for all typographies:
+ * http://www.thenoodleincident.com/tutorials/typography/template.html
+ **/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 76%;
+  color: #000;
+  background-color: #fff;
+}
+
+.wrapper {
+  padding: 4em 0 2em;
+  margin: 0em auto;
+  width: 90%;
+  max-width: 940px;
+}
+
+header {
+  margin-bottom: 2.4em;
+}
+
+  header h1 {
+    margin: 0 auto;
+  }
+
+  header nav a {
+    display: inline-block;
+    padding-right: 2em;
+  }
+
+    header nav a:last-child {
+      padding-right: 0;
+    }
+
+footer {
+  font-size: 0.9em;
+  margin-top: 3.6em;
+  text-align: center;
+}
+
+  footer p {
+    margin: 0.1em 0 0.2em;
+  }
+
+
+/** Typography **/
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 2.0em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 1.7em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.4em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: normal;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 1.0em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 0.8em;
+  margin: 1.2em 0em 1.2em 0em;
+  font-weight: bold;
+}
+
+hgroup {
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+hgroup > * {
+  margin: 0.3em 0 0 0;
+}
+
+hgroup h4 {
+  font-weight: normal;
+  font-style: italic;
+}
+
+img {
+  border: 0;
+}
+
+ol, ul, li {
+  font-size: 1.0em;
+  line-height: 1.8em;
+  margin-top: 0.2em;
+  margin-bottom: 0.1em; 
+}
+
+p {
+  font-size: 1.0em;
+  line-height: 1.8em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+li > p {
+  margin-top: 0.2em;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+pre, blockquote {
+  margin: 1.2em 2.4em 1.2em 2.4em;
+  border-left: 2px solid #bbb;
+  padding: 0 1.2em;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+pre {
+  font-family: monospace;
+  font-size: 1.1em;
+}
+
+#home .posts span, #archives .posts span {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+}
