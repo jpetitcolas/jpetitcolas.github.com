@@ -12,10 +12,14 @@ It was the case with a recent Windows backup. Trying to mount it on my Linux sys
 
 To solve this issue, you have to mount your partition with correct encoding charset. First, unmount this partition:
 
-> umount /dev/sdb1
+``` bash
+umount /dev/sdb1
+```
 
 Then, remount it with the `iocharset` argument, containing the source encoding:
 
-> mount -t auto -o iocharset=utf8 /dev/sdb1 /media/external_disk/
+``` bash
+mount -t auto -o iocharset=utf8 /dev/sdb1 /media/external_disk/
+```
 
 The first thing you should do now is to rename all the problematic files for an easier mounting the next time. ;)

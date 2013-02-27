@@ -10,10 +10,10 @@ On some configuration, domain name without `www` does not always redirect to the
 
 Fortunately, there is an easy trick to prevent from such a disadvantage. Just set up a 301 redirect from the without www domain to the with www domain (or the opposite). You can do it by adding the following to your VHost (or to your _.htaccess_ file):
 
-{% highlight bash %}
+``` text
 RewriteCond %{HTTP_HOST} ^mysite.com$
 RewriteRule ^(.*) http://www.mysite.com/$1 [QSA,L,R=301]
-{% endhighlight %}
+```
 
 The first line is a rewrite condition. It will execute the following rule only if the http hostname matches the regex `^mysite.com$`.
 
