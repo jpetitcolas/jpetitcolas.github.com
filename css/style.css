@@ -1,53 +1,187 @@
-/**
- * This CSS was inspired by the great Noodle Incident template for all typographies:
- * http://www.thenoodleincident.com/tutorials/typography/template.html
- **/
+* { outline: 0; margin: 0; padding: 0; }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 76%;
   color: #000;
-  background-color: #fff;
+  background: #fff;
+}
+
+body > .wrapper {
+  padding: 2em 0 4em;
 }
 
 .wrapper {
-  padding: 4em 0 2em;
   margin: 0em auto;
   width: 90%;
-  max-width: 940px;
+  max-width: 780px;
 }
 
 header {
-  margin-bottom: 2.4em;
+  background: #036;
 }
 
-  header h1 {
-    margin: 0 auto;
-  }
+header h1, header p, header a {
+  color: #fff;
+  font-weight: normal;
+  margin: 0;
+}
 
-  header nav a {
-    display: inline-block;
-    padding-right: 2em;
-  }
+header h1 {
+  margin: 0 0 0.3em 0;
+}
 
-    header nav a:last-child {
-      padding-right: 0;
-    }
+header .wrapper {
+  padding: 2.4em 0;
+}
+
+header .separator {
+  background: #048;
+  box-shadow: 0px 0px 6px #111;
+}
+
+header nav {
+  margin-top: 35px;
+  text-align: right;
+}
+
+header nav a {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+header nav a:last-child {
+  margin: 0;
+}
 
 footer {
-  font-size: 0.9em;
-  margin-top: 3.6em;
-  text-align: center;
+  background: #999;
+  line-height: 1.8em;
 }
 
-  footer p {
-    margin: 0.1em 0 0.2em;
-  }
+footer h5 {
+  font-size: 1.6em;
+}
 
+footer a {
+  font-weight: normal;
+}
 
-/** Typography **/
+footer .separator {
+  box-shadow: 0px 3px 6px #111;
+  background: #666;
+}
+
+footer .details.wrapper {
+  padding: 1.2em 0;
+}
+
+footer .details a {
+  color: #3c3c3c;
+}
+
+footer .tweets_column {
+  float: left;
+  width: 42%;
+  margin-right: 4%;
+}
+
+footer .social_column {
+  list-style: none;
+}
+
+footer .tweet {
+  margin-bottom: 1.2em;
+}
+
+footer .tweet .avatar {
+  float: left;
+  margin-right: 10px;
+}
+
+footer .github_column {
+  float: left;
+  margin-right: 4%;
+  width: 30%;
+}
+
+footer .github {
+  margin-bottom: 1.2em;
+}
+
+footer .social_column {
+  width: 20%;
+  float: left;
+}
+
+footer .social_column ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+footer .social_column li {
+  margin-left: 0;
+}
+
+footer .copyright {
+  background: #666;
+  padding: 0.6em 0;
+  font-size: 0.9em;
+}
+
+footer .copyright p, footer .copyright a {
+  margin: 0;
+  font-weight: normal;
+}
+
+.separator {
+  height: 7px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Droid sans', 'sans serif';
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2.0em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+h2 {
+  font-size: 1.7em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+h3 {
+  font-size: 1.4em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+h5 {
+  font-size: 1.0em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+h6 {
+  font-size: 0.8em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+p {
+  font-size: 1.0em;
+  line-height: 1.8em;
+  margin: 1.2em 0em 1.2em 0em;
+}
+
+li {
+  line-height: 1.8em;
+}
 
 a {
   text-decoration: none;
@@ -59,54 +193,18 @@ a:hover {
   text-decoration: underline;
 }
 
-h1 {
-  font-size: 2.0em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: normal;
+.half {
+  width: 50%;
+  float: left;
 }
 
-h2 {
-  font-size: 1.7em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: normal;
-}
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
 
-h3 {
-  font-size: 1.4em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: normal;
-}
-
-h4 {
-  font-size: 1.2em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: bold;
-}
-
-h5 {
-  font-size: 1.0em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: bold;
-}
-
-h6 {
-  font-size: 0.8em;
-  margin: 1.2em 0em 1.2em 0em;
-  font-weight: bold;
-}
-
-hgroup {
-  margin: 1.2em 0em 1.2em 0em;
-}
-
-hgroup > * {
-  margin: 0.3em 0 0 0;
-}
-
-hgroup h4 {
-  font-weight: normal;
-  font-style: italic;
-}
+.floatLeft { float: left; }
+.floatRight { float: right; }
+.clear { clear: both; }
 
 img {
   border: 0;
@@ -115,22 +213,11 @@ img {
 ol, ul, li {
   font-size: 1.0em;
   line-height: 1.8em;
-  margin-top: 0.2em;
-  margin-bottom: 0.1em; 
-}
-
-p {
-  font-size: 1.0em;
-  line-height: 1.8em;
-  margin: 1.2em 0em 1.2em 0em;
+  margin: 0.2em 0 0.1em 20px;
 }
 
 li > p {
   margin-top: 0.2em;
-}
-
-strong, b {
-  font-weight: bold;
 }
 
 pre, blockquote {
@@ -141,6 +228,7 @@ pre, blockquote {
 
 blockquote {
   font-style: italic;
+  color: #555;
 }
 
 pre {

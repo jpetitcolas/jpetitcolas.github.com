@@ -6,6 +6,7 @@
    <meta name="author" content="Jonathan Petitcolas" />
    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
    <link href="/atom.xml" rel="alternate" title="Jonathan Petitcolas" type="application/atom+xml" />
+   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="/css/style.css" />
    <link rel="stylesheet" href="/css/syntax.css" />
    <!-- Google Analytics -->
@@ -23,26 +24,60 @@
    <!-- End of Google Analytics -->
 </head>
 <body>
+  <header>
     <div class="wrapper">
-        <header>
-          <h1><a href="/">Jonathan Petitcolas</a></h1>
-          <nav>
-            <p>
-              <a href="/">Home</a>
-              <a href="/resume">Resume</a>
-              <a href="/archives">Blog archives</a>
-            </p>
-          </nav>
-        </header>
-        {{ content }}
-        <footer>
-          <p>All content of this website is under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en">Creative Commons BY-NC-SA 3.0</a> license. Share whatever you want!<br/>
-                <a href="mailto:petitcolas.jonathan+blog@gmail.com">Jonathan Petitcolas</a> - Web developer and open-source aficionado - 
-                <a href="http://github.com/jpetitcolas/">GitHub profile</a> - 
-                <a href="http://www.twitter.com/sethpolma/">Twitter</a> - 
-                <a href="/atom.xml">RSS feed</a>
-            </p>
-        </footer>
+      <div class="floatLeft">
+        <h1><a href="/">Jonathan Petitcolas</a></h1>
+        <p>Web developer and open-source aficionado</p>
+      </div>
+      <nav>
+        <p>
+          <a href="/">Home</a>
+          <a href="/resume">Resume</a>
+          <a href="/archives">Blog archives</a>
+        </p>
+      </nav>
+      <div class="clear"></div>
+    </div>
+    <div class="separator"></div>
+  </header>
+  <div class="wrapper">
+    {{ content }}
   </div>
+  <footer>
+    <div class="separator"></div>
+    <div class="wrapper details">
+      <div class="tweets_column">
+        <h5>My last tweets</h5>
+        <div id="last_tweets"></div>
+      </div>
+      <div class="github_column">
+        <h5>Last activity on GitHub</h5>
+        <div id="github_activity" class="dynamic_column"></div>
+      </div>
+      <div class="social_column">
+        <h5>Social</h5>
+        <ul>
+          <li><a href="mailto:petitcolas.jonathan+blog@gmail.com">Email</a></li>
+          <li><a href="http://github.com/jpetitcolas/">GitHub profile</a></li>
+          <li><a href="http://www.twitter.com/sethpolma/">Twitter</a></li>
+          <li><a href="/atom.xml">RSS feed</a></li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="copyright">
+      <div class="wrapper row">
+        <p class="half">
+          Under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en">Creative Commons BY-NC-SA 3.0</a>: share whatever you want!
+        </p>
+        <p class="half right">
+          <a href="https://github.com/jpetitcolas/jpetitcolas.github.com">Fork me on GitHub</a>
+        </p>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/footer.js"></script>
 </body>
 </html>
