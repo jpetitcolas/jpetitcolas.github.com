@@ -7,7 +7,7 @@ var twitterApiUrl = "https://api.twitter.com/1/statuses/user_timeline/sethpolma.
 
 function htmlizeTweet(tweet) {
 	// Standard links
-	tweet = tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+/g, function (link) {
+	tweet = tweet.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+\w/g, function (link) {
     return '<a href="' + link + '">' + link + '</a>';
   });
   // Hash tags
@@ -27,7 +27,7 @@ function displayTweets(tweets) {
 
 		var tweetElement = document.createElement("div");
 		tweetElement.classList.add("tweet");
-		
+
 		var avatar = document.createElement("img");
 		avatar.setAttribute("src", tweet.user.profile_image_url);
 		avatar.setAttribute("alt", tweet.user.screen_name);
@@ -74,10 +74,11 @@ function displayGithubActivity(activities) {
 				message = "Watching <a href='" + repository.url + "'>" + repository.name + "</a> repository.";
 				break;
 			case "PushEvent":
-				var lastCommit = activity.payload.commits[0];
+				var lastCommit = activity.payload.commits.pop();
 				var repository = activity.repo;
+				var detailsUrl = activity.repo.url + "/commit/" + lastCommit.sha;
 				message  = "Pushed to <a href='" + repository.url + "'>" + repository.name + "</a>: " + lastCommit.message;
-				message += " (<a href='" + lastCommit.url + "'>see details</a>)";
+				message += " (<a href='" + detailsUrl + "'>see details</a>)";
 				break;
 			default:
 				console.warn("Event '" + activity.type + "' not dealed.");
