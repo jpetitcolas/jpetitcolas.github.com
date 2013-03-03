@@ -96,7 +96,7 @@ footer .tweet {
 
 footer .tweet .avatar {
   float: left;
-  margin-right: 10px;
+  margin: 4px 10px 0 0;
 }
 
 footer .github_column {

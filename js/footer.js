@@ -23,16 +23,25 @@ function htmlizeTweet(tweet) {
 
 function displayTweets(tweets) {
 	for(var i = 0 ; i < tweets.length ; i++) {
+
 		var tweet = tweets[i];
+		if(tweet.retweeted_status) {
+			tweet = tweet.retweeted_status;
+		}
 
 		var tweetElement = document.createElement("div");
 		tweetElement.classList.add("tweet");
 
+		var profileLink = document.createElement("a");
+		profileLink.setAttribute("href", "http://twitter.com/" + tweet.user.screen_name);
+
 		var avatar = document.createElement("img");
 		avatar.setAttribute("src", tweet.user.profile_image_url);
 		avatar.setAttribute("alt", tweet.user.screen_name);
+		avatar.setAttribute("title", "By " + tweet.user.screen_name);
 		avatar.classList.add("avatar");
-		tweetElement.appendChild(avatar);
+		profileLink.appendChild(avatar);
+		tweetElement.appendChild(profileLink);
 
 		var message = document.createElement("span");
 		message.innerHTML = htmlizeTweet(tweet.text);
