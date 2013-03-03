@@ -67,17 +67,17 @@ function displayGithubActivity(activities) {
 		switch(activity.type) {
 			case "FollowEvent":
 				var payload = activity.payload.target;
-				message = "Just followed <a href='" + payload.url + "'>" + payload.login + "</a>.";
+				message = "Just followed <a href='http://github.com/" + payload.login  + "'>" + payload.login + "</a>.";
 				break;
 			case "WatchEvent":
 				var repository = activity.repo;
-				message = "Watching <a href='" + repository.url + "'>" + repository.name + "</a> repository.";
+				message = "Watching <a href='http://github.com/" + repository.name + "'>" + repository.name + "</a> repository.";
 				break;
 			case "PushEvent":
 				var lastCommit = activity.payload.commits.pop();
 				var repository = activity.repo;
-				var detailsUrl = activity.repo.url + "/commit/" + lastCommit.sha;
-				message  = "Pushed to <a href='" + repository.url + "'>" + repository.name + "</a>: " + lastCommit.message;
+				var detailsUrl = 'http://github.com/' + repository.name + "/commit/" + lastCommit.sha;
+				message  = "Pushed to <a href='http://github.com/" + repository.name + "'>" + repository.name + "</a>: " + lastCommit.message;
 				message += " (<a href='" + detailsUrl + "'>see details</a>)";
 				break;
 			default:
