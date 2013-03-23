@@ -5,19 +5,19 @@ title: "Using Sublime Text 2 for web development"
 
 # {{ page.title }}
 
-As everyone else I suppose, I started development with very basic utility, such as Notepad (without the ++). Then, I gave a try to more advanced tools allowing me to have some syntax highlighting, basic auto-completion, etc. When I started professional development, I switched to more robust looking IDEs (especially Eclipse and Netbeans). It was pleasant at the beginning, when my needs were really basic. Yet, they are often based on Java, which provide them a particular heaviness (and critical security flaws). And, if you the misfortune to work on a remote Samba share, you have to be really patient...
+As everyone else, I started development with basic utility, such as Notepad (without the ++). Then, I gave a try to more advanced tools allowing me to have some syntax highlighting, basic auto-completion, etc. When I started professional development, I switched to more robust looking IDEs (especially Eclipse and Netbeans). It was pleasant at the beginning, when my needs were really basic. Yet, they are often based on Java, which provide them a particular heaviness (and critical security flaws). And, if you HAVE the misfortune to work on a remote Samba share, it is better you are really patient...
 
-Today, I am using several brand new exciting technologies, such as Symfony2 or Node.js, versionning it through the powerful Git, and having tamed Bash commands pretty well. Developing on Windows has become a terrible pain. Some solutions exists, such as Cygwin. Yet, they are not satisfactory, because of some limitations. The best solution I found is to use a virtual machine (for the Linux power) interfaced with a Samba network drive to my host system.
+Today, I play with several brand new exciting technologies, such as Symfony2 or Node.js, versionning it through the powerful Git, and having tamed Bash commands pretty well. Developing on Windows has become a terrible pain. Some solutions exist, such as Cygwin. Yet, they are not satisfactory, because of some limitations. The best solution I found is to use a virtual machine (for the Linux power) interfaced with a Samba network drive to my host system.
 
-That's why I decided to quit IDE to switch back to basic text editors. Indeed, I am not using any of the extra feature provided by the big softs. I just edit my text, sometimes using auto-completion, and then switching to my browser to press manually F5. I never used integrated debugger or other such features. And even for my versionning, I rather like command line to wobbly integrated contextual menus.
+That's why I decided to quit IDE to switch back to basic text editors. Indeed, I am not using any of the extra features provided by the big softs. I just edit my text, sometimes using auto-completion, and then switching to my browser to press manually F5. I never used integrated debugger or other such features. And even for my versionning, I rather like command line to wobbly integrated contextual menus.
 
 I started to use Vim. And for several years, it was perfect for my needs. Really light, so powerful (even if it has a so steep learning curve) and a little bit geeky. Until I discovered another light solution, working natively on Windows, allowing me to do all what I was used to on Vim, but with a more user-friendly interface: Sublime Text 2.
 
-[Sublime Text 2](http://www.sublimetext.com/2) is an awesome text editor, a worthy successor to Notepad++. It supports awesome features (more details on it later in this post), is really reactive and is cross platform. Moreover, it embeds a package manager allowing you to install or remove very easily community plug-in.
+[Sublime Text 2](http://www.sublimetext.com/2) is an awesome text editor, a worthy successor to Notepad++. It supports great features (more details on it later in this post), is really reactive and is cross platform. Moreover, it embeds a package manager allowing you to install or remove very easily community plug-in.
 
-Even if it is a paid software, you can use it as a trial as much as you want, without any restrictions. This is probably the main reason of this software success. You will only get some rare pop-ups encouraging you to register if you liked the program. And, icing on the cake, the licence is per user, not by machine. So, you may use it on every machine and every desktop you use.
+Even if it is a paid software, you can use it as a trial as much as you want, without any restrictions. This is probably the main reason of this software success. You will only get some rare pop-ups encouraging you to register if you liked the program. And, icing on the cake, the licence is per user, not by machine. So, you may use it on every machine and every desktop you wish.
 
-Really a nice business model. Try and buy if you want. Love it! But, let's dive into the basics of this awesome software.
+But, let's dive into the basics of this awesome software.
 
 ## List of useful shortcuts
 
@@ -36,16 +36,14 @@ Here is a list of useful shortcuts:
 * F9: sort all selected lines by alphabetical order
 * CTRL + click(s): multiple selection
 * CTRL + D: add next occurence of current search to multiple selection
-* CTRL + ALT + UP/DOWN: add previous/next line (but same column) to the multiple selection
+* CTRL + ALT + UP/DOWN: add previous/next line (same column) to the multiple selection
 * SHIFT + F11: go to no distraction mode. Only text and you, great to focus on your thought while writing a post.
 
 This is not an exhaustive list: I discover new ones regularly. Moreover, I did not tell about standard commands, such as _Search and replace_, which are the same than in every other text editors.
 
-Note that some softwares may interfer with previous shortcuts. For instance, some graphic cards control panel may override the CTRL + ALT + UP to rotate screen. Two solutions: either you disable it, or you change the default shortcut, as seen in the next section.
-
 ## Configuring Sublime Text 2 for Web development
 
-All configuration is done through the editing of a simple JSON file. Here are the settings I use for web development.
+All configuration is done through the edition of a simple JSON file. Here are the settings I use for web development.
 
 First, open the preference settings thanks to the command line (CTRL + SHIFT + P) by typing `settings`. The default settings contains a description of all available parameters, which are overwritten by the user settings. So, rather like editing the user configuration file.
 
@@ -82,11 +80,11 @@ Here are the parameters I overrode:
 
 Not a lot to say here. I just use development standards, removing all unneccessary spaces and using 4 spaces instead of a tab.
 
-I also hide the right minimap (I never found any utility to that) and hide menubar (still accessible by pressing Alt) to get as less distraction as possible when going to fullscreen (F11). You can do it in the menu `View`. However, it seems menu can not be hidden in Linux version. At least, I did not find any solution.
+I also hide the right minimap (I never found any utility to that) and menubar (still accessible by pressing Alt) to get as less distraction as possible when going to fullscreen (F11). You can do it in the menu `View`. However, it seems menu can not be hidden in Linux version. At least, I did not find any solution.
 
 ## Configuring your project
 
-My files are located on a virtual Linux machine (to use the power of Git command line) and my Sublime Text is on my Windows host. To manipulate my sources, I am using a Samba share. As a result, communication is sometimes really slow when dealing with a high number of items. Especially on Sublime Text.
+As previously said, my files are located on a virtual Linux machine (to use the power of Git command line) and my Sublime Text is on my Windows host. To manipulate my sources, I am using a Samba share. As a result, communication is sometimes really slow when dealing with a high number of items. Especially on Sublime Text.
 
 When I work on a Symfony2 application, external bundles represent a huge part of the project content. And when I try to `Refresh folders`, I have to wait several minutes to get the whole project folder fully updated. That's why I generally always modify my project settings.
 
@@ -152,13 +150,13 @@ Zen coding allows to write HTML very quickly. If you do not already know it, jus
     <iframe src="http://player.vimeo.com/video/7405114" width="500" height="344" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 </div>
 
-To autocomplete an expression, just press <key>Tab</key> at the end. To open the abbreviation command, shortcut is CTRL + ALT + ENTER.
+Autocompleting is as simple as pressing `Tab` key. The abbreviation command is available through is CTRL + ALT + ENTER.
 
 Plug-in repository: [Emmet](https://github.com/sergeche/emmet-sublime)
 
 ### Sublime Linter: parse your code before executing it
 
-All developers are faced with typos. To avoid trivial innatention errors, Sublime Linter is a good plugin. It highlights in real-time the syntaxical mistakes you made: missing semi-column, misspelled keyword, and so on.
+All developers are faced with typos. To avoid trivial inattention errors, Sublime Linter is a good plugin. It highlights in real-time the syntaxical mistakes you made: missing semi-column, misspelled keyword, and so on.
 
 For Windows users, you have to [install Node.js](http://nodejs.org/) if you want CSS and Javascript parser to work.
 
@@ -166,9 +164,9 @@ Plug-in repository: [SublimeLinter](https://github.com/SublimeLinter/SublimeLint
 
 ## Adding some snippets
 
-Another interesting feature is the possibility to use pre-configured snippets, and to add your custom ones. Let's take an example.
+Another interesting feature is the possibility to use pre-configured snippets. Let's take an example.
 
-Imagine you want to create a new method in PHP. Simply write `fun`, and press Tab. It will replace your three single letters word `fun` by the whole following:
+Imagine you want to create a new method in PHP. Simply write `fun`, and press Tab. Sublime Text will show you:
 
 ```` php
 public function FunctionName($value='')
@@ -177,9 +175,9 @@ public function FunctionName($value='')
 }
 ````
 
-Just navigate through the different editable items of snippets by pressing Tab. It increases strongly productivity, even if there is a time to get used.
+Just navigate through the different editable items of snippets by pressing Tab.
 
-To create your custom snippets, it is also really easy. Let's consider we want to write a snippet `sf2mail` which will be replaced by the whole code to send an email from a controller. Very useful, as I can not remember the exact process, forcing me to ask Google.
+To create your custom snippets, it is also really easy. Let's consider we want to write a snippet `sf2mail` which will be replaced by the whole code to send an email from a controller. Very useful, as I never remember the exact code, forcing me to ask Google.
 
 To create a snippet, simply go to `Tools > New snippet`. An XML file will appear:
 
@@ -219,9 +217,9 @@ So, in our case, the corresponding snippet would be:
 </snippet>
 ````
 
-Do not forget to include the content between CDATA tags.
+Do not forget to include the content between CDATA tags and to escape dollar sign.
 
-As you may have already guessed, the `${1:subject}` and the others are the placeholders. You will be able to navigate through all these labels with tab key.
+As you may have already guessed, the `${1:subject}` and such others are placeholders. You navigate through them with tab key.
 
 Save your file with `.sublime-snippet` extension. It is now available from PHP files.
 
