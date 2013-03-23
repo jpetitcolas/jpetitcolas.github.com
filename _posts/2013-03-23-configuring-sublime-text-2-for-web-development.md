@@ -51,7 +51,7 @@ First, open the preference settings thanks to the command line (CTRL + SHIFT + P
 
 Here are the parameters I overrode:
 
-````
+```` javascript
 {
     // The number of spaces a tab is considered equal to
     "tab_size": 4,
@@ -92,7 +92,7 @@ When I work on a Symfony2 application, external bundles represent a huge part of
 
 Project management in Sublime Text is really basic (yet efficient). Just open a folder through the `File` menu. Then, save your selection as a project: `Project > Save project as`. A `.sublime-project` file will be created. Once it is saved, just edit your project settings, still in `Project` menu. You should get a similar configuration file:
 
-````
+```` javascript
 {
     "folders":
     [
@@ -105,7 +105,7 @@ Project management in Sublime Text is really basic (yet efficient). Just open a 
 
 Simply turn it into:
 
-````
+```` javascript
 {
     "folders":
     [
@@ -134,7 +134,7 @@ Even if Sublime Text is a great editor, it may be far more powerful with some ex
 
 To install package manager, simply open the Python console (CTRL + `, or _View > Show console_) and enter the following:
 
-````
+```` python
 import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')
 ````
 
@@ -148,7 +148,9 @@ Here are few plug-ins I daily use.
 
 Zen coding allows to write HTML very quickly. If you do not already know it, just watch the following video:
 
-<iframe src="http://player.vimeo.com/video/7405114" width="500" height="344" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+<div class="js-video vimeo">
+    <iframe src="http://player.vimeo.com/video/7405114" width="500" height="344" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+</div>
 
 To autocomplete an expression, just press <key>Tab</key> at the end. To open the abbreviation command, shortcut is CTRL + ALT + ENTER.
 
@@ -168,7 +170,7 @@ Another interesting feature is the possibility to use pre-configured snippets, a
 
 Imagine you want to create a new method in PHP. Simply write `fun`, and press Tab. It will replace your three single letters word `fun` by the whole following:
 
-````
+```` php
 public function FunctionName($value='')
 {
     # code...
@@ -181,7 +183,7 @@ To create your custom snippets, it is also really easy. Let's consider we want t
 
 To create a snippet, simply go to `Tools > New snippet`. An XML file will appear:
 
-````
+```` xml
 <snippet>
     <content><![CDATA[
 Hello, ${1:this} is a ${2:snippet}.
@@ -201,7 +203,7 @@ The snippet is composed of three items:
 
 So, in our case, the corresponding snippet would be:
 
-````
+```` xml
 <snippet>
     <content><![CDATA[
 \$message = \Swift_Message::newInstance()
@@ -237,7 +239,7 @@ This way, I was able to share my configuration on GitHub: [https://github.com/jp
 
 To use it, I simply clone the repository to the previous path. For instance, on Linux:
 
-````
+```` bash
 rm -Rf ~/.config/sublime-text-2/Packages
 git clone git@github.com:jpetitcolas/sublime-text-config.git ~/.config/sublime-text-2/Packages
 ````
