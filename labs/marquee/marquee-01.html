@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulate Marquee in CSS and JS - Jonathan Petitcolas</title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        @keyframes marquee {
+            0%   { text-indent: 430px }
+            100% { text-indent: -485px }
+        }
+
+        @-webkit-keyframes marquee {
+            0%   { text-indent: 430px }
+            100% { text-indent: -485px }
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: marquee 17s linear infinite;
+            -webkit-animation: marquee 17s linear infinite;
+        }
+
+        .marquee:hover {
+            -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+    <h5>With marquee tag:</h5>
+    <marquee>Hello world! Do not use marquee tag to improve accessibility and readability of your pages.</marquee>
+    <h5>Without marquee:</h5>
+    <p class="marquee">Hello world! Do not use marquee tag to improve accessibility and readability of your pages.</p>
+</body>
+</html>
