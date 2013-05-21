@@ -6,7 +6,7 @@
    <meta name="author" content="Jonathan Petitcolas" />
    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
    <link href="/atom.xml" rel="alternate" title="Jonathan Petitcolas" type="application/atom+xml" />
-   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="/css/style.css" />
    <link rel="stylesheet" href="/css/syntax.css" />
    <!-- Google Analytics -->
@@ -25,24 +25,19 @@
 </head>
 <body>
   <header>
-    <div class="wrapper">
-      <div class="floatLeft">
-        <h1><a href="/">Jonathan Petitcolas</a></h1>
-        <p>Web developer and open-source aficionado</p>
-      </div>
+    <div>
+      <img src="/img/jonathan-petitcolas.jpg" alt="Jonathan Petitcolas" title="Jonathan Petitcolas" />
+      <h1>Jonathan Petitcolas</h1>
+      <h2>Symfony2 and Node.js enthusiast</h2>
       <nav>
         <p>
-          <a href="/">Home</a>
-          <a href="/resume">Resume</a>
-          <a href="/archives">Blog archives</a>
+          <a href="/">Home</a> &bull;
+          <a href="/resume">Resume</a> &bull;
+          <a href="/archives">Archives</a>
         </p>
       </nav>
-      <div class="clear"></div>
     </div>
-    <div class="separator"></div>
   </header>
-  <div class="wrapper">
-    {{ content }}
-  </div>
+  <div class="content">{{ content }}</div>
 </body>
 </html>
