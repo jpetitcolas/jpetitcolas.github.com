@@ -9,6 +9,7 @@ body {
 
 header {
   background: rgba(0, 0, 0, 0.8);
+  position: relative;
   text-align: center;
   color: #999;
   height: 100px;
@@ -20,9 +21,6 @@ header img {
   border-radius: 300px;
 }
 
-header nav {
-}
-
 header nav a {
   color: #ccc;
   display: inline-block;
@@ -32,11 +30,11 @@ header nav a {
 header h1 {
   margin-bottom: 0;
   font-size: 1.4em;
-  margin-top: 1.2em;
+  margin-top: 0.8em;
 }
 
 header h2 {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: normal;
   margin-top: 0;
   display: none;
@@ -78,6 +76,7 @@ a:hover {
 
 .content {
   padding: 2% 5%;
+  max-width: 900px;
 }
 
 ul {
@@ -108,23 +107,60 @@ blockquote {
   color: #777;
 }
 
-/*
-
-h1 + ul {
-  margin-top: -1em;
-}
-
-#home .posts span, #archives .posts span {
-  display: inline-block;
-  width: 90px;
-  text-align: right;
-}
-
-@media screen and (max-width: 640px) {
+@media screen and (min-width: 480px) {
   header {
-    display: none;
+    text-align: left;
+    padding: 1em 5%;
+  }
+  header h2 {
+    display: block;
+  }
+  header nav {
+    position: absolute;
+    right: 5%;
+    top: 3.75em;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  header img {
+    display: block;
+    width: 90px;
+    position: absolute;
+    top: 10%;
+  }
+  header h1, header h2 {
+    margin-left: 100px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 14px;
+  }
+  header {
+    position: fixed;
+    height: 100%;
+    width: 330px;
+    padding: 5em 0 0;
+    text-align: center;
+  }
+  header h1, header h2 {
+    margin: auto;
+  }
+  header img {
+    position: static;
+    margin: 1em auto;
+    width: auto;
+  }
+  header nav {
+    position: static;
+    margin: 1em 0;
   }
   .content {
-    margin-left: 0;
+    margin-left: 300px;
   }
-}*/
+  ul {
+    margin-left: 4em;
+  }
+}
