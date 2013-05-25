@@ -107,6 +107,15 @@ blockquote {
   color: #777;
 }
 
+p code {
+    padding: 2px 4px;
+    color: #d14;
+    white-space: nowrap;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    font-size: 0.8em;
+}
+
 @media screen and (min-width: 480px) {
   header {
     text-align: left;
