@@ -70,7 +70,7 @@ require('wordpress/wp-blog-header.php');
 
 Then, edit your `wp-config.php` configuration file according to your own situation. Just follow the comments.
 
-Yet, we will define in this file some constants to take the new structure into account. Add the following lines into this same file:
+Yet, we will define in this file some constants to take the new structure into account. Add the following lines into this same file, **before** the `require_once(ABSPATH . 'wp-settings.php');` line (thanks to Marco Neumann for this precision):
 
 ``` php
 define('WP_HOME',    'http://'.$_SERVER['SERVER_NAME']);
