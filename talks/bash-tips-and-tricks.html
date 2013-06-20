@@ -82,7 +82,7 @@ AAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre>
 					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout | sed '1d' | sed '$d' | tr -d '\n'
 	| xclip -selection clipboard</code></pre>
 					<pre>AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHkMi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre> is now in the clipboard!
- 				</section>
+				</section>
 
 				<section>
 					<h2>Find biggest files</h2>
@@ -92,7 +92,7 @@ AAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre>
 -rw-r--r-- 1 root root  24M June  16 06:14 anotherfile.avi
 -rw-r--r-- 1 root root 314M June  16 18:39 stillanotherfile.avi
 -rw-r--r-- 1 root root  79M June  16 11:41 alastfile.avi</pre>
- 				</section>
+				</section>
 
 				<section>
 					<h2>Find biggest files</h2>
@@ -103,7 +103,7 @@ otherfile.avi: 34M
 anotherfile.avi: 24M
 stillanotherfile.avi: 314M
 alastfile.avi: 79M</pre>
- 				</section>
+				</section>
 
 				<section>
 					<h2>Send weekly report to your boss</h2>
@@ -118,7 +118,7 @@ alastfile.avi: 79M</pre>
 - Is there an achievement for this?
 
 - Spinning up the hamster...</pre>
- 				</section>
+				</section>
 
 				<section>
 					<h2>Send weekly report to your boss</h2>
@@ -129,7 +129,7 @@ alastfile.avi: 79M</pre>
 - more debug... who overwrote!
 - Is there an achievement for this?
 - Spinning up the hamster...</pre>
- 				</section>
+				</section>
 
 				<section>
 					<h2>Send weekly report to your boss</h2>
@@ -143,7 +143,7 @@ alastfile.avi: 79M</pre>
 - Is there an achievement for this?
 - Spinning up the hamster...</pre>
 				is sent to your boss!
- 				</section>
+				</section>
 
  				<section>
 					<h2>Download a whole site locally</h2>
@@ -155,7 +155,7 @@ requête HTTP transmise, en attente de la réponse... 200 OK
 Taille : 3399 (3,3K) [text/html]
 Enregistre : «www.jonathan-petitcolas.com/index.html»
 
-100%[==============================>] 3 399       --.-K/s   ds 0,1s    
+100%[==============================>] 3 399       --.-K/s   ds 0,1s
 
 2013-06-20 06:18:44 (29,8 KB/s) - «www.jonathan-petitcolas.com/index.html» enregistré [3399/3399]
 
@@ -171,9 +171,9 @@ requête HTTP transmise, en attente de la réponse... 200 OK
 Taille : 110488 (108K) [text/xml]
 Enregistre : «www.jonathan-petitcolas.com/atom.xml»
 
-100%[==============================>] 110 488      127KB/s   ds 0,8s   
+100%[==============================>] 110 488      127KB/s   ds 0,8s
 </pre>
- 				</section> 				
+				</section>
 
  				<section>
 					<h2>Detecting broken links</h2>
@@ -188,7 +188,7 @@ Récupération en cours.
 requête HTTP transmise, en attente de la réponse... 200 OK
 Enregistre : «www.jonathan-petitcolas.com/index.html»
 
-100%[==============================>] 3 399       --.-K/s   ds 0,1s      
+100%[==============================>] 3 399       --.-K/s   ds 0,1s
 2013-06-20 06:31:28 (1,43 MB/s)
 «www.jonathan-petitcolas.com/index.html» enregistré [3399/3399]
 
@@ -202,7 +202,7 @@ requête HTTP transmise, en attente de la réponse... 200 OK
 Taille : 110488 (108K) [text/xml]
 Le fichier distant existe mais ne contient aucun lien.
 Récupération abandonnée.</pre>
- 				</section> 				
+				</section>
 
  				<section>
 					<h2>Detecting broken links</h2>
@@ -216,7 +216,7 @@ requête HTTP transmise, en attente de la réponse... 404 Not Found
 http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com
 Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
 requête HTTP transmise, en attente de la réponse... 404 Not Found</pre>
- 				</section> 
+				</section>
 
  				<section>
 					<h2>Detecting broken links</h2>
@@ -232,7 +232,7 @@ Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
 requête HTTP transmise, en attente de la réponse... 404 Not Found
 # Breakline</pre>
 no breaklines except if specified
- 				</section>
+				</section>
 
 				<section>
 					<h2>Detecting broken links</h2>
@@ -249,7 +249,7 @@ Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
 requête HTTP transmise, en attente de la réponse... 404 Not Found
 # Breakline</pre>
 no breaklines except if specified
- 				</section>
+				</section>
 
 				<section>
 					<h2>Detecting broken links</h2>
@@ -258,7 +258,55 @@ no breaklines except if specified
 	| sed -e 's/-- --/--/g' | awk '{ print $3 }'</code></pre>
 					<pre>http://www.jonathan-petitcolas.com/robots.txt
 http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com</pre>
- 				</section>
+				</section>
+
+				<section>
+					<h2>Generating commit message</h2>
+					<pre><code data-trim contenteditable>wget -O- whatthecommit.com 2>1</code></pre>
+					<pre>&lt;!-- [...] --&gt;
+&lt;body&gt;
+&lt;div id="content"&gt;
+&lt;p&gt;these confounded tests drive me nuts
+&lt;/p&gt;
+&lt;p class="permalink"&gt;
+[&lt;a href="/e22f11cc5818d6ffcb12702caae3728c"&gt;permalink&lt;/a&gt;]
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;!-- Like what you see? http://github.com/ngerakines/commitment --&gt;
+&lt;/html&gt;</pre>
+				</section>
+
+				<section>
+					<h2>Generating commit message</h2>
+					<pre><code data-trim contenteditable>wget -O- whatthecommit.com 2>1 | paste -s</code></pre>
+					<pre>[...]&lt;div id="content"&gt;.*&lt;p&gt;these confounded tests drive me nuts&lt;/p&gt;[...]</pre>
+					no more breaklines!
+				</section>
+
+				<section>
+					<h2>Generating commit message</h2>
+					<pre><code data-trim contenteditable>wget -O- whatthecommit.com 2>1 | paste -s
+	| sed 's/.*&lt;div id="content"&gt;&lt;p&gt;//g'</code></pre>
+					<pre>these confounded tests drive me nuts&lt;/p&gt;[...]</pre>
+				</section>
+
+				<section>
+					<h2>Generating commit message</h2>
+					<pre><code data-trim contenteditable>wget -O- whatthecommit.com 2>1 | paste -s
+	| sed 's/.*&lt;div id="content"&gt;&lt;p&gt;//g' | sed 's/&lt;\/p&gt;.*//g'</code></pre>
+					<pre>these confounded tests drive me nuts</pre>
+				</section>
+
+				<section>
+					<h2>Generating commit message</h2>
+					<pre><code data-trim contenteditable>wget -O- whatthecommit.com 2>1 | paste -s
+	| sed 's/.*&lt;div id="content"&gt;&lt;p&gt;//g' | sed 's/&lt;\/p&gt;.*//g'
+	| xargs -0 git commit -m</code></pre>
+					<pre>[master 75f72f1] these confounded tests drive me nuts
+3 files changed</pre>
+				it is now committed!
+				</section>
 
 				<section>
 					<h1>THE END</h1>
