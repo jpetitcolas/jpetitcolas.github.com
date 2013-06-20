@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Bash tips and tricks</title>
+		<meta name="description" content="Presentation made during the Web drink of June, 20th 2013 on Bash theme.">
+		<meta name="author" content="Jonathan Petitcolas">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Bash tips and tricks</h1>
+					<p>
+						<small>Created by <a href="http://www.jonathan-petitcolas.com">Jonathan Petitcolas</a> / <a href="http://twitter.com/Sethpolma">@Sethpolma</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Base-64 encoding pictures</h2>
+					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout</code></pre>
+					<pre>begin-base64 644 /dev/stdout
+AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQA
+ABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHk
+Mi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAy
+LzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAA
+AAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==
+====</pre>
+				</section>
+
+
+				<section>
+					<h2>Base-64 encoding pictures</h2>
+					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout | sed '1d'</code></pre>
+					<pre>AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQA
+ABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHk
+Mi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAy
+LzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAA
+AAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==
+====</pre>
+				</section>
+
+				<section>
+					<h2>Base-64 encoding pictures</h2>
+					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout | sed '1d' | sed '$d'</code></pre>
+					<pre>AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQA
+ABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHk
+Mi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAy
+LzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAA
+AAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre>
+				</section>
+
+				<section>
+					<h2>Base-64 encoding pictures</h2>
+					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout | sed '1d' | sed '$d' | tr -d '\n'</code></pre>
+					<pre>AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHkMi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre>
+				</section>
+
+				<section>
+					<h2>Base-64 encoding pictures</h2>
+					<pre><code data-trim contenteditable>uuencode -m foo.png /dev/stdout | sed '1d' | sed '$d' | tr -d '\n'
+	| xclip -selection clipboard</code></pre>
+					<pre>AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAADIvMQAyLzEIMi8xSzEuMKoyLzHkMi8x/TIvMf0yLzHlMi8xrDIvMU4yLzEJMi8xAAAAAAAAAAAAAAAAADIvMQAyLzEGMi8xQzIvMZ4yLzHdMi8x+jIvMfoyLzHeMi8xoDIvMUUyLzEGMi8xAAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA==</pre> is now in the clipboard!
+ 				</section>
+
+				<section>
+					<h2>Find biggest files</h2>
+					<pre><code data-trim contenteditable>find / -type f -size +20M -exec ls -lh {} \;</code></pre>
+					<pre>-rw-r--r-- 1 root root  51M June  16 07:44 myfile.avi
+-rw-r--r-- 1 root root  34M June  16 07:44 otherfile.avi
+-rw-r--r-- 1 root root  24M June  16 06:14 anotherfile.avi
+-rw-r--r-- 1 root root 314M June  16 18:39 stillanotherfile.avi
+-rw-r--r-- 1 root root  79M June  16 11:41 alastfile.avi</pre>
+ 				</section>
+
+				<section>
+					<h2>Find biggest files</h2>
+					<pre><code data-trim contenteditable>find / -type f -size +20M -exec ls -lh {} \;
+	| awk '{ print $9 ": " $5 }'</code></pre>
+					<pre>myfile.avi: 51M
+otherfile.avi: 34M
+anotherfile.avi: 24M
+stillanotherfile.avi: 314M
+alastfile.avi: 79M</pre>
+ 				</section>
+
+				<section>
+					<h2>Send weekly report to your boss</h2>
+					<pre><code data-trim contenteditable>git log --author="Jonathan Petitcolas" --format="- %B"
+	--since=-2months --reverse</code></pre>
+					<pre>- a few bits tried to escape, but we caught them
+
+- By works, I meant 'doesnt work'. Works now..
+
+- more debug... who overwrote!
+
+- Is there an achievement for this?
+
+- Spinning up the hamster...</pre>
+ 				</section>
+
+				<section>
+					<h2>Send weekly report to your boss</h2>
+					<pre><code data-trim contenteditable>git log --author="Jonathan Petitcolas" --format="- %B"
+	--since=-2months --reverse | tr -s '\n'</code></pre>
+					<pre>- a few bits tried to escape, but we caught them
+- By works, I meant 'doesnt work'. Works now..
+- more debug... who overwrote!
+- Is there an achievement for this?
+- Spinning up the hamster...</pre>
+ 				</section>
+
+				<section>
+					<h2>Send weekly report to your boss</h2>
+					<pre><code data-trim contenteditable>git log --author="Jonathan Petitcolas" --format="- %B"
+	--since=-2months --reverse
+	| tr -s '\n'
+	| mail -s "Weekly report" myboss@worldwidecompany.com</code></pre>
+					<pre>- a few bits tried to escape, but we caught them
+- By works, I meant 'doesnt work'. Works now..
+- more debug... who overwrote!
+- Is there an achievement for this?
+- Spinning up the hamster...</pre>
+				is sent to your boss!
+ 				</section>
+
+ 				<section>
+					<h2>Download a whole site locally</h2>
+					<pre><code data-trim contenteditable>wget -mrnp www.jonathan-petitcolas.com</code></pre>
+					<pre>--2013-06-20 06:18:44--  http://www.jonathan-petitcolas.com/
+Résolution de www.jonathan-petitcolas.com... 204.232.175.78
+Connexion 204.232.175.78|:80... connecté.
+requête HTTP transmise, en attente de la réponse... 200 OK
+Taille : 3399 (3,3K) [text/html]
+Enregistre : «www.jonathan-petitcolas.com/index.html»
+
+100%[==============================>] 3 399       --.-K/s   ds 0,1s    
+
+2013-06-20 06:18:44 (29,8 KB/s) - «www.jonathan-petitcolas.com/index.html» enregistré [3399/3399]
+
+Chargement de robots.txt; svp ignorer les erreurs.
+--2013-06-20 06:18:44--  http://www.jonathan-petitcolas.com/robots.txt
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+2013-06-20 06:18:44 ERREUR 404: Not Found.
+
+--2013-06-20 06:18:44--  http://www.jonathan-petitcolas.com/atom.xml
+Connexion vers www.jonathan-petitcolas.com:80... connecté.
+requête HTTP transmise, en attente de la réponse... 200 OK
+Taille : 110488 (108K) [text/xml]
+Enregistre : «www.jonathan-petitcolas.com/atom.xml»
+
+100%[==============================>] 110 488      127KB/s   ds 0,8s   
+</pre>
+ 				</section> 				
+
+ 				<section>
+					<h2>Detecting broken links</h2>
+					<pre><code data-trim contenteditable>wget -mrnp --spider www.jonathan-petitcolas.com</code></pre>
+					<pre>--2013-06-20 06:31:27--  http://www.jonathan-petitcolas.com/
+requête HTTP transmise, en attente de la réponse... 200 OK
+Taille : 3399 (3,3K) [text/html]
+Le fichier doit contenir des liens vers d'autres ressources.
+Récupération en cours.
+
+--2013-06-20 06:31:28--  http://www.jonathan-petitcolas.com/
+requête HTTP transmise, en attente de la réponse... 200 OK
+Enregistre : «www.jonathan-petitcolas.com/index.html»
+
+100%[==============================>] 3 399       --.-K/s   ds 0,1s      
+2013-06-20 06:31:28 (1,43 MB/s)
+«www.jonathan-petitcolas.com/index.html» enregistré [3399/3399]
+
+Chargement de robots.txt; svp ignorer les erreurs.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+2013-06-20 06:31:28 ERREUR 404: Not Found.
+Destruction de www.jonathan-petitcolas.com/index.html.
+
+--2013-06-20 06:31:28--  http://www.jonathan-petitcolas.com/atom.xml
+requête HTTP transmise, en attente de la réponse... 200 OK
+Taille : 110488 (108K) [text/xml]
+Le fichier distant existe mais ne contient aucun lien.
+Récupération abandonnée.</pre>
+ 				</section> 				
+
+ 				<section>
+					<h2>Detecting broken links</h2>
+					<pre><code data-trim contenteditable>wget -mrnp --spider www.jonathan-petitcolas.com 2>&1
+	| grep -B 2 "404 Not Found"</code></pre>
+					<pre>--2013-06-20 06:38:21--  http://www.jonathan-petitcolas.com/robots.txt
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+--
+--2013-06-20 06:47:41--
+http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found</pre>
+ 				</section> 
+
+ 				<section>
+					<h2>Detecting broken links</h2>
+					<pre><code data-trim contenteditable>wget -mrnp --spider www.jonathan-petitcolas.com 2>&1
+	| grep -B 2 "404 Not Found" | paste -d "  \n" -s </code></pre>
+					<pre>--2013-06-20 06:38:21--  http://www.jonathan-petitcolas.com/robots.txt
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+# Breakline
+-- --2013-06-20 06:47:41--
+http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+# Breakline</pre>
+no breaklines except if specified
+ 				</section>
+
+				<section>
+					<h2>Detecting broken links</h2>
+					<pre><code data-trim contenteditable>wget -mrnp --spider www.jonathan-petitcolas.com 2>&1
+	| grep -B 2 "404 Not Found" | paste -d "  \n" -s
+	| sed -e 's/-- --/--/g'</code></pre>
+					<pre>2013-06-20 06:38:21--  http://www.jonathan-petitcolas.com/robots.txt
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+# Breakline
+2013-06-20 06:47:41--
+http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com
+Réutilisation de la connexion vers www.jonathan-petitcolas.com:80.
+requête HTTP transmise, en attente de la réponse... 404 Not Found
+# Breakline</pre>
+no breaklines except if specified
+ 				</section>
+
+				<section>
+					<h2>Detecting broken links</h2>
+					<pre><code data-trim contenteditable>wget -mrnp --spider www.jonathan-petitcolas.com 2>&1
+	| grep -B 2 "404 Not Found" | paste -d "  \n" -s
+	| sed -e 's/-- --/--/g' | awk '{ print $3 }'</code></pre>
+					<pre>http://www.jonathan-petitcolas.com/robots.txt
+http://www.jonathan-petitcolas.com/petitcolas.jonathan+resume@gmail.com</pre>
+ 				</section>
+
+				<section>
+					<h1>THE END</h1>
+					<h3>www.jonathan-petitcolas.com</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
