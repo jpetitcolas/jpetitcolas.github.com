@@ -47,7 +47,7 @@ This trick deals with a `text-indent` animation. I do not use a padding animatio
 
 As you may see below, this solution is fluider than the old `marquee` tag:
 
-<iframe width="100%" height="150" src="/labs/marquee/marquee-01.html" frameborder="0"></iframe>
+<iframe width="80%" height="150" src="/labs/marquee/marquee-01.html" frameborder="0" style="margin: 0 10%;"></iframe>
 
 Moreover, there are two extra features with this solution:
 
@@ -122,7 +122,7 @@ Finally, `updateMarqueeAmplitude`. This is the main function of our script. We r
 
 Here is the related result:
 
-<iframe width="100%" height="30" src="/labs/marquee/marquee-02.html" frameborder="0"></iframe>
+<iframe width="100%" height="60" src="/labs/marquee/marquee-02.html" frameborder="0"></iframe>
 
 What about performances? As you may have guess, the bottleneck of this application is in the `getAnimationRule` function. The more stylesheets and declaration you have, the more resource you will consume to retrieve the rule. It is a major issue, especially if you use some big frameworks such as Twitter Bootstrap.
 
