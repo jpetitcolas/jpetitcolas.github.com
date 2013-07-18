@@ -20,8 +20,6 @@ What about compatibility with oldest browsers? Well, no problem here, as this fr
 
 In this post, we will focus on creating a France regions map. Yet, the process is exactly the same for all maps you may imagine.
 
-## Drawing France regions
-
 First of all, let's create our page, containing our map container: a simple div.
 
 {% highlight html %}
