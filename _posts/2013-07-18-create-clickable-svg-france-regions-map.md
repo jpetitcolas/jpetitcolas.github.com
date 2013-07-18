@@ -132,7 +132,7 @@ var hoverStyle = {
 }
 
 for(var regionName in regions) {
-    (function (region, name) {
+    (function (region) {
         region.attr(style);
 
         region[0].addEventListener("mouseover", function() {
@@ -143,7 +143,7 @@ for(var regionName in regions) {
           region.animate(style, animationSpeed);
         }, true);
 
-    })(regions[regionName], regionName);
+    })(regions[regionName]);
 }
 {% endhighlight %}
 
