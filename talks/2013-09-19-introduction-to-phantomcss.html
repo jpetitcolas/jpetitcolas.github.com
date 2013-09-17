@@ -15,6 +15,9 @@
         <!--[if lt IE 9]>
             <script src="lib/js/html5shiv.js"></script>
         <![endif]-->
+        <style>
+            .reveal blockquote { margin: 50px auto; }
+        </style>
     </head>
     <body>
         <div class="reveal">
@@ -31,41 +34,125 @@
                 <section>
                     <h2>Server side</h2>
                     <figure>
-                        <figcaption>PHPUnit, JUnit and all XXUnit stuff</figcaption>
+                        <a href="http://phpunit.de/manual/current/en/index.html">
+                            <img src="img/phpunit.png" alt="PHPUnit" title="PHPUnit"  style="background: #fff; padding: 50px 0 0 50px;"/>
+                        </a>
+                        <figcaption>PHPUnit, JUnit and all other XUnit stuff</figcaption>
                     </figure>
                 </section>
                 <section>
                     <h2>Javascript</h2>
                     <figure>
+                        <a href="http://docs.seleniumhq.org/">
+                            <img src="img/selenium.png" alt="Selenium" title="Selenium"  style="background: #fff; padding: 50px 0 0 50px;"/>
+                        </a>
                         <figcaption>Selenium, Mocha, and some others</figcaption>
                     </figure>
                 </section>
                 <section>
                     <h2>CSS</h2>
-                    <figure>
-                        <figcaption>Only manual CSS tests...</figcaption>
-                    </figure>
+                    <p>Only manual testing...</p>
+                    <p class="fragment">
+                        <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">
+                            <img src="img/superman-ghost.png" alt="SuperGhost" title="SuperGhost" /><br />
+                        </a>
+                        But, that was before!
+                    </p>
+                    <p class="fragment">
+                        This is <strong>NOT</strong> PhantomCSS logo, just <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">DeviantART</a>! :(
+                    </p>
                 </section>
                 <section>
-                    <h2>CSS</h2>
-                    <figure>
-                        <figcaption>But that was before!</figcaption>
-                    </figure>
+                    <h3>PhantomCSS</h3>
+                    <blockquote>
+                        A <strong>CasperJS</strong> module for automating visual regression testing with <strong>PhantomJS</strong> and <strong>Resemble.js</strong>. For testing Web apps, live style guides and responsive layouts.
+                    </blockquote>
+                    <p><a href="https://github.com/Huddle/PhantomCSS">https://github.com/Huddle/PhantomCSS</a></p>
                 </section>
                 <section>
-                    <h2>PhantomCSS sublayers</h2>
+                    <h3>CasperJS</h3>
+                    <blockquote>
+                        CasperJS is a navigation scripting &amp; testing utility for PhantomJS and SlimerJS written in Javascript
+                    </blockquote>
+                    <p><a href="http://casperjs.org/">http://casperjs.org/</a></p>
+                </section>
+                <section>
+                    <h3>PhantomJS</h3>
+                    <blockquote>
+                        PhantomJS is a headless WebKit scriptable with a JavaScript API. It has fast and native support for various web standards: DOM handling, CSS selector, JSON, Canvas, and SVG.
+                    </blockquote>
+                    <p><a href="http://phantomjs.org/">http://phantomjs.org/</a></p>
+                </section>
+                <section>
+                    <h3>Resemble.js</h3>
+                    <blockquote>
+                        Resemble.js analyses and compares images with HTML5 canvas and JavaScript.
+                    </blockquote>
+                    <p><a href="http://huddle.github.io/Resemble.js/">http://huddle.github.io/Resemble.js/</a></p>
                 </section>
                 <section>
                     <h2>Installing PhantomCSS</h2>
+                    <pre># Installing PhantomJS
+sudo npm install -g phantomjs
+
+# Retrieving PhantomCSS sources
+git clone git@github.com:Huddle/PhantomCSS.git
+
+# Launching default test suite
+phantomjs demo/testsuite.js</pre>
                 </section>
                 <section>
-                    <h2>Pratical case: migrating 90's pages</h2>
+                    <h2>Pratical case: back to the future!</h2>
+                    <img src="img/doc.jpg" alt="Back to the future" title="Back to the future" />
                 </section>
                 <section>
-                    <!-- Preview -->
+                    <img src="img/coming-soon-oldies.png" alt="Coming soon page" title="Coming soon page" style="position: relative; z-index: 1;"/>
+                    <div class="fragment">
+                        <p>With some awesome animated GIF!</p>
+                        <img src="img/hammer.gif" alt="Hammer" title="Hammer" style="border: 0; position: absolute; margin-top: -450px; margin-left: -40px; z-index: 10; box-shadow: none;" />
+                    </div>
                 </section>
                 <section>
-                    <!-- Code -->
+                    <pre><code class="html">&lt;HTML&gt;
+    &lt;HEAD&gt;
+        &lt;TITLE&gt;Coming soon...&lt;/TITLE&gt;
+    &lt;/HEAD&gt;
+    &lt;BODY height=100% bgcolor=white&gt;
+        &lt;TABLE width=100% height=100%&gt;
+            &lt;TR&gt;
+                &lt;TD width=100% height=100% align=center valign=center&gt;
+                    &lt;TABLE&gt;
+                        &lt;TR align=center&gt;
+                            &lt;TD align=center&gt;
+                                &lt;IMG src=img/hammer.gif&gt;&lt;/IMG&gt;
+                            &lt;/TD&gt;
+                        &lt;/TR&gt;
+                        &lt;TR align=center valign=center&gt;
+                            &lt;TD&gt;&lt;FONT size=7 color=red&gt;Coming soon&lt;/FONT&gt;&lt;/p&gt;&lt;/TD&gt;
+                        &lt;/TR&gt;
+                        &lt;TR&gt;
+                            &lt;TD align=center&gt;&lt;FONT size=5&gt;Our website is currently under construction.&lt;/FONT&gt;&lt;/TD&gt;
+                        &lt;/TR&gt;
+                        &lt;TR&gt;
+                            &lt;TD align=center&gt;
+                                &lt;BR&gt;&lt;BR&gt;
+                                &lt;FONT size=4&gt;
+                                    &lt;script type=text/javascript&gt;document.write((new Date()).toString().split(' ').splice(1,4).join(' '));&lt;/script&gt;
+                                &lt;/FONT&gt;
+                            &lt;/TD&gt;
+                        &lt;/TR&gt;
+                    &lt;/TABLE&gt;
+                &lt;/TD&gt;
+            &lt;/TR&gt;
+            &lt;TR cellpadding=50&gt;
+                &lt;TD align=center&gt;
+                    &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
+                    &lt;FONT size=2 color=#666&gt;Website proudly created by &lt;A href=#&gt;FrontWeaver MX Gurus&lt;/A&gt; - &copy; 1991 All rights reserved&lt;/FONT&gt;
+                &lt;/TD&gt;
+            &lt;/TR&gt;
+        &lt;/TABLE&gt;
+    &lt;/BODY&gt;
+&lt;/HTML&gt;</code></pre>
                 </section>
                 <section>
                     <h3>Writing our first PhantomCSS test</h3>
