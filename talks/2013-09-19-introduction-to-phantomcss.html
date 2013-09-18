@@ -17,6 +17,8 @@
         <![endif]-->
         <style>
             .reveal blockquote { margin: 50px auto; }
+            .reveal section.big-code pre code { max-height: inherit; }
+            .reveal section.big-code  { height: 100%; }
         </style>
     </head>
     <body>
@@ -52,15 +54,15 @@
                 <section>
                     <h2>CSS</h2>
                     <p>Only manual testing...</p>
-                    <p class="fragment">
-                        <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">
-                            <img src="img/superman-ghost.png" alt="SuperGhost" title="SuperGhost" /><br />
-                        </a>
-                        But, that was before!
-                    </p>
-                    <p class="fragment">
-                        This is <strong>NOT</strong> PhantomCSS logo, just <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">DeviantART</a>! :(
-                    </p>
+                    <div class="fragment">
+                        <p>
+                            <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">
+                                <img src="img/superman-ghost.png" alt="SuperGhost" title="SuperGhost" /><br />
+                            </a>
+                            But, that was before!
+                        </p>
+                        <p><small>This is <strong>NOT</strong> PhantomCSS logo, just <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">DeviantART</a>! :(</small></p>
+                    </div>
                 </section>
                 <section>
                     <h3>PhantomCSS</h3>
@@ -112,73 +114,147 @@ phantomjs demo/testsuite.js</pre>
                         <img src="img/hammer.gif" alt="Hammer" title="Hammer" style="border: 0; position: absolute; margin-top: -450px; margin-left: -40px; z-index: 10; box-shadow: none;" />
                     </div>
                 </section>
-                <section>
-                    <pre><code class="html">&lt;HTML&gt;
-    &lt;HEAD&gt;
-        &lt;TITLE&gt;Coming soon...&lt;/TITLE&gt;
-    &lt;/HEAD&gt;
-    &lt;BODY height=100% bgcolor=white&gt;
-        &lt;TABLE width=100% height=100%&gt;
-            &lt;TR&gt;
-                &lt;TD width=100% height=100% align=center valign=center&gt;
-                    &lt;TABLE&gt;
-                        &lt;TR align=center&gt;
-                            &lt;TD align=center&gt;
-                                &lt;IMG src=img/hammer.gif&gt;&lt;/IMG&gt;
-                            &lt;/TD&gt;
-                        &lt;/TR&gt;
-                        &lt;TR align=center valign=center&gt;
-                            &lt;TD&gt;&lt;FONT size=7 color=red&gt;Coming soon&lt;/FONT&gt;&lt;/p&gt;&lt;/TD&gt;
-                        &lt;/TR&gt;
-                        &lt;TR&gt;
-                            &lt;TD align=center&gt;&lt;FONT size=5&gt;Our website is currently under construction.&lt;/FONT&gt;&lt;/TD&gt;
-                        &lt;/TR&gt;
-                        &lt;TR&gt;
-                            &lt;TD align=center&gt;
-                                &lt;BR&gt;&lt;BR&gt;
-                                &lt;FONT size=4&gt;
-                                    &lt;script type=text/javascript&gt;document.write((new Date()).toString().split(' ').splice(1,4).join(' '));&lt;/script&gt;
-                                &lt;/FONT&gt;
-                            &lt;/TD&gt;
-                        &lt;/TR&gt;
-                    &lt;/TABLE&gt;
-                &lt;/TD&gt;
-            &lt;/TR&gt;
-            &lt;TR cellpadding=50&gt;
-                &lt;TD align=center&gt;
-                    &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
-                    &lt;FONT size=2 color=#666&gt;Website proudly created by &lt;A href=#&gt;FrontWeaver MX Gurus&lt;/A&gt; - &copy; 1991 All rights reserved&lt;/FONT&gt;
-                &lt;/TD&gt;
-            &lt;/TR&gt;
+                <section class="big-code">
+                    <pre><code class="html" style="font-size: 0.8em;">&lt;TABLE width=100% height=100%&gt;
+    &lt;TR&gt;
+      &lt;TD width=100% height=100% align=center valign=center&gt;
+        &lt;TABLE&gt;
+          &lt;TR align=center&gt;
+            &lt;TD align=center&gt;&lt;IMG src=img/hammer.gif&gt;&lt;/IMG&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR align=center valign=center&gt;
+            &lt;TD&gt;&lt;FONT size=7 color=red&gt;Coming soon&lt;/FONT&gt;&lt;/p&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR&gt;
+            &lt;TD align=center&gt;&lt;FONT size=5&gt;Our website is currently under construction.&lt;/FONT&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR&gt;
+            &lt;TD align=center&gt;&lt;BR&gt;&lt;BR&gt;
+              &lt;FONT size=4&gt;
+                &lt;script type=text/javascript&gt;
+                  var date = (new Date()).toString()
+                  document.write(date.split(' ').splice(1,4).join(' '));
+                &lt;/script&gt;
+              &lt;/FONT&gt;
+            &lt;/TD&gt;
+          &lt;/TR&gt;
         &lt;/TABLE&gt;
-    &lt;/BODY&gt;
-&lt;/HTML&gt;</code></pre>
+      &lt;/TD&gt;
+    &lt;/TR&gt;
+    &lt;TR cellpadding=50&gt;
+      &lt;TD align=center&gt;
+        &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
+        &lt;FONT size=2 color=#666&gt;
+          Website proudly created by &lt;A href=#&gt;FrontWeaver MX Gurus&lt;/A&gt;
+          - &copy; 1991 All rights reserved
+        &lt;/FONT&gt;
+      &lt;/TD&gt;
+    &lt;/TR&gt;
+  &lt;/TABLE&gt;</code></pre>
+                </section>
+                <section>
+                    <h3>Bootstrapping PhantomCSS</h3>
+                    <pre><code class="js">phantom.casperPath = './CasperJs';
+phantom.injectJs(phantom.casperPath + '/bin/bootstrap.js');
+
+var casper = require('casper').create({
+    viewportSize: {
+        width: 800,
+        height: 600
+    }
+});
+
+var phantomcss = require('./phantomcss.js');
+var url = 'http://phantomcss/index.html';
+
+phantomcss.init({
+    screenshotRoot: './screenshots',
+    failedComparisonsRoot: './failures'
+});</code></pre>
                 </section>
                 <section>
                     <h3>Writing our first PhantomCSS test</h3>
+                    <pre><code class="js">casper
+    .start(url)
+    .then(function() {
+        phantomcss.screenshot('.coming_soon', 'coming-soon-page');
+    })
+    .then(function() {
+        phantomcss.compareAll();
+    })
+    .run(function() {
+        phantom.exit(phantomcss.getExitStatus());
+    });</code></pre>
                 </section>
                 <section>
-                    <h3>First PhantomCSS test</h3>
+                    <h3>First launch</h3>
+                    <pre class="fragment"><code>jpetitcolas@jp-dev ~/dev/phantomcss $ phantomjs tests/css/coming-soon.js
+
+Must be your first time?
+Some screenshots have been generated in the directory ./screenshots
+This is your 'baseline', check the images manually. If they're wrong, delete the images.
+The next time you run these tests, new screenshots will be taken.
+These screenshots will be compared to the original.
+If they are different, PhantomCSS will report a failure.</code></pre>
+                    <img class="fragment" src="img/coming-soon-phantom-01.png" alt="Base screenshot for coming soon page" title="Base screenshot for coming soon page" />
+                </section>
+                <section>
+                    <img src="img/doc-must-go-back.jpg" alt="We have to go back!" title="We have to go back!" />
                 </section>
                 <section>
                     <h3>Refactoring code</h3>
+                    <pre><code class="html">&lt;div class="coming_soon"&gt;
+  &lt;img src="img/hammer.gif" alt="Under construction..." title="Under construction..." /&gt;
+  &lt;h3&gt;Coming soon&lt;/h3&gt;
+  &lt;p&gt;Our website is currently under construction.&lt;/p&gt;
+  &lt;p class="date" id="date"&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;footer&gt;
+  &lt;p&gt;Website proudly created by &lt;a href="#"&gt;FrontWeaver MX Gurus&lt;/a&gt; - &copy; 1991 All rights reserved&lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+  document.getElementById("date").innerText = new Date().toString().split(' ').splice(1,4).join(' ');
+&lt;/script&gt;</code></pre>
                 </section>
                 <section>
                     <h3>Be pragmatic!</h3>
+                    <pre><code>jpetitcolas@jp-dev ~/dev/phantomcss $ phantomjs tests/css/coming-soon.js</code></pre>
+                    <img class="fragment" src="img/coming-soon-phantom-01_fail.png" alt="Failing screenshot after refactoring" title="Failing screenshot after refactoring" />
                 </section>
                 <section>
-                    <h3>Use fixed data: think fixtures and mocks!</h3>
+                    <h3>Avoid dynamic data</h3>
+                    <img src="img/coming-soon-phantom-02_fail.png" alt="Failing screenshot because of date" title="Failing screenshot because of date" />
+                </section>
+                <section>
+                    <h3>Mocking Javascript is easy!</h3>
+                    <pre><code class="js">casper
+    .start(url)
+    .then(function() {
+        var Date = function () {
+            return {
+                toString: function() {
+                    return 'Sun Sep 15 2013 10:28:50 GMT+0200 (Romance Daylight Time)';
+                }
+            }
+        }
+
+        phantomcss.screenshot('.coming_soon', 'coming-soon-page');
+    })</code></pre>
                 </section>
                 <section>
                     <h3>Best practices</h3>
                     <ul>
-                        <li>Name your screenshots</li>
-                        <li>KISS CSS</li>
-                        <li>Test only what you need to</li>
-                        <li>Forget fullpage screenshots</li>
-                        <li>Commit only base pictures</li>
-                        <li>Use same browsers/OS</li>
+                        <li class="fragment">Name your screenshots</li>
+                        <li class="fragment">KISS CSS</li>
+                        <li class="fragment">Test only what you need to</li>
+                        <li class="fragment">Forget fullpage screenshots</li>
+                        <li class="fragment">Commit only base pictures</li>
+                        <li class="fragment">Use same browsers/OS</li>
                     </ul>
+                </section>
+                <section>
+                    <h3>Any questions?</h3>
+                    <img src="img/doc-questions.jpg" alt="Questions?" title="Questions?" />
                 </section>
                 <section>
                     <h1>THE END</h1>
@@ -192,6 +268,8 @@ phantomjs demo/testsuite.js</pre>
             // Full list of configuration options available here:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
+                width: 1280,
+                height: 900,
                 controls: true,
                 progress: true,
                 history: true,
