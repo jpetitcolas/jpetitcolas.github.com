@@ -78,6 +78,13 @@
                     </blockquote>
                     <p><a href="http://casperjs.org/">http://casperjs.org/</a></p>
                 </section>
+				<section>
+                    <h3>SlimerJS</h3>
+                    <blockquote>
+                        SlimerJS allows you to interact with a web page through an external JS script.
+                    </blockquote>
+                    <p><a href="http://slimerjs.org/">http://slimerjs.org/</a></p>
+                </section>
                 <section>
                     <h3>PhantomJS</h3>
                     <blockquote>
@@ -104,7 +111,7 @@ git clone git@github.com:Huddle/PhantomCSS.git
 phantomjs demo/testsuite.js</pre>
                 </section>
                 <section>
-                    <h2>Pratical case: back to the future!</h2>
+                    <h2>Pratical case: back to the past!</h2>
                     <img src="img/doc.jpg" alt="Back to the future" title="Back to the future" />
                 </section>
                 <section>
@@ -210,10 +217,14 @@ If they are different, PhantomCSS will report a failure.</code></pre>
   &lt;p class="date" id="date"&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;footer&gt;
-  &lt;p&gt;Website proudly created by &lt;a href="#"&gt;FrontWeaver MX Gurus&lt;/a&gt; - &copy; 1991 All rights reserved&lt;/p&gt;
+  &lt;p
+    &gt;Website proudly created by &lt;a href="#"&gt;FrontWeaver MX Gurus&lt;/a&gt;
+    - &copy; 1991 All rights reserved
+  &lt;/p&gt;
 &lt;/footer&gt;
 &lt;script&gt;
-  document.getElementById("date").innerText = new Date().toString().split(' ').splice(1,4).join(' ');
+  var date = new Date().toString().split(' ').splice(1,4).join(' ');
+  document.getElementById("date").innerText = date;
 &lt;/script&gt;</code></pre>
                 </section>
                 <section>
@@ -258,7 +269,8 @@ If they are different, PhantomCSS will report a failure.</code></pre>
                 </section>
                 <section>
                     <h1>THE END</h1>
-                    <h3>www.jonathan-petitcolas.com</h3>
+                    <h3><a style="color: #fff;" href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a></h3>
+					<h5><a style="color: #fff;" href="https://github.com/jpetitcolas/talk-phantomcss">https://github.com/jpetitcolas/talk-phantomcss</a></h5>
                 </section>
             </div>
         </div>
