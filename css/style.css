@@ -40,6 +40,25 @@ header h2 {
   display: none;
 }
 
+header .social-networks {
+  display: none;
+  list-style: none;
+  margin: 0;
+}
+
+header .social-networks li {
+  display: inline;
+}
+
+header .social-networks li img {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+header .social-networks li:last-child img {
+  margin-right: 0;
+}
+
 p {
   line-height: 1.8em;
   margin: 0 0 1.2em 0;
@@ -200,6 +219,9 @@ article img {
   header nav {
     position: static;
     margin: 1em 0;
+  }
+  header .social-networks {
+    display: block;
   }
   .content {
     margin-left: 300px;
