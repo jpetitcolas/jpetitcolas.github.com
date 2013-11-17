@@ -34,7 +34,7 @@ Installation is made through Composer. So, simply create a `composer.json` file 
 ```
 Then, let the magic happens with the `composer install` command. When completed, create a new `web/index.php` file containing the following "Hello world!" code:
 
-``` php
+{% highlight php startinline %}
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
@@ -44,7 +44,8 @@ $app->get('/hello', function () {
 });
 
 $app->run();
-```
+{% endhighlight %}
+
 If you have correctly configured your VHost (especially with the document root pointing to the `web` directory), you should see the "Hello world!" when browsing the `/hello` URL. Managing routes with Silex is incredibly so easy.
 
 ## Installing a template engine: Twig
@@ -62,18 +63,20 @@ When you once tried Twig (the default template engine provided with Symfony2), y
 
 Now simply register Twig as a Silex middleware (a middleware is a layer located between user request and framework response):
 
-``` php
+{% highlight php startinline %}
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
-```
+{% endhighlight %}
+
 We just told Twig to look for our templates in the `views` directory. Thus, modify our controller to use a template:
 
-``` php
+{% highlight php startinline %}
 $app->get('/hello', function() use($app) {
 	return $app['twig']->render('hello.html.twig');
 });
-```
+{% endhighlight %}
+
 You are now able to validate the that Twig is correctly installed, refreshing the previous opened page. Yet, you would probably need to use Twig blocks inheritance for the global layout. Here is a simplified use case:
 
 {% raw %}
@@ -121,24 +124,26 @@ Notice we embed a specific stylesheet for this page only, thanks to the `stylesh
 
 Currently, if we want to make a link to the contact page, we would create something like:
 
-``` php
+{% highlight php startinline %}
 <a href="/contact">Contact us</a>
-```
+{% endhighlight %}
+
 Where `/contact` route would have been mapped with related view thanks to the `$app->get` method, as seen before. Yet, what would happen if we decide to change this route to `/contact-us`? We would have to grep all the contact links of our pages and change them accordingly. Or, we may use the [URL generator service](http://silex.sensiolabs.org/doc/providers/url_generator.html), which would simply turn a route name into its corresponding URL.
 
 Let's start by registering this service. In the `index.php` file:
 
-``` php
+{% highlight php startinline %}
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-```
+{% endhighlight %}
 
 Then, we have to give a name to our route. This is done through the `bind` method:
 
-``` php
+{% highlight php startinline %}
 $app->get('/contact', function() use($app) {
 	// ... 
 })->bind('contact');
-```
+{% endhighlight %}
+
 You are now able to generate URL based on your controllers into your Twig templates:
 
 ``` xml
@@ -150,7 +155,7 @@ You are now able to generate URL based on your controllers into your Twig templa
 
 Even on a static website you should have a lot of really static webpages, resulting in many actions. Here is a snippet showing a way to avoid code duplication:
 
-``` php
+{% highlight php startinline %}
 $routes = array(
     'home' => array('url' => '/', 'template' => 'home.html.twig'),
     'references' => array('url' => 'references', 'template' => 'references.html.twig'),
@@ -163,7 +168,8 @@ foreach ($routes as $routeName => $data) {
         return $app['twig']->render($data['template']);
     })->bind($routeName);
 }
-```
+{% endhighlight %}
+
 The `$routes` array contains all the data we need for our static pages: route name (for generating route through URL generator) as a key, URL and template. This is the place to add new pages.
 
 ## Creating the FAQ
@@ -171,8 +177,6 @@ The `$routes` array contains all the data we need for our static pages: route na
 FAQ is the chunk of this site. There must be a list of question links, each link redirecting to the question response. If we use the same solution as above, we would create a template for list and a template by question.
 
 This is a bad solution. Indeed, there would be a lot of similar routes, and each time we want to add a question, we will need to update the question list. When something is done manually, it will necessarily break. So, to avoid a desynchronization between our responses and list, we have to be wiser.
-
-### Storing data into a YAML file
 
 Ideally, we would configure a database to store all our questions. However, as editorial changes would be rare, and as we want a website as light as possible, we would rather store the data in a simple file, a YAML one for instance.
 
@@ -207,7 +211,7 @@ Now we got our pseudo-database, we can create the listing page. But first, we sh
 ```
 Then, add the following action:
 
-``` php
+{% highlight php startinline %}
 use Symfony\Component\Yaml\Yaml;
 
 $app->get('/faq', function() use ($app) {
@@ -218,7 +222,8 @@ $app->get('/faq', function() use ($app) {
     	'questions' => $questions,
     ));
 })->bind('faq');
-```
+{% endhighlight %}
+
 It simply read the YAML file and pass the retrieved questions to the template. You can then display them very simply as the following:
 
 {% raw %}
@@ -239,7 +244,7 @@ It simply read the YAML file and pass the retrieved questions to the template. Y
 
 Finally, let's create the final route for reading a response:
 
-``` php
+{% highlight php startinline %}
 $app->get('/faq/{id}/{slug}', function($id, $slug) use ($app) {
     $yamlQuestions = file_get_contents(__DIR__.'/../views/faq/questions.yml');
     $questions = Yaml::parse($yamlQuestions);
@@ -255,7 +260,8 @@ $app->get('/faq/{id}/{slug}', function($id, $slug) use ($app) {
     	'question' => $question
     ));
 })->bind('faq_question');
-```
+{% endhighlight %}
+
 Which allows us to retrieve the whole question object in our template. We just operate a check on question slug to avoid duplicate content. If the slug is incorrect, then we stop the rendering and return a 404 response to the user.
 
-As explained in this article, Silex may fit exactly the requirements of a static website with only a few lines of code. Yet, if you want to provide an administration panel, I would recommend to use either a CMS, or for custom features, a full-stack Symfony2 application with the are  the Symfony2 full framework, with the [SonataAdmin bundle](https://github.com/sonata-project/SonataAdminBundle).
+As explained in this article, Silex may fit exactly the requirements of a static website with only a few lines of code. Yet, if you want to provide an administration panel, I would recommend to use either a CMS, or for custom features, a full-stack Symfony2 application with the are  the Symfony2 full framework, with the [SonataAdmin bundle](https://github.com/sonata-project/SonataAdminBundle) for instance.
