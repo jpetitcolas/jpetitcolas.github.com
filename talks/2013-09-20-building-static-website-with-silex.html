@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Building a static website with Silex</title>
+        <meta name="description" content="How to build a static website with Silex, a PHP microframework?" />
+        <meta name="author" content="Jonathan Petitcolas">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            .reveal blockquote { margin: 50px auto; }
+            .reveal section.big-code pre code { max-height: inherit; }
+            .reveal section.big-code  { height: 100%; }
+            .reveal h3 { font-size: 3em; }
+            .reveal h4 { font-size: 2em; }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Building a static website with Silex</h1>
+                    <p>
+                        <small>
+                            Created by <a href="http://www.jonathan-petitcolas.com">Jonathan Petitcolas</a> /
+                            <a href="http://twitter.com/Sethpolma">@Sethpolma</a>
+                        </small>
+                    </p>
+                </section>
+                <section>
+                    <h2>Case study: creation of up-grading website</h2>
+                    <figure>
+                        <a href="http://www.up-grading.fr">
+                            <img src="img/upgrading.png" alt="Up-grading : coaching et formation sur mesure" title="Up-grading : coaching et formation sur mesure" />
+                        </a>
+                        <figcaption><a href="http://www.up-grading.fr">www.up-grading.fr</a></figcaption>
+                    </figure>
+                </section>
+                <section>
+                    <h2>Choosing the right tool</h2>
+                </section>
+                <section>
+                    <h3>WordPress</h3>
+                    <ul style="width: 800px;">
+                        <li class="fragment">Widely used for blogging and static websites</li>
+                        <li class="fragment">Great administration panel</li>
+                        <li class="fragment">Lot of plug-ins</li>
+                    </ul>
+                    <h4 class="fragment">BUT</h4>
+                    <ul style="width: 800px;">
+                        <li class="fragment">Lot of plug-ins</li>
+                        <li class="fragment">It's not coding, it's hacking</li>
+                        <li class="fragment">Maintenance is painful as hell</li>
+                        <li class="fragment">Heavily based on database, even for configuration</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Pure PHP</h3>
+                    <ul style="width: 800px;">
+                        <li class="fragment">Only strict minimum</li>
+                        <li class="fragment">Best performances</li>
+                        <li class="fragment">Maximum flexibility</li>
+                    </ul>
+                    <h4 class="fragment">BUT</h4>
+                    <ul style="width: 800px;">
+                        <li class="fragment">Must reinvent the wheel</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Symfony2</h3>
+                    <ul style="width: 800px;">
+                        <li class="fragment">Very powerful framework</li>
+                        <li class="fragment">Widely used and documented</li>
+                        <li class="fragment">A lot of great bundles</li>
+                    </ul>
+                    <h4 class="fragment">BUT</h4>
+                    <ul style="width: 800px;">
+                        <li class="fragment">A little bit overkill</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Choosing the right tool</h3>
+                    <blockquote>
+                        “Micro” does not mean that your whole web application has to fit into a single [...] file, although it certainly can. Nor does it mean that [it] is lacking in functionality. The “micro” in microframework means [it] aims to keep the core simple but extensible. [It] won’t make many decisions for you, such as what database to use. Those decisions that it does make, such as what templating engine to use, are easy to change. Everything else is up to you, so that [it] can be everything you need and nothing you don’t.
+                    </blockquote>
+                    <p>Source: <a href="http://flask.pocoo.org/docs/foreword/#what-does-micro-mean">Flask</a></p>
+                </section>
+                <section>
+                    <h3>Silex</h3>
+                </section>
+                <section>
+                    <h2>Bootstraping Silex</h2>
+                </section>
+                <section>
+                    <h3>Installing Silex</h3>
+                    <p>Based on Composer:</p>
+                    <pre><code class="js">{
+    "require": {
+        "silex/silex": "~1.1"
+    }
+}</code></pre>
+<p>Let's the magic happen!</p>
+<pre><code>composer install</code></pre>
+                </section>
+				<section>
+                    <h3>"Hello world!" with Silex</h3>
+                    <pre><code class="php">require_once __DIR__.'/../vendor/autoload.php';
+
+$app = new Silex\Application();
+
+$app->get('/hello', function () {
+    return 'Hello world!';
+});
+
+$app->run();</code></pre>
+                </section>
+                <section>
+                    <h2>Installing a template engine: Twig</h2>
+                </section>
+                <section>
+                    <h2>Installing Twig</h2>
+                    <pre><code class="js">{
+    "require": {
+        // ...
+        "symfony/twig-bridge": "~2.3",
+    }
+}</code></pre>
+                    <p>Registering the service:</p>
+                    <pre><code class="php">$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/../views',
+));</code></pre>
+                </section>
+                <section>
+                    <h2>Hello Twig!</h2>
+                    <pre><code class="php">$app->get('/hello', function() use($app) {
+    return $app['twig']->render('hello.html.twig');
+});</code></pre>
+<pre><code class="xml">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;{% block title "Welcome on my site!" %}&lt;/title&gt;
+        {% block stylesheets %}
+            &lt;link href="css/style.css" rel="stylesheet" /&gt;
+        {% endblock %}
+    &lt;/head&gt;
+    &lt;body&gt;
+        {% block content "" %}
+        {% block javascripts %}
+            &lt;script src="js/jquery.js"&gt;&lt;/script&gt;
+        {% endblock %}
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </section>
+                <section>
+                    <h2>Internal linking</h2>
+                </section>
+                <section>
+                    <h2>Internal linking?</h2>
+                    <pre><code class="xml">&lt;a href="/contact"&gt;Contact us&lt;/a&gt;</code></pre>
+                    <p>Bad practice: a change in a route would imply to change all links.</p>
+                </section>
+                <section>
+                    <h2>Three steps process</h2>
+                    <div class="fragment">
+                        <p>Registering UrlGenerator service:</p>
+                        <pre><code class="php">$app->register(new Silex\Provider\UrlGeneratorServiceProvider());</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <p>Name routes:</p>
+                        <pre><code class="php">$app->get('/contact', function() use($app) {
+    // ... 
+})->bind('contact');</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <p>Update template:</p>
+                        <pre><code class="xml">&lt;a href="{{ app.url_generator.generate('contact') }}"&gt;
+    Contact us
+&lt;/a&gt;</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h2>Organizing our routes</h2>
+                    <pre><code class="php">$routes = array(
+    'home' => array('url' => '/', 'template' => 'home.html.twig'),
+    'references' => array('url' => 'references', 'template' => 'references.html.twig'),
+    'contact' => array('url' => 'contact', 'template' => 'contact.html.twig'),
+    // ...
+);
+
+foreach ($routes as $routeName => $data) {
+    $app->get($data['url'], function() use($app, $data) {
+        return $app['twig']->render($data['template']);
+    })->bind($routeName);
+}</code></pre>
+                </section>
+                <section>
+                    <h3>FAQ</h3>
+                </section>
+                <section>
+                    <h2>Database required?</h2>
+                    <ul>
+                        <li class="fragment">Current pattern imply a page by question and one for list</li>
+                        <li class="fragment">Will probably cause a desynchronization</li>
+                        <li class="fragment" style="margin-bottom: 45px;">Solution: use a database and a "one-for-all-questions" controller</li>
+                        <li class="fragment">Not a lot of writing, just reading</li>
+                        <li class="fragment">Including database needs PDO or ORM</li>
+                        <li class="fragment" style="margin-bottom: 45px;">Connections are slows</li>
+                        <li class="fragment">Why not using YAML?</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Storing our questions in YAML</h2>
+                    <pre><code class="yaml">question_1:
+    id: 1
+    question: "Comment financer ma formation ?"
+    slug: "comment-financer-ma-formation"
+    answer: |
+        &lt;p&gt;Il est possible de faire financer une formation par son employeur en utilisant
+        le DIF ou dans le cadre du CIF, ou de la VAE.&lt;/p&gt;
+        [...]
+
+question_2:
+    id: 2
+    question: "Qu'est-ce que le coaching ?"
+    slug: "qu-est-ce-que-le-coaching"
+    answer: |
+        &lt;p&gt;Le coaching professionnel est l’accompagnement personnalisé et suivi d’un 
+        individu ou d’un groupe.&lt;/p&gt;
+        [...]</code></pre>
+                </section>
+
+                <section>
+                    <h2>Using Symfony2 YAML parser</h2>
+
+                    <div class="fragment">
+                    <p>Add another dependency</p>
+                    <pre><code class="js">{
+    "require": {
+        // ...
+        "symfony/yaml": "2.1.*@dev"
+    }
+}</code></pre></div>
+
+                    <div class="fragment">
+                    <p>Read a YAML file</p>
+                    <pre><code class="php">use Symfony\Component\Yaml\Yaml;
+
+Yaml::parse(file_get_contents($myFile));</code></pre></div>
+                </section>
+
+                <section>
+                    <h2>Question list</h2>
+                    <pre><code class="php">$app->get('/faq', function() use ($app) {
+    $yamlQuestions = file_get_contents(__DIR__.'/../data/questions.yml');
+    $questions = Yaml::parse($yamlQuestions);
+
+    return $app['twig']->render('faq/index.html.twig', array(
+        'questions' => $questions,
+    ));
+})->bind('faq');</code></pre>
+
+                    <pre><code class="xml">{% block body %}
+&lt;ul&gt;
+    {% for question in questions %}
+        &lt;li&gt;
+            &lt;a href="{{ app.url_generator.generate("faq_question", {
+                "id": question.id,
+                "slug": question.slug 
+            }) }}"&gt;
+                {{ question.question }}
+            &lt;/a&gt;
+        &lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;
+{% endblock %}</code></pre>
+                </section>
+
+                <section>
+                    <h2>Question answer</h2>
+                    <pre><code class="php">$app->get('/faq/{id}/{slug}', function($id, $slug) use ($app) {
+    $yamlQuestions = file_get_contents(__DIR__.'/../views/faq/questions.yml');
+    $questions = Yaml::parse($yamlQuestions);
+
+    $question = $questions['question_'.$id];
+
+    // Ensure URL is correct
+    if ($question['slug'] !== $slug) {
+        $app->abort(404, "Question slug does not match.");
+    }
+
+    return $app['twig']->render('faq/question.html.twig', array(
+        'question' => $question
+    ));
+})->bind('faq_question');</code></pre>
+                </section>
+
+                <section>
+                    <h3>Any questions?</h3>
+                    <img src="img/doc-questions.jpg" alt="Questions?" title="Questions?" />
+                </section>
+                <section>
+                    <h1>THE END</h1>
+                    <h3><a style="color: #fff;" href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a></h3>
+                </section>
+            </div>
+        </div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                width: 1280,
+                height: 900,
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+        </script>
+    </body>
+</html>
