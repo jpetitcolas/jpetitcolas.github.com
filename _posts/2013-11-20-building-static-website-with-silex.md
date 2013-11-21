@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "Silex: static website usecase"
+title: "Building a static website with Silex"
 ---
 
 # {{ page.title }}
 
-I recently helped a contact of mine to develop her company website (<a href="http://www.up-grading.fr">up'grading</a>). Her needs were really basic: some static pages and a FAQ.
+I recently helped a contact of mine to develop her company website (<a href="http://www.up-grading.fr">up'grading</a>). Her needs were basic: some static pages and a FAQ.
 
 I faced three main choices to achieve such a demand:
 
 * WordPress: this blogging platform is also widely used as a static website skeleton. Yet, I am not a big fan of WP code base, and maintenance is painful as hell: upgrading core (even if it seems it is automatic from now), upgrading plugins, and so on... And why a database for such a a simple site?
 * Pure PHP: sounds better. It would allow to embed only the strict minimum. Yet, I do not want to reinvent the wheel.
-* Symfony2: a full stack framework would fulfill all requirements, but would also be overkill. No need of dependency injection in this case.
+* Symfony2: a full stack framework would fulfill all requirements, but would also be overkill. No need of dependency injection to three simple static pages.
 
-Ideal would be a solution between pure PHP and a full stack framework, a kind of Symfony2-lite. Fortunately, it already exists and is called [Silex](http://silex.sensiolabs.org).
+Ideal would be a solution between pure PHP and a full stack framework, a kind of Symfony2-lite. Fortunately, it already exists: [Silex](http://silex.sensiolabs.org).
 
 Silex is part of micro-frameworks family. The best definition of what a micro-framework is available on [Flask website](http://flask.pocoo.org/docs/foreword/#what-does-micro-mean):
 
@@ -140,17 +140,18 @@ Then, we have to give a name to our route. This is done through the `bind` metho
 
 {% highlight php startinline %}
 $app->get('/contact', function() use($app) {
-	// ... 
+	// ...
 })->bind('contact');
 {% endhighlight %}
 
 You are now able to generate URL based on your controllers into your Twig templates:
 
-``` xml
+{% highlight xml %}{% raw %}
 <a href="{{ app.url_generator.generate('contact') }}">
 	Contact us
 </a>
-```
+{% endraw %}{% endhighlight %}
+
 ## Organizing our routes
 
 Even on a static website you should have a lot of really static webpages, resulting in many actions. Here is a snippet showing a way to avoid code duplication:
@@ -188,15 +189,18 @@ question_1:
     question: "Comment financer ma formation ?"
     slug: "comment-financer-ma-formation"
     answer: |
-        <p>Il est possible de faire financer une formation par son employeur en utilisant le DIF, Droit Individuel à la Formation ou dans le cadre du CIF, Congés Individuel de Formation, ou de la VAE, Validation des Acquis de l’Expérience.</p>
+        <p>Il est possible de faire financer une formation par son employeur en utilisant le DIF,
+        Droit Individuel à la Formation ou dans le cadre du CIF, Congés Individuel de Formation,
+        ou de la VAE, Validation des Acquis de l’Expérience.</p>
         [...]
-            
+
 question_2:
     id: 2
     question: "Qu'est-ce que le coaching ?"
     slug: "qu-est-ce-que-le-coaching"
     answer: |
-        <p>Le coaching professionnel est l’accompagnement personnalisé et suivi d’un individu ou d’un groupe, qui permet d’atteindre un objectif d’ordre professionnel ou privé.</p>
+        <p>Le coaching professionnel est l’accompagnement personnalisé et suivi d’un individu ou
+        d’un groupe, qui permet d’atteindre un objectif d’ordre professionnel ou privé.</p>
         [...]
 ```
 Now we got our pseudo-database, we can create the listing page. But first, we should add the Symfony YAML parser to our dependencies:
@@ -232,7 +236,10 @@ It simply read the YAML file and pass the retrieved questions to the template. Y
 <ul>
     {% for question in questions %}
         <li>
-            <a href="{{ path("faq_question", { "id": question.id, "slug": question.slug }) }}">
+            <a href="{{ app.url_generator.generate("faq_question", {
+                "id": question.id,
+                "slug": question.slug
+            }) }}">
             	{{ question.question }}
             </a>
         </li>
