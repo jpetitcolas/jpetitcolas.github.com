@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Finding out slowest tests of your PHPUnit testsuite"
+title: "Finding out slowest tests of your PHPUnit test suite"
 ---
 
 # {{ page.title }}
