@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Creating an interactive map with SVG - ApéroWeb Nancy</title>
+        <meta name="description" content="How to create an interactive map with SVG, through Raphaël.js?" />
+        <meta name="author" content="Jonathan Petitcolas">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">*
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            .reveal blockquote { margin: 50px auto; }
+            .reveal h3 { font-size: 3em; }
+            .reveal h4 { font-size: 2em; }
+            .reveal section img { background: transparent; border: none; box-shadow: none; }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Creating an interactive map with SVG</h1>
+                    <p>
+                        <small>
+                            Created by <a href="http://www.jonathan-petitcolas.com">Jonathan Petitcolas</a> /
+                            <a href="http://twitter.com/Sethpolma">@Sethpolma</a>
+                        </small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Creating maps, the old way</h2>
+                </section>
+
+                <section>
+                    <h3>Using Flash</h3>
+                </section>
+
+                <section>
+                    <h3>Using HTML map tag</h3>
+                    <p>Sample: <a href="http://www.planete-maison-de-retraite.fr/">www.planete-maison-de-retraite.fr</a></p>
+                    <img src="img/svg/map-tag.png" alt="France map using HTML map tag" title="France map using HTML map tag" />
+                    <p>If you are a true ninja, look at the source code!</p>
+                </section>
+
+                <section>
+                    <h2>SVG is the Chosen one!</h2>
+                </section>
+
+                <section style="top: -50% !important;">
+                    <h3>SVG: Scalable Vector Graphic</h3>
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%;">With SVG</th>
+                                <th style="width: 50%;">Without SVG</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <img src="img/svg/beer.svg" alt="SVG beer" class="beer-img" />
+                            </td>
+                            <td>
+                                <img src="img/svg/beer.png" alt="PNG beer" class="beer-img" />
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>A skilled technology</h3>
+                </section>
+
+                <section>
+                    <h3>Helped by Raphaël.js</h3>
+                </section>
+
+                <section>
+                    <h3>Let's create a modern map</h3>
+                </section>
+
+                <section>
+                    <h3>Bootstraping Raphaël.js</h3>
+                </section>
+
+                <section>
+                    <h3>Drawing our first region</h3>
+                </section>
+
+                <section>
+                    <h3>Retrieving these creepy coordinates</h3>
+                </section>
+
+                <section>
+                    <h3>Drawing the other regions</h3>
+                </section>
+
+                <section>
+                    <h2>SVG and DOM events</h2>
+                </section>
+
+                <section>
+                    <h3>Adding hover effect</h3>
+                </section>
+
+                <section>
+                    <h3>Resulting map</h3>
+                </section>
+
+                <section>
+                    <h3>Got you! Closure required!</h3>
+                </section>
+
+                <section>
+                    <h3>Working resulting map</h3>
+                </section>
+
+                <section>
+                    <h3>Adding some links</h3>
+                </section>
+
+                <section>
+                    <h3>Any questions?</h3>
+                    <img src="img/doc-questions.jpg" alt="Questions?" title="Questions?" />
+                </section>
+
+                <section>
+                    <h1>THE END</h1>
+                    <p>
+                        <a href="http://www.jonathan-petitcolas.com/2013/07/18/create-clickable-svg-france-regions-map.html">Creating a clickable SVG France regions map</a>
+                    </p>
+                </section>
+            </div>
+        </div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script>$.noConflict();</script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                width: 1280,
+                height: 900,
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+            // Slides specific code
+            jQuery(".beer-img").attr({
+                width: 104,
+                height: 104
+            }).addClass("ui-widget-content").resizable({
+                aspectRatio: true,
+                containment: "td"
+            });
+        </script>
+    </body>
+</html>
