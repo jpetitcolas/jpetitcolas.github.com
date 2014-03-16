@@ -5,13 +5,13 @@ title: "Creating a Morse encoder with Arduino"
 
 # {{ page.title }}
 
-A few days ago, I received my [SparkleFun inventor's kit](https://www.sparkfun.com/products/12001). This kit includes an Arduino and a lot of electronic components such as LCD panel or drive motor. And, icing on the cake, it also provides several tutorials to brush up on electronic. In short, a perfect starter kit.
+A few days ago, I received my [SparkFun inventor's kit](https://www.sparkfun.com/products/12001). This kit includes an Arduino and many electronic components such as LCD panel or drive motor. And, icing on the cake, it also provides several tutorials to brush up on electronics. In short, a perfect starter kit.
 
 The first tutorial is about switching on and off a LED. Not really challenging (especially with the 4 lines provided source code). So, let's raise the bar higher: we will create a [Morse language](http://en.wikipedia.org/wiki/Morse_code) encoder. The Morse language maps each letter and number to a unique sequence of dot and dashes (respectively a short and long light flash). So, making the LED blinking, we would be able to transmit a message. Sounds more exciting, isn't it?
 
 ## Configuring SublimeText for Arduino development
 
-First of all, either you use it or not, you have to download the [Arduino IDE](http://arduino.cc/en/Main/Software). Yet, if you try to develop with it, you will see how much this editor sucks. No code autocompletion, strange indentation, a not really eye-candy blue... Really, I tried to use it for a hour, but finally decided to find an alternative.
+First of all, either you use it or not, you have to download the [Arduino IDE](http://arduino.cc/en/Main/Software). I tried to use it for a hour, and honestly, it sucks: no code autocompletion, strange indentation, too small debug output, etc. So, finally, I decided to find an alternative.
 
 I am using Sublime Text for a while now, and I looked naturally for an Arduino plug-in. And, thanks to [Robot-Will](https://github.com/Robot-Will), I found such a plug-in: [Stino](https://github.com/Robot-Will/Stino). To grab it, simply use the package manager, looking for "Arduino-like IDE".
 
@@ -19,12 +19,12 @@ The configuration is not really straightforward. In order to compile and send yo
 
 * **Arduino > Preferences > Select Arduino application folder:** the folder where `arduino` bin is,
 * **Arduino > Preferences > Change Sketchbook folder:** location of all your Arduino programs,
-* **Arduino AVR boards:** select your board model ("Arduino UNO" in the case of the SparkleFun's kit)
+* **Arduino AVR boards:** select your board model ("Arduino UNO" in the case of the SparkFun's kit)
 * **Serial port:** choose the corresponding port on which your Arduino is plugged (`/dev/ttyUSB1` in my case)
 
 Selecting folders is pretty unergonomic. After selecting the menu item, a text field appear. Just press `/` (in Linux at least) and validate to see the folder hierarchy. Then, navigate with arrows to choose the appropriate input.
 
-To access serial port devices, you should launch Sublime Text as root. I do not like this solution: does anyone have a workaround?
+To access serial port devices, you should launch Sublime Text as root. I do not like this unnecessary elevation of privileges for a text editor: does anyone have a workaround?
 
 ## Creating a basic LED circuit
 
@@ -34,7 +34,7 @@ Now we got a user-friendly Arduino editor, let's wire our board. You will need a
     <img src="/img/posts/arduino/morse-transcoder/arduino-led-circuit.png" alt="Arduino - Blinked LED blueprint" title="Arduino - Blinked LED blueprint" />
 </p>
 
-Yet, no need of soldering iron as we have a breadboard. The breadboard is the board containing a lot of connection points. The board is splitted into two parts by a middle line. The two parts are electrically independant. Two vertical lines provides the energy source (`+`) and the ground (on the `-`). All the components legs plugged on the same horizontal line would be wired together. Knowing that, here is a way to plug all our components:
+No need of soldering iron as we have a breadboard. The breadboard is the board containing a lot of connection points. The board is split into two parts (electrically independent) by a middle line. Two vertical lines provides the energy source (`+`) and the ground (`-`). All the components legs plugged on the same horizontal line would be wired together. Knowing that, let's plug our components:
 
 * Power line on the "Power 5V" Arduino pin
 * Ground line on the "Power GND" Arduino pin
@@ -42,7 +42,7 @@ Yet, no need of soldering iron as we have a breadboard. The breadboard is the bo
 * Resistor: A3 + Ground,
 * Wire between Arduino pin 13 and E2
 
-As a LED is a polarized component: you should plug it in the right position. At these voltage, it should not break anything. Yet, if you plug it wrongly, it would simply works as an opened switch.
+As a LED is a polarized component: you should plug it in the right direction. At these voltage, it should not break anything. Yet, if you plug it wrongly, it would simply works as an opened switch.
 
 Once our circuit built, let's try it with this really simple program:
 
@@ -64,7 +64,7 @@ All Arduino programs should contain both the `setup` and `loop` functions. The f
 
 Then, the `loop` function will be executed forever (unless Arduino is stopped manually). In this case, we send a `HIGH` signal (meaning +5V) on the pin 13, which light on the LED. We wait 1 second, then we send a `LOW` signal (0V) to switch it off, and we wait again.
 
-Now, verify/compile your code (CTRL + ALT + V) and then upload it (CTRL + ALT + U). If your circuit is wired correctly, the LED should slowly blink.
+Now, verify/compile your code and upload it (CTRL + ALT + U). If your circuit is wired correctly, the LED should slowly blink.
 
 ## Developing a Morse encoder
 
@@ -111,9 +111,9 @@ void space()
 }
 ```
 
-We first defined the `TIME_UNIT` constant as a `#DEFINE` directive. It means all occurences of `TIME_UNIT` will be automatically replaced during compilation phase, saving some memory. Remember we are on an low memory device: memory is precious.
+We first define the `TIME_UNIT` constant as a `#DEFINE` directive. It means all occurences of `TIME_UNIT` will be automatically replaced during compilation phase, saving some memory. Remember we are on an low memory device: memory is precious.
 
-Then, we simply define several functions to apply our above conventions. So, if we want to emit a SOS signal, we just have to modify our `loop` function with the following code:
+Then, we apply our conventions creating a bunch of functions. Emitting a SOS signal is now done through:
 
 ``` c
 void loop()
@@ -161,9 +161,6 @@ We used the type `byte` to define the output pin. In all the Arduino examples, p
 Finally, we just have to move all fonctions into the `MorseTranslator.ino` file, prefixing all our method by our class name:
 
 ``` c
-#include "Arduino.h"
-#include "MorseTranslator.h"
-
 MorseTranslator::MorseTranslator(byte pin, unsigned int timeUnit)
 {
 	pinMode(pin, OUTPUT);
@@ -173,10 +170,10 @@ MorseTranslator::MorseTranslator(byte pin, unsigned int timeUnit)
 
 void MorseTranslator::dot()
 {
-	digitalWrite(13, HIGH);
-	delay(TIME_UNIT);
-	digitalWrite(13, LOW);
-	delay(TIME_UNIT);
+    digitalWrite(_pin, HIGH);
+    delay(_timeUnit);
+    digitalWrite(_pin, LOW);
+    delay(_timeUnit);
 }
 
 // ...
@@ -214,7 +211,7 @@ Upload again your program to ensure nothing broke during this refactoring.
 Next evolution is to use a dictionnary to map each letter to its Morse signal. As there is no native hash maps in Arduino world, we are going to use a structure, which is simply a new type definition containing several variables of different types.
 
 ``` c
-struct dictionnaryEntry = {
+struct dictionnaryEntry {
 	char character;
 	String signal;
 };
@@ -244,7 +241,6 @@ String MorseTranslator::getSignalForChar(char c)
   	return " ";
 }
 ```
-
 Finally, let's create an `emit` public function:
 
 ``` c
@@ -291,9 +287,9 @@ Upload again, and check that our beacon is still alive.
 
 ## Transmit user input to Arduino through Serial port
 
-To communicate with our Arduino, we are going to use the `Serial` port. On the Arduino IDE, you can see at the top right corner the Serial monitor icon. Clicking on it, you will open a terminal on which you can read Arduino outputs and send some signals to it. We are going to use it to communicate with our keyboard.
+To communicate with our Arduino, we are going to use the `Serial` link. If you click on the *Arduino &gt; Serial monitor &gt; Start* menu, a new tab opens, allowing you to send some data to the Arduino. We are going to use this feature to communicate with our LED.
 
-First of all, we have to enable the Serial communication in the `setup` function, specifying the transmission rate in bauds. In our case, 9600 bauds would be far enough.
+First of all, we have to enable the Serial communication in the `setup` function, specifying the transmission rate in bauds. In our case, 9600 bauds would be far enough. Just ensure the speed of transmission is the same on both sides, to prevent from strange issues.
 
 ``` c
 void setup()
@@ -303,7 +299,7 @@ void setup()
 }
 ```
 
-Then, in our `loop` function, we will check if some data are available on the Serial link, and if so, we will read it and emit the corresponding signal:
+Then, check if some data are available on the Serial link, and if so, read it and emit the corresponding signal:
 
 ``` c
 void loop()
@@ -320,5 +316,6 @@ void loop()
   	}
 }
 ```
-The whole code is available on GitHub, and here is finally the video demonstration of our Morse encoder:
+The whole code is available on [GitHub](https://github.com/jpetitcolas/arduino-experiments/tree/master/morse_encoder), and here is finally the video demonstration of our Morse encoder:
 
+<iframe width="560" height="315" src="//www.youtube.com/embed/4H3hKid6ucA?rel=0" frameborder="0" allowfullscreen></iframe>
