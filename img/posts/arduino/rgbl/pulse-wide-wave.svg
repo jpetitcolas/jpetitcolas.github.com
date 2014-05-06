@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="750"
+   viewBox="0 0 1000 750"
+   id="svg2335"
+   sodipodi:version="0.34"
+   inkscape:version="0.44"
+   sodipodi:docname="C:\Eigene Dateien\INTERNET\Wikipedia\Pulse_wide_wave.svg"
+   sodipodi:docbase="C:\Eigene Dateien\INTERNET\Wikipedia">
+  <metadata
+     id="metadata2494">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="993"
+     inkscape:window-width="1680"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="1"
+     inkscape:cx="497.83602"
+     inkscape:cy="306.00697"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="svg2335"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:object-bbox="false"
+     inkscape:grid-points="true"
+     showgrid="true"
+     snaptogrid="false"
+     gridoriginx="41.37pt"
+     gridoriginy="373pt"
+     gridspacingy="14.17323pt"
+     gridspacingx="14.17323pt" />
+  <defs
+     id="defs2339">
+    <circle
+       id="gpDot"
+       r="1" />
+    <path
+       id="gpPt0"
+       style="stroke-width:0.133"
+       d="M-1,0 h2 M0,-1 v2" />
+    <path
+       id="gpPt1"
+       style="stroke-width:0.133"
+       d="M-1,-1 L1,1 M1,-1 L-1,1" />
+    <path
+       id="gpPt2"
+       style="stroke-width:0.133"
+       d="M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1" />
+    <rect
+       id="gpPt3"
+       style="stroke-width:0.133"
+       x="-1"
+       y="-1"
+       width="2"
+       height="2" />
+    <use
+       xlink:href="#gpPt3"
+       id="gpPt4"
+       style="fill:currentColor; stroke:none" />
+    <circle
+       id="gpPt5"
+       style="stroke-width:0.133"
+       cx="0"
+       cy="0"
+       r="1" />
+    <use
+       xlink:href="#gpPt5"
+       id="gpPt6"
+       style="fill:currentColor; stroke:none" />
+    <path
+       id="gpPt7"
+       style="stroke-width:0.133"
+       d="M0,-1.33 L-1.33,0.67 L1.33,0.67 z" />
+    <use
+       xlink:href="#gpPt7"
+       id="gpPt8"
+       style="fill:currentColor; stroke:none" />
+    <use
+       xlink:href="#gpPt7"
+       id="gpPt9"
+       transform="rotate(180)" />
+    <use
+       xlink:href="#gpPt9"
+       id="gpPt10"
+       style="fill:currentColor; stroke:none" />
+    <use
+       xlink:href="#gpPt3"
+       id="gpPt11"
+       transform="rotate(45)" />
+    <use
+       xlink:href="#gpPt11"
+       id="gpPt12"
+       style="fill:currentColor; stroke:none" />
+  </defs>
+  <g
+     id="grid">
+    <g
+       id="g2357"
+       style="font-size:12;color:#808080;fill:none;stroke:#7f7f7f;stroke-width:5;stroke-dasharray:5 10 ;stroke-dashoffset:0;">
+      <path
+         id="path2359"
+         d="M41,604 L959,604 "
+         style="stroke:#7f7f7f;stroke-opacity:1;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:5,9.999999;stroke-dashoffset:0;" />
+    </g>
+    <g
+       id="g2381"
+       style="font-size:12;color:#808080;fill:none;stroke:#7f7f7f;stroke-width:5;stroke-dasharray:5 10 ;stroke-dashoffset:0;">
+      <path
+         id="path2383"
+         d="M41,142 L959,142 "
+         style="stroke:#7f7f7f;stroke-opacity:1;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:5,10;stroke-dashoffset:0" />
+    </g>
+    <g
+       id="g2441"
+       style="font-size:12;color:#808080;fill:none;stroke:#7f7f7f;stroke-width:5;stroke-dasharray:5 10 ;stroke-dashoffset:0;">
+      <path
+         id="path2443"
+         d="M653,720 L653,26 "
+         style="stroke:#7f7f7f;stroke-opacity:1;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:5,10;stroke-dashoffset:0" />
+    </g>
+
+    <path
+       id="path730"
+       d="M 41 720 L 41 26"
+       style="font-size:12;fill:none;stroke:#7f7f7f;stroke-width:5;stroke-dasharray:5 10 ;stroke-dashoffset:0;"
+       sodipodi:nodetypes="cc" />
+  </g>
+  <g
+     id="T1">
+    <path
+       id="path756"
+       d="M 193 372 L 193 538
+"
+       style="font-size:12;fill:none;stroke:#7f7f7f;stroke-width:5;stroke-dasharray:5,9.999999;stroke-dashoffset:3;"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="font-size:12;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.999998;stroke-linejoin:round;"
+       d="M 176.1806 514.7988 L 193.8972 524.8936 L 176.1806 534.9884 M 59.05192 514.7988 L 41.33537 524.8936 L 59.05192 534.9883 M 41.33537 524.8936 L 193.8972 524.8936 "
+       id="path695"
+       sodipodi:nodetypes="cccccccc" />
+    <text
+       style="fill:black;stroke:none;font-family:Arial;font-style:normal;font-weight:normal;font-size:100;text-anchor:start;writing-mode:lr;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+       x="100"
+       y="497.082256"
+       id="text697"
+       sodipodi:linespacing="100%"
+       xml:space="default">
+      <tspan
+         x="100"
+         y="497.082245"
+         sodipodi:role="line"
+         id="tspan704">t</tspan>
+    </text>
+  </g>
+  <g
+     id="T"
+     transform="translate(0,-24.79338)">
+    <path
+       style="font-size:12;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.999999;stroke-linejoin:round;"
+       d="M 41.37 604.2642 L 654.5617 604.2642 M 59.08654 594.1694 L 41.37 604.2642 L 59.08654 614.3589 M 636.8451 594.1694 L 654.5617 604.2642 L 636.8451 614.359 "
+       id="path696"
+       sodipodi:nodetypes="cccccccc" />
+    <text
+       style="fill:black;stroke:none;font-family:Arial;font-style:normal;font-weight:normal;font-size:100;text-anchor:start;writing-mode:lr;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+       x="317"
+       y="584.931067"
+       id="text711"
+       sodipodi:linespacing="100%"
+       xml:space="default">
+      <tspan
+         x="317"
+         y="584.931091"
+         sodipodi:role="line"
+         id="tspan712">T</tspan>
+    </text>
+  </g>
+  <path
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:blue;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+     d="M 41 373 L 41 142 L 193 142 L 193 373 L 653 373 L 653 142 L 805 142 L 805 373 L 955 373 "
+     id="graph"
+     sodipodi:nodetypes="ccccccccc" />
+</svg>

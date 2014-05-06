@@ -11,7 +11,7 @@ Here is a demonstration video of the expected result:
 
 <iframe width="560" height="315" src="//www.youtube.com/embed/PChgksbXZL0?rel=0" frameborder="0" allowfullscreen></iframe>
 
-If you just want to grab the source code, here is the [GitHub link](https://github.com/jpetitcolas/arduino-experiments/tree/master/led-colorpicker).
+If you just want to grab the source code, here is the [GitHub link](#).
 
 ## Wiring our RGB LED
 
@@ -377,5 +377,5 @@ $(huePicker).on("changeColor", function(e, color) {
 
 Move your cursor, and let's the magic of websockets happens!
 
-Code source of this sample is available on [GitHub](https://github.com/jpetitcolas/arduino-experiments/tree/master/led-colorpicker).
+Code source of this sample is available on [GitHub](#).
 
