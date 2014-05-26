@@ -15,8 +15,6 @@ If you just want to grab the source code, here is the [GitHub link](https://gith
 
 ## Wiring our RGB LED
 
-### Plugging our RGB LED
-
 First step is of course to create our circuit. We will need a RGB LED and three 330Ω resistors. The RGB LED (RGBL) is easily recognizable with its four pins. Longest should be linked to the ground. If you put the longest pin at second position, red will be the first, green and blue the third and fourth respectively. Do not forget to add some resistors to avoid to burn out them:
 
 <p class="center">
@@ -47,7 +45,7 @@ For instance, let's imagine the following signal, where the period `T` is very s
     <figcaption>Square wave - Source: <a href="http://commons.wikimedia.org/wiki/File:Pulse_wide_wave.svg">MatthiasDD, via Wikimedia</a></figcaption>
 </figure>
 
-The average output would simply be `(t/T) * Vmax`. This way, it is possible to emulate an output of a wide range of values, from 0V (t&nbsp;=&nbsp;0, a null signal) to 5V (t = T, a full +Vmax signal), just switching the signal on and off at a different frequency.
+The average output would simply be `(t/T) * Vmax`. This way, it is possible to emulate an output of a wide range of values, from 0V (t&nbsp;=&nbsp;0, a null signal) to 5V (t = T, a full +Vmax signal), just switching the signal on and off with different timings.
 
 So, now we got the really basic principle of PWM (for more detailed explanations, see [Wikipedia](http://en.wikipedia.org/wiki/Pulse-width_modulation)), let's go back to our IDE!
 
@@ -220,6 +218,7 @@ var HuePicker = function(container, options) {
 ```
 I won't explain it further, as variables are self-explained. Our `init` function will create a canvas containing our rainbow colors and create the marker:
 
+``` js
 /**
  * Initialize HuePicker widget and bind its events.
  */
@@ -228,7 +227,6 @@ HuePicker.prototype.init = function() {
     this.marker = this._createMarker();
 };
 
-``` js
 /**
  * Create a canvas element and fill it with rainbow colors.
  * @private
@@ -323,18 +321,6 @@ Retrieving a pixel color from the canvas does not return the hexadecimal code of
  * @returns {string}
  */
 HuePicker.prototype.getValue = function() {
-    // Take first pixel at desired abscissae
-    var currentColor = this.context.getImageData(this.markerX, 0, 1, 1);
-
-    return this._convertPixelArrayToHexadecimalCode(currentColor.data);
-};
-
-``` js
-/**
- * Return currently selected color.
- * @returns {string}
- */
-HuePicker.prototype.getValue = function() {
     var currentColor = this.context.getImageData(this.markerX, 0, 1, 1);
 
     return this._convertPixelArrayToHexadecimalCode(currentColor.data);
@@ -359,7 +345,8 @@ HuePicker.prototype._convertPixelArrayToHexadecimalCode = function(pixelValue) {
     return hexadecimalColor;
 }
 ```
-The main part of this code is the trick to convert a number to its hexadecimal equivalent, using the `toString` method, with the base parameter.
+
+To convert a number to its hexadecimal equivalent, we use the `toString` method, with the `base` parameter.
 
 Finally, simply use your color picker on your web interface:
 
