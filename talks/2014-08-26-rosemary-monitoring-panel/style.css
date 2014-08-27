@@ -1,0 +1,72 @@
+body {
+    background: #444;
+}
+
+.slide {
+    background: #766953;
+}
+
+header.slide {
+    border: 0;
+}
+
+header {
+    background-size: cover;
+}
+
+header p {
+    text-align: center;
+}
+
+header::after {
+     content: "";
+     opacity: 0.5;
+     top: 0;
+     left: 0;
+     bottom: 0;
+     right: 0;
+     position: absolute;
+     z-index: -1;
+     background: rgba(0, 0, 0, 0.6);
+ }
+
+header h1 {
+    background-size: cover;
+    text-shadow: .05em .05em .1em rgba(0, 0, 0, 0.6);
+}
+
+.attribution {
+    text-align: right;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 0.5em;
+    padding-right: 3em;
+}
+
+a:hover {
+    text-shadow: none;
+    text-decoration: underline;
+    background: transparent;
+}
+
+.attribution a::after {
+    content: ""
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+pre {
+    box-shadow: none;
+    margin-bottom: 1em;
+}
+
+sub {
+    font-size: 0.6em;
+}
+
+.equation {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0.5em auto;
+}
