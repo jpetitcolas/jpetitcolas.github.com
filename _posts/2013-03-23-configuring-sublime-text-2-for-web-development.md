@@ -3,8 +3,6 @@ layout: post
 title: "Using Sublime Text 2 for web development"
 ---
 
-# {{ page.title }}
-
 As everyone else, I started development with basic utility, such as Notepad (without the ++). Then, I gave a try to more advanced tools allowing me to have some syntax highlighting, basic auto-completion, etc. When I started professional development, I switched to more robust looking IDEs (especially Eclipse and Netbeans). It was pleasant at the beginning, when my needs were really basic. Yet, they are often based on Java, which provide them a particular heaviness (and critical security flaws). And, if you HAVE the misfortune to work on a remote Samba share, it is better you are really patient...
 
 Today, I play with several brand new exciting technologies, such as Symfony2 or Node.js, versionning it through the powerful Git, and having tamed Bash commands pretty well. Developing on Windows has become a terrible pain. Some solutions exist, such as Cygwin. Yet, they are not satisfactory, because of some limitations. The best solution I found is to use a virtual machine (for the Linux power) interfaced with a Samba network drive to my host system.

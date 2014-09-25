@@ -4,8 +4,6 @@ title: Migrating to GitHub Pages
 date: 2012-12-25
 ---
 
-# {{ page.title }}
-
 ## WordPress, an overkill CMS
 
 I used [WordPress](http://wordpress.org) during several years, since the first time I blogged. This incredible platform helps to put online very easily a website and offers a great community, with a wide choice of themes or plugins. I really enjoyed it. Yet, as time passes, this blogging platform turns deeper and deeper into a big CMS with a wide range of features. It is a good thing. This tool is greatly designed (for user experience at least... I always had some trouble with WordPress code). Yet, it is now a overkill solution for my humble blog, gathering only simple posts and pages.
@@ -31,7 +29,7 @@ Another great advantage of this solution is to provide you a [Fork me on GitHub!
 I was worried about some hosting restrictions. After all, GitHub is not a blogging platform, but a huge open-source repositories gatherer. So, I asked their support, and got an answer within the 24h (really reactive, especially taking the jet lag into account). Here is their answer (I extracted the only interesting part):
 
 > Good questions!  About bandwidth limits, there are no hard limits, but our terms of service has a section on bandwidth usage under section G item 12. And about the number of pages you can have, there is no explicit limit here, but since your Pages are hosted in a GitHub repository, it’s subject to the same size limits as other repositories as discussed here.
-> 
+>
 > Finally, about topic restrictions, we have another item in our terms of service under section G item 7 that explains our position on content.
 
 What do the terms of service say? I extracted related parts:

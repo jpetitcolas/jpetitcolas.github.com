@@ -3,8 +3,6 @@ layout: post
 title: "Fibonacci sequence generator in Go"
 ---
 
-# {{ page.title }}
-
 When completing one of the mathematical challenge of [Project Euler](https://projecteuler.net/), I had to compute some
 Fibonacci numbers. I found, with the help of [François Zaninotto](http://redotheweb.com/), a very elegant way to get the
 terms of this famous sequence, based on a [StackOverflow answer](http://codereview.stackexchange.com/a/28445).

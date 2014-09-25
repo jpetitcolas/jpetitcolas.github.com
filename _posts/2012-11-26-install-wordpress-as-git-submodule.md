@@ -4,8 +4,6 @@ title: Installing WordPress as a Git submodule
 date: 2012-11-26
 ---
 
-# {{ page.title }}
-
 ## Installing WordPress submodule
 
 Updating a WordPress blog with all its plug-ins may be very time-consuming, especially for those who maintain several blogs. Fortunately, there is a solution to reduce maintenance time. Using Git, you will be able to update your blogs just by checking out the new tag of your WordPress submodule.
@@ -107,4 +105,4 @@ git commit -am "Switch WordPress to 3.4.3 version"
 
 It is the same we have seen before. It consists to fetch all recently created tags and branches, and to change current version.
 
-It is equivalent for all the plug-ins and/or themes... at least, if they have a Git repository, which is not often the case. Pretty sad for open-source, isn't it? 
+It is equivalent for all the plug-ins and/or themes... at least, if they have a Git repository, which is not often the case. Pretty sad for open-source, isn't it?

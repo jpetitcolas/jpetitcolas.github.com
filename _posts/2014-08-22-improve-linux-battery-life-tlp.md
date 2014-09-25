@@ -3,8 +3,6 @@ layout: post
 title: "Improve your Linux battery life with TLP"
 ---
 
-# {{ page.title }}
-
 I used to work on Windows, using some virtual machines for development. It is a good system, and I would have probably
 never changed if I was not using [Docker](https://www.docker.com/). Indeed, Docker is based on **LinuX** Containers (LXC),
 which obviously are not available on Windows. And booting a heavy VM to start a lightweight Docker container is not an

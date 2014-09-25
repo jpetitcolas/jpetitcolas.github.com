@@ -3,8 +3,6 @@ layout: post
 title: "Parsing binary files in Go"
 ---
 
-# {{ page.title }}
-
 I am currently working on a Go library to parse Starcraft2 replay files. These files are stored in binary format (called
 MoPaQ) where each sequence of bytes is related to a specific information. For instance, the four bytes at position 8
 represents the header offset, which is 1024. It means that real game data are going to start at the 1024th byte.

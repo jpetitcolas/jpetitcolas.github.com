@@ -4,8 +4,6 @@ title: New year, new start...
 date: 2013-01-07
 ---
 
-# {{ page.title }}
-
 I have decided to commit myself into two major professional changes this new year: accepting a new job proposal and closing my own company. Here are the reasons of these two big steps.
 
 ## End of my adventure at MyStudioFactory
@@ -32,7 +30,7 @@ That's why when I learnt he was looking for some developers, I immediately sent 
 
 The other main decision I took is the closure of my company. Indeed, I developed for several years websites, blogs or Intranets as a freelance. It allowed me to increase my experience in WordPress and Symfony2 on concrete professional projects (and of course to earn a little extra money). Yet, this side activity was really time-consuming and having a personal life in these conditions was not really easy.
 
-I love open-source. I discovered it a several years ago, with my first Linux installation. Then, I felt in love with development, and I often inspired me from online snippets. Yet, at this time, GitHub did not exist. And it was difficult to share patches and other code changes with the main developers. So, it was essentially a unidirectional relationship. 
+I love open-source. I discovered it a several years ago, with my first Linux installation. Then, I felt in love with development, and I often inspired me from online snippets. Yet, at this time, GitHub did not exist. And it was difficult to share patches and other code changes with the main developers. So, it was essentially a unidirectional relationship.
 
 When I started to use PHP in a professional environment, I gathered all my functions and modified snippets into my own framework (Symfony or Zend were not so famous as today). I shared it with several people: friends, colleagues, etc. We all brought some changes to improve security, performances, features, and so on. It was open-source, but in a restricted circle.
 

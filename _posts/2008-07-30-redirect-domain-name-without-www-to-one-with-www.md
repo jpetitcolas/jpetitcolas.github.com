@@ -4,9 +4,7 @@ title: "Redirect your URL without www to the one with www"
 date: 2008-07-30
 ---
 
-# {{ page.title }}
-
-On some configuration, domain name without `www` does not always redirect to the one with `www`. This results in a bad SEO, as search engines will see two different websites because of the two different URL. So, they will consider your website _www.mysite.com_ as a duplicated content of _mysite.com_. 
+On some configuration, domain name without `www` does not always redirect to the one with `www`. This results in a bad SEO, as search engines will see two different websites because of the two different URL. So, they will consider your website _www.mysite.com_ as a duplicated content of _mysite.com_.
 
 Fortunately, there is an easy trick to prevent from such a disadvantage. Just set up a 301 redirect from the without www domain to the with www domain (or the opposite). You can do it by adding the following to your VHost (or to your _.htaccess_ file):
 

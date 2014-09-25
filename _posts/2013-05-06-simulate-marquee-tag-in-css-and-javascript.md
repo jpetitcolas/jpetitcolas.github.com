@@ -3,8 +3,6 @@ layout: post
 title: "Simulate marquee tag in CSS and Javascript"
 ---
 
-# {{ page.title }}
-
 Several days ago, one of my following [asked on Twitter](https://twitter.com/Ornux/status/324451213171109888) how to simulate `marquee` tag in full CSS. For the youngest developers who may not know this strongly unadvised tag, it allows to slide a text from right to left. I know it is a deprecated one, because of a huge lack of accessibility. Yet, customers are always right. And, even if you try to convince them that it is a real disaster for readability and accessibility, some simply don't care. So, here is a CSS alternative.
 
 First, the HTML:

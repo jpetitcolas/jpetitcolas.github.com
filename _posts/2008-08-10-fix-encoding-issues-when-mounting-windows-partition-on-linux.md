@@ -4,8 +4,6 @@ title: "Fix encoding issues when mounting a Windows partition on Linux"
 date: 2008-08-10
 ---
 
-# {{ page.title }}
-
 Even if it is strongly discouraged, some filenames may contains some accents or some other special characters. If it does not cause any problem in general, it may give serious issues when mounting the partition containing these files in another system. Say a Linux one.
 
 It was the case with a recent Windows backup. Trying to mount it on my Linux system worked. Yet, all files containing accents were corrupted: unable to open it.

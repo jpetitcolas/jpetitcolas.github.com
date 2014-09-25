@@ -3,8 +3,6 @@ layout: post
 title: "Building a static website with Silex"
 ---
 
-# {{ page.title }}
-
 I recently helped a contact of mine to develop her company website (<a href="http://www.up-grading.fr">up'grading</a>). Her needs were basic: some static pages and a FAQ.
 
 I faced three main choices to achieve such a demand:

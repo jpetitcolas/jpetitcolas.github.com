@@ -3,8 +3,6 @@ layout: post
 title: "Creating a Morse encoder with Arduino"
 ---
 
-# {{ page.title }}
-
 A few days ago, I received my [SparkFun inventor's kit](https://www.sparkfun.com/products/12001). This kit includes an Arduino and many electronic components such as LCD panel or drive motor. And, icing on the cake, it also provides several tutorials to brush up on electronics. In short, a perfect starter kit.
 
 The first tutorial is about switching on and off a LED. Not really challenging (especially with the 4 lines provided source code). So, let's raise the bar higher: we will create a [Morse language](http://en.wikipedia.org/wiki/Morse_code) encoder. The Morse language maps each letter and number to a unique sequence of dot and dashes (respectively a short and long light flash). So, making the LED blinking, we would be able to transmit a message. Sounds more exciting, isn't it?
@@ -60,7 +58,7 @@ void loop()
     delay(1000);
 }
 ```
-All Arduino programs should contain both the `setup` and `loop` functions. The first one initializes all our components. In this case, we tell Arduino the pin 13 will be used only as an output, and no input would be made on it. 
+All Arduino programs should contain both the `setup` and `loop` functions. The first one initializes all our components. In this case, we tell Arduino the pin 13 will be used only as an output, and no input would be made on it.
 
 Then, the `loop` function will be executed forever (unless Arduino is stopped manually). In this case, we send a `HIGH` signal (meaning +5V) on the pin 13, which light on the LED. We wait 1 second, then we send a `LOW` signal (0V) to switch it off, and we wait again.
 

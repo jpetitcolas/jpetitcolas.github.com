@@ -4,11 +4,9 @@ title: Optimizing JQuery performances
 date: 2012-07-29
 ---
 
-# {{ page.title }}
-
 JQuery is one of the major Javascript framework. Indeed, it is easy to dive in, has great performances and a huge community. Yet, developers sometimes forget to optimize performances, relying only on framework internals. It is an issue, especially nowadays, when mobile traffic is so important.
 
-That's why I am sharing with you a slideshow from [Addy Osmani](http://addyosmani.com/blog/), an AOL front-end developer and core-team member of JQuery. Addy gives some tips and tricks to increase overall speed of your scripts.
+That's why I am sharing with you a slideshow from [Addy Osmani](http://addyosmani.com/blog/), core-team member of JQuery. Addy gives some tips and tricks to increase overall speed of your scripts.
 
 <div class="iframe">
   <iframe src="http://www.slideshare.net/slideshow/embed_code/8520572" frameborder="0" scrolling="no">  </iframe>
@@ -24,4 +22,4 @@ To put it in a nutshell, here are the key points:
 * Think to `detach` method when you have heavy computing to do on a DOM element.
 * Forget `data` or `text` methods: use `$.data` or `$.text` instead of.
 
-Very interesting tips, aren't they? 
+Very interesting tips, aren't they?

@@ -4,8 +4,6 @@ title: "Create a rotating cube in WebGL with Three.js"
 date: 2013-04-02
 ---
 
-# {{ page.title }}
-
 During the last hackday at [Marmelab](http://www.marmelab.com), I decided to play with [Three.js](http://mrdoob.github.com/three.js/), one of the most famous WebGL library. As hackdays are not hackweeks, I restricted myself to a simple purpose: a rotating Marmelab logo. Today, I am going to present to you the results of my experiments.
 
 I splitted it into two posts. The first one is aimed to be a simple introduction to Three.js shows how to generate a rotating cube. The second one will learn you how to modelize a (not so) complex mesh in Blender and how to import it with correct texture. But for now, let's focus on the simple cube.

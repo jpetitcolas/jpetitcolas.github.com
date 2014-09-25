@@ -3,8 +3,6 @@ layout: post
 title: "Changing Arduino RGBL color through a web interface"
 ---
 
-# {{ page.title }}
-
 After the first tutorial about [a morse encoder with Arduino](http://www.jonathan-petitcolas.com/2014/03/16/creating-morse-encoder-with-arduino.html), I decided to go further: using a web interface to drive my board. To achieve this purpose, I used the [Johnny Five framework](https://github.com/rwaldron/johnny-five) (allowing to program on Arduino with Javascript) and [Socket.io](http://www.socket.io) for communication between the browser and the circuit.
 
 Here is a demonstration video of the expected result:
@@ -90,18 +88,18 @@ Finally, we inject to the interactive shell our LED object. This will allow to m
 led.__defineGetter__      led.__defineSetter__      led.__lookupGetter__
 led.__lookupSetter__      led.constructor           led.hasOwnProperty
 led.isPrototypeOf         led.propertyIsEnumerable  led.toLocaleString
-led.toString              led.valueOf               
+led.toString              led.valueOf
 
 led.brightness            led.color                 led.fade
 led.fadeIn                led.fadeOut               led.off
 led.on                    led.pulse                 led.stop
-led.strobe                led.toggle                
+led.strobe                led.toggle
 
 led.blue                  led.board                 led.green
 led.id                    led.io                    led.pins
-led.red                   
+led.red
 
->> led.off(); 
+>> led.off();
 undefined
 >> console.log(led.color)
 [Function]
@@ -152,7 +150,7 @@ board.on("ready", function() {
     this.repl.inject({ led: led });
 });
 ```
-First line we include Socket.io and tell it to listen to port 8080. Then in our code, we simply log new connections and wait for a `changeColor` event, which will be triggered by our web browser. 
+First line we include Socket.io and tell it to listen to port 8080. Then in our code, we simply log new connections and wait for a `changeColor` event, which will be triggered by our web browser.
 
 Testing it requires a Socket.io emitter. Let's create a basic `index.html` page. Here is the minimal snippet to test our websocket:
 
@@ -170,7 +168,7 @@ Testing it requires a Socket.io emitter. Let's create a basic `index.html` page.
     })
 </script>
 ```
-An input to enter the wished color, a button to validate, and a socket to emit the event when the user click on the button. Do not forget to make the listening and emitting ports match. 
+An input to enter the wished color, a button to validate, and a socket to emit the event when the user click on the button. Do not forget to make the listening and emitting ports match.
 
 For Socket.io to work, you need to launch a web server on desired port. You are free to use the solution you want: [Harp](http://harpjs.com/), [Python SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html), or whatever. As a PHP developer, I personnaly use:
 

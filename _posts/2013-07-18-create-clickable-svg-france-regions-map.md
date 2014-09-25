@@ -5,8 +5,6 @@ title: "Create a clickable SVG map"
 
 <script src="/labs/svg/raphael-min.js"></script>
 
-# {{ page.title }}
-
 In my career, I often faced customers wanting a clickable France regions or departments map. Several years ago, I was used to implementing a Flash map. It was functional, even if it had several disadvantages:
 
 * It requires a plug-in. Even if it was widely installed, it is not native.

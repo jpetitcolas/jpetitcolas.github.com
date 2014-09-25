@@ -3,8 +3,6 @@ layout: post
 title: "Finding out slowest tests of your PHPUnit test suite"
 ---
 
-# {{ page.title }}
-
 Writing tests is a very important and tranquilizing task in developer daily life. Delivering a new feature with green tests removes so much stress, telling the developer he had not break anything. That&#39;s why you should write tests for every single new piece of code you implement.
 
 If you joined a big project, you should have noticed that tests are very slow to execute. For instance, on a current huge project we have at [Marmelab](http://www.marmelab.com), tests are taking 45 minutes. This is generally not an issue with continuous integration server, as you can execute tests in background without monopolizing your workstation. Yet, long tests are really a bad point
