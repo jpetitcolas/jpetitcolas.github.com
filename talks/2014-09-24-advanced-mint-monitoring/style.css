@@ -1,13 +1,13 @@
-body {
-    background: #444;
-}
-
-.slide {
+html, body, .slide {
     background: #766953;
 }
 
 header.slide {
     border: 0;
+}
+
+.slide h2 {
+    font-size: 250%;
 }
 
 header {

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	<title>Monitoring avancé de romarin - Apéros Web Nancy - Jonathan Petitcolas</title>
+	<title>Advanced mint monitoring - Paris.js #39- Jonathan Petitcolas</title>
 
 	<link href="../csss/slideshow.css" rel="stylesheet" />
 	<link href="../csss/theme.css" rel="stylesheet" />
@@ -17,7 +17,7 @@
 </head>
 <body>
 <section>
-	<header class="slide background" style="background-image: url(rosemary.jpg); background-position: center -140px;">
+	<header class="slide background" style="background-image: url(mint.jpg);">
         <style scoped="scoped">
             h1 {
                 position: relative;
@@ -25,32 +25,30 @@
                 margin-bottom: 0.5em;
             }
         </style>
-		<h1>Monitoring avancé<br/>de romarin</h1>
+		<h1>Advanced mint monitoring</h1>
         <p>
-            Jonathan Petitcolas - Apéros Web Nancy - Août 2014<br />
+            Jonathan Petitcolas (<a href="https://www.twitter.com/sethpolma">@Sethpolma</a>) - Paris.js - September 2014<br />
             <a href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a>
         </p>
         <p class="attribution">
-            Photo :
-            <a href="https://www.flickr.com/photos/healthgauge/9441479043/in/photolist-39dxFA-8aCWnr-dAfbnB-dAMi6h-83e6FB-dzZdoT-kkGRpF-foj3Mr-dzdZSU-NNtBU-obR1b5-cL9BY-7mipoy-9eXGBS-4swKxJ-4K8kQw-5eG1jd-enwaxW-6CxA2k-4u68Qe-nCBK5t-4RJFR7-nwXd9U-7XESLK-adZPQ3-DMS2L-UDHJP-hRYdDj-oYW2r-gDLxwc-epLfu3-FFCMo-aKM8mr-6HiQBZ-mZghwE-dzBmBn-QZ5ZM-meFbt-6bmvZJ-bQFJmv-7bQnvC-9YuEs-8G9qwU-8bfHcc-buBmYZ-cJR16s-8aZxd7-aA7AUB-6qz81H-59FfLA">
-                Rosemary, Health Gauge
+            Picture:
+            <a href="https://www.flickr.com/photos/siriwan/482649686">
+                Pepper-mint, by Pawel
             </a>
         </p>
 	</header>
 
 	<section class="slide background" style="background-image: url(jonathan-petitcolas-8bit-tie.jpg); background-size: cover; border: 0; padding: 0 5% 3%;">
-		<h2 style="text-align: right;">Jonathan Petitcolas</h2>
-		<div style="margin-left: 50%;">
-			<p class="delayed">Développeur chez <a href="http://www.marmelab.com">marmelab</a><br/>Symfony2, Node.js, Go</p>
+		<div style="position: absolute; right: 50px; width: 50%; margin-top: 50px;">
+            <h2>Jonathan Petitcolas</h2>
+			<p class="delayed">Developer at <a href="http://www.marmelab.com">marmelab</a><br/>Symfony2, Node.js, Go, D3.js</p>
 			<p class="delayed">
-                Contributeur open-source<br/>
-                <a href="http://marmelab.com/phpunit-d3-report/">PHPUnit D3 report</a>,
-                <a href="https://github.com/jpetitcolas/french-geography">French Geography</a>, etc.
+                Open-source contributor: <a href="http://marmelab.com/phpunit-d3-report/">PHPUnit D3 report</a>
             </p>
-            <p class="delayed">Organisateur des <a href="https://twitter.com/AperoWebNancy">Apéros Web Nancy</a></p>
-            <p class="delayed">&Eacute;lectro-curieux</p>
+            <p class="delayed">Organizer of <a href="https://twitter.com/AperoWebNancy">Apéros Web Nancy</a></p>
             <p class="delayed">
-                Twitter : <a href="https://twitter.com/Sethpolma">@Sethpolma</a> | GitHub : <a href="https://github.com/jpetitcolas">jpetitcolas</a>
+                Twitter : <a href="https://twitter.com/Sethpolma">@Sethpolma</a><br />
+                GitHub : <a href="https://github.com/jpetitcolas">jpetitcolas</a>
             </p>
 		</div>
 	</section>
@@ -65,36 +63,36 @@
 
            li p {
                width: 100%;
-               font-size: 2em;
-               height: 500px;
+               font-size: 150%;
            }
 
            li img {
-               max-height: 500px;;
+               max-height: 500px;
+               max-width: 100%;
            }
 
            li::before {
                content: "";
            }
         </style>
-		<h2>Que surveiller ?</h2>
+		<h2>Monitoring what?</h2>
         <ul>
             <li class="delayed">
                 <p>
                     <img src="sun.png" alt="Lumière"/><br />
-                    Lumière
+                    Light
                 </p>
             </li>
             <li class="delayed">
                 <p>
                     <img src="thermometer.png" alt="Température"/><br />
-                    Température
+                    Temperature
                 </p>
             </li>
             <li class="delayed">
                 <p>
                     <img src="drop.png" alt="Humidité"/><br />
-                    Humidité
+                    Humidity
                 </p>
             </li>
         </ul>
@@ -102,10 +100,10 @@
 </section>
 
 <section>
-    <header class="slide" style="background-image: url(arduino.jpg);">
+    <header class="slide background" style="background-image: url(arduino.jpg);">
         <h1>Arduino</h1>
         <p class="attribution">
-            Photo :
+            Picture:
             <a href="https://www.flickr.com/photos/gabriellalevine/9583831483/in/photolist-fATDcR-diKRxP-69HfGN-8VRoDe-8yo7VR-5sEZYu-4MYtLJ-8Ng8a1-dBKAW4-eBPF3a-6agNNc-5SAaCK-8X8hLe-6rg39i-5B1Lfo-3EAgU2-8QLAAE-adQqaY-iYHviw-5vhJcc-5Qs3ix-sjRGt-5XwBFB-4tR2pJ-aCTkn4-by4KN-8X8hPe-4EaL9o-5S7Yjr-4ckNrU-xedra-dPn31e-5NHSys-8yuFfH-91daJe-4gRaWH-8d1LM8-6u32Sf-5oZuGc-9gLFGs-8iR6h8-5Drouk-frdTPE-8Ng8Gf-8yo7U4-4wcyP3-dF1cXF-fa7aQD-fa7aLT-3Lf1Fr">
                 Arduino, Gabriella Levine
             </a>
@@ -127,44 +125,24 @@
                 height: 100%;
             }
         </style>
-        <img src="breadboard.jpg" alt="Breadboard" id="breadboard"/>
-        <img src="breadboard-with-connections.jpg" alt="Breadboard" style="display: none;" id="breadboard-with-connections"/>
-        <script>
-            document.getElementById("breadboard").addEventListener("mouseover", function() {
-                this.src = "breadboard-with-connections.jpg";
-            });
-
-            document.getElementById("breadboard").addEventListener("mouseout", function() {
-                this.src = "breadboard.jpg";
-            });
-        </script>
+        <img src="breadboard.jpg" alt="Breadboard" />
 	</section>
 
-    <section class="slide">
+	<section class="slide" style="text-align: center;">
         <style scoped="scoped">
             img {
-                float: left;
-                margin-right: 80px;
+                height: 100%;
             }
         </style>
-        <h2>IDE Arduino</h2>
-        <img src="arduino-ide.png" alt="Arduino IDE"/>
-        <ul>
-            <li class="delayed">Pas d'auto-complétion</li>
-            <li class="delayed">Pas de fold/unfold</li>
-            <li class="delayed">Mono-onglet</li>
-            <li class="delayed">Pas de "Go to definition"</li>
-            <li class="delayed">Support du C++ like d'Arduino<br/><br/></li>
-            <li class="delayed">Permet d'uploader le <em>StandardFirmata</em> firmware</li>
-        </ul>
-    </section>
+        <img src="breadboard-with-connections.jpg" alt="Breadboard" />
+	</section>
 </section>
 
 <section>
     <header class="slide" style="background-image: url(johnny-five.png); background-color: #fff; background-repeat: repeat-x">
         <h1>JohnnyFive</h1>
         <p class="attribution">
-            Photo :
+            Picture:
             <a href="https://www.flickr.com/photos/kielbryant/2252304874/in/photolist-4DUoNX-9Yhn2G-dgbSsj-idyE1-2MEGxJ-92ZsJC-4XpQj4-6KoHsa-6WeWya-62Gvzr-o9Gf3y-4r2DLE-5Wo2Lb-2mLbJZ-6jchhu-5tC1u4-cYcKvW-4WY6Fc-ipkXW-n2r2Pn-tvkqz-7PECfW-4ZeW8b-6ooUbq-idEQg-aXUUHa-aXUUNV-4Lw98o-aXUUKT-7Zxnn5-cNFV2u-XHgFv-6AEDHm-3icf7s-6AAstD-6AAodV-6HqDqo-cWFmbo-cWFkPq-cWFkJj-cWFkYA-cWFkDY-5YCJqk-fnxZy9-cjqRM-5F8oWJ-5YGX2N-5YGXG1-5YGXku-5YGXKW">
                 Wall-Who?, Kiel Bryant
             </a>
@@ -174,25 +152,29 @@
     <section class="slide">
         <style scoped="scoped">
             img {
+                display: inline-block;
+                max-width: 50%;
+                margin-right: 40px;
                 float: left;
-                margin-right: 80px;
             }
         </style>
-        <h2>Température : capteur TMP36</h2>
-        <img src="tmp36.jpg" alt="Capteur de température TMP36"/>
+        <h2>Temperature sensor TMP36</h2>
+        <img src="tmp36.jpg" alt="TMP36 temperature sensor" title="TMP36 temperature sensor" />
         <ul>
             <li class="delayed">Datasheet : <a href="http://www.gotronic.fr/pj-883.pdf">TMP3x</a></li>
-            <li class="delayed">Composant polarisé</li>
+            <li class="delayed">Polarized component</li>
             <li class="delayed">
-                Tension de sortie dépendant de la température :
+                Output voltage only depend from temperature:
                 <p class="equation delayed">
                     \(T = 100 * V_{out} - 50\)
                 </p>
             </li>
+        </ul>
+        <div style="clear: both;"></div>
     </section>
 
     <section class="slide">
-        <h2>Installation de Johnny Five</h2>
+        <h2>Installing Johnny Five</h2>
         <pre><code lang="javascript">// package.json
 {
     "dependencies": {
@@ -204,15 +186,14 @@
     </section>
 
     <section class="slide">
-        <h2>Affichage de la température</h2>
-        <pre><code lang="javascript">// package.json
-var five = require('johnny-five');
+        <h2>Displaying temperature</h2>
+        <pre><code lang="javascript">var five = require('johnny-five');
 
 var board = new five.Board();
 var temperatureSensor;
 
 board.on('ready', function() {
-    temperatureSensor = new five.Sensor('A0');
+    temperatureSensor = new five.Sensor({ pin: 'A0', freq: 1000 });
     temperatureSensor.on('data', function() {
         console.log(getTemperature() + "°C");
     });
@@ -225,19 +206,21 @@ function getTemperature() {
     </section>
 
     <section class="slide">
-        <h2>Lissage avec condensateurs</h2>
+        <h2>Smoothing output</h2>
         <style scoped="scoped">
             img {
+                display: inline-block;
+                max-width: 50%;
+                margin-right: 40px;
                 float: left;
-                margin-right: 80px;
             }
         </style>
         <img src="tmp36-circuit.jpg" alt="Capteur de température TMP36"/>
         <ul>
-            <li class="delayed">Très faible intensité</li>
-            <li class="delayed">Très sensible au bruit</li>
-            <li class="delayed">Trop longs fils => mesures inexploitables</li>
-            <li class="delayed">Lissage avec condensateurs</li>
+            <li class="delayed">Very low intensity</li>
+            <li class="delayed">Very sensitive to electro-magnetic noise</li>
+            <li class="delayed">Too long wires => unstable output</li>
+            <li class="delayed">Smoothing output with capacitors</li>
         </ul>
     </section>
 
@@ -267,39 +250,39 @@ function getTemperature() {
                 background: #BBA887;
             }
         </style>
-        <h2>Lumière : résistance SEN-09088</h2>
+        <h2>Photoresistor SEN-09088</h2>
         <img src="sen-09088.jpg" alt="Photo-résistance SEN-09088"/>
         <ul>
             <li class="delayed">Datasheet : <a href="http://dlnmh9ip6v2uc.cloudfront.net/datasheets/Sensors/LightImaging/SEN-09088.pdf">SEN-09088</a></li>
-            <li class="delayed">Résistance non linéaire</li>
-            <li class="delayed">&Eacute;talonnage préalable</li>
+            <li class="delayed">Non linear resistance</li>
+            <li class="delayed">Calibration required</li>
         </ul>
         <table class="delayed" style="width: 69%; margin-top: 1em;">
             <thead>
                 <tr>
-                    <td>Exposition</td>
-                    <td>Luminosité</td>
-                    <td>Résistance</td>
+                    <td></td>
+                    <td>Light</td>
+                    <td>Resistance</td>
                 </tr>
             </thead>
             <tbody>
                 <tr class="odd">
-                    <td>Obscurité (dans un carton)</td>
+                    <td>Darkness</td>
                     <td>1 Lux</td>
                     <td>1.4 M&ohm;</td>
                 </tr>
                 <tr class="even">
-                    <td>Temps pluvieux</td>
+                    <td>Rainy day</td>
                     <td>1 100 Lux</td>
                     <td>850 &ohm;</td>
                 </tr>
                 <tr class="odd">
-                    <td>Lampe de poche</td>
+                    <td>Torch light</td>
                     <td>8 000 Lux</td>
                     <td>200 &ohm;</td>
                 </tr>
                 <tr class="even">
-                    <td>Plein soleil</td>
+                    <td>Sunny day</td>
                     <td>30 000 Lux</td>
                     <td>120 &ohm;</td>
                 </tr>
@@ -316,16 +299,16 @@ function getTemperature() {
                 background: #fff;
             }
         </style>
-        <h2>Pont diviseur de tensions</h2>
-        <img src="voltage-divider.jpg" alt="Pont diviseur de tension" />
-        <p class="delayed">Loi d'Ohm :<br/>$U = R * I$</p>
-        <p class="delayed">Loi des mailles :<br/>$U = U_{1} + U_{2}$</p>
-        <p class="delayed">Diviseur de tensions :<br/>$U_{2} = U * \frac{R_{2}}{R_{2} + R_{1}}$</p>
+        <h2>Voltage divider bridge</h2>
+        <img src="voltage-divider.jpg" alt="Voltage divider bridge" />
+        <p class="delayed">Ohm's law:<br/>$U = R * I$</p>
+        <p class="delayed">Mesh method:<br/>$U = U_{1} + U_{2}$</p>
+        <p class="delayed">Voltage divider:<br/>$U_{2} = U * \frac{R_{2}}{R_{2} + R_{1}}$</p>
         <p class="delayed" style="font-size: 2em; margin-top: 2em;">$R_{2} = \frac{U_{2} * R_{1}}{(U - U_{2})}$</p>
     </section>
 
     <section class="slide">
-        <h2>Affichage de la luminosité</h2>
+        <h2>Displaying light</h2>
         <pre><code lang="javascript">var VOLTAGE = 5;
 var LIGHT_DIVIDER_RESISTANCE = 10;
 
@@ -356,20 +339,18 @@ function getLightResistance() {
                 border-radius: 30px;
             }
         </style>
-        <h2>Capteur d'humidité MacGyver</h2>
-        <img src="humidity.jpg" alt="Capteur d'humidité"/>
+        <h2>Humidity sensor à la MacGyver</h2>
+        <img src="humidity.jpg" alt="Humidity sensor"/>
         <ul>
-            <li class="delayed">Tension : fonction linéaire de l'humidité</li>
-            <li class="delayed">&Eacute;talonnage requis</li>
-            <li class="delayed">Terre sèche : 150 k&ohm;</li>
-            <li class="delayed">Terre humide : 10 k&ohm;</li>
-            <li class="delayed">Fil galvanisé ou inox</li>
-            <li class="delayed">Terreau : réacteur chimique</li>
+            <li class="delayed">Voltage proportional to humidity</li>
+            <li class="delayed">Calibration required: dry and wet soil</li>
+            <li class="delayed">Zinc-coated or stainless steel wire</li>
+            <li class="delayed">Compost = chemical reactor</li>
         </ul>
     </section>
 
     <section class="slide">
-        <h2>Mesure du taux d'humidité</h2>
+        <h2>Displaying humidity rate</h2>
         <pre><code lang="javascript">var HUMIDITY_DRY_RESISTANCE = 150;
 var HUMIDITY_WET_RESISTANCE = 10;
 var HUMIDITY_DIVIDER_RESISTANCE = 10;
@@ -396,25 +377,15 @@ function getHumidity() {
 	<header class="slide" style="background: url(data-storm.jpg)">
 		<h1>Websockets</h1>
         <p class="attribution">
-            Photo :
+            Picture:
             <a href="https://www.flickr.com/photos/dherholz/450303689/in/photolist-FMVAH-2dkp-ekYLQy-6EMnyQ-h4RV3y-fY9CgE-amkoeY-5hrCbv-dxi7Hk-ddn815-az29P5-4nWCrn-gbA7WS-iQVE1q-dXPWkB-c2nrdA-fkKdFR-8nRZnP-9U1s1d-9u6D1T-dRuMzt-8LCNW2-6EHcWT-4o6CuZ-7Xk9LM-6yx8zu-bf2wDV-egsmCb-9qqm6E-bikuZR-kwvpGe-i3N6NQ-i3NEbc-dL8cys-bB1z8A-iuSuaX-atW8Xa-3rdsAL-cS7n4o-98rFiH-55dS5R-9qqkKq-duzsNr-8xGZxL-2Wa9no-dTA1nq-3qhvia-hypmYn-7fr163-khg">
                 Data storm, Dave HerholzRosemary
             </a>
         </p>
 	</header>
 
-	<section class="slide">
-		<h2>Websockets</h2>
-        <ul>
-            <li class="delayed">Communication bidirectionnelle</li>
-            <li class="delayed">Notification en direct (push)</li>
-            <li class="delayed">Standardisé par le W3C et l'IETF</li>
-            <li class="delayed" style="margin-top: 2em;">Utilisation de <a href="http://socket.io/">socket.io</a></li>
-        </ul>
-	</section>
-
     <section class="slide">
-        <h2>Installation de socket.io</h2>
+        <h2>Installing socket.io</h2>
         <pre class="delayed"><code lang="javascript">// package.json
 {
     "dependencies": {
@@ -426,7 +397,7 @@ function getHumidity() {
     </section>
 
     <section class="slide">
-        <h2>Socket.io : côté serveur</h2>
+        <h2>Socket.io: server side</h2>
         <pre><code lang="javascript">var io = require('socket.io').listen(8080);
 
 board.on('ready', function() {
@@ -441,7 +412,7 @@ board.on('ready', function() {
     </section>
 
     <section class="slide">
-        <h2>Socket.io : côté client</h2>
+        <h2>Socket.io: client side</h2>
         <pre class="delayed"><code lang="xhtml">&lt;script src="//:8080/socket.io/socket.io.js"&gt;
 &lt;/script&gt;</code></pre>
         <pre class="delayed"><code lang="javascript">var socket = io.connect("//:8080");
@@ -454,105 +425,10 @@ socket.on("temp", function (value) {
 </section>
 
 <section>
-    <header class="slide" style="background: url(air-traffic-visualization.jpg); background-position: center -180px;">
-        <h1>D3.js</h1>
-        <p class="attribution">
-            Photo :
-            <a href="https://www.flickr.com/photos/natspressoffice/13085091395/in/photolist-kWhvN4-WqNo4-89cAyL-899oWR-88XmFb-87NNrv-87NEhR-83pGrT-87NRRt-87Nsrp-87RFsE-87S3xd-87Npa2-87S7Gu-87NXd4-87P6sX-83sRnE-87P5qP-83pDf8-89ae4K-6tV5SZ-7XcGMK-87NrYg-7cDQve-7z6wXU-83sK5U-892UkU-87NJy6-83sMPW-87NBjH-88XkhA-88Fe7U-8gxouo-89cCR1-83pCxi-87S3Xu-83pF1g-kWhvZX-83sQo1-83pKU8-87NJ2t-7DuGD1-88YEkx-88XmgJ-87NFti-a7aAYR-87RCj3-899mPg-87NCGr-83pJeD">
-                Air Traffic in England and Wales, NATS Press Office
-            </a>
-        </p>
-    </header>
-
-    <section class="slide">
-        <style scoped="scoped">
-            img {
-                float: right;
-                border-radius: 20px;
-                max-height: 80%;
-            }
-        </style>
-        <h2>D3.js</h2>
-        <img src="d3js-sample.png" alt="Exemple D3.js"/>
-        <ul>
-            <li class="delayed">Visualisation de données</li>
-            <li class="delayed">JS, SVG, HTML et CSS</li>
-            <li class="delayed">Powerful selections: enter / update / exit</li>
-            <li class="delayed">Animations et transitions</li>
-            <li class="delayed">Beaucoup d'<a href="https://github.com/mbostock/d3/wiki/Gallery">exemples</a></li>
-        </ul>
-    </section>
-
-    <section class="slide">
-        <h2 style="font-size: 2em;">Courbe des températures</h2>
-        <pre><code lang="javascript">var minValue = -10, maxValue = 40;
-var x = d3.scale.linear().range([0, width]).domain([0, 100]);
-var y = d3.scale.linear().range([-10, 40]).domain([height, 0]);
-
-var lineFunction = d3.svg.line()
-    .x(function(d, i) { return x(i); })
-    .y(function(d) { return y(d.temperature); });
-
-var graph = selection.append("svg")
-    .attr({ width: width, height: height })
-    .append("g");
-
-graph.selectAll("path")
-    .data(selection.data())
-    .enter()
-        .append("svg:path")
-        .attr({ "class": "line", "d": lineFunction);</code></pre>
-    </section>
-
-    <section class="slide">
-        <h2 style="font-size: 2em;">Mise à jour</h2>
-        <pre><code lang="javascript">function update(selection) {
-    var data = selection.datum();
-    var full = data.length > maximumDisplayedData;
-
-    graph.select("path.line")
-        .data([data])
-        .attr({ "d", lineFunction, "transform", null });
-
-    if (!full) return;
-
-    var transform = "translate(" + x(-1) + ")");
-    graph.selectAll("path")
-        .transition()
-            .duration(500)
-            .ease("linear")
-            .attr("transform", transform);
-
-    data.splice(0, 1);
-}</code></pre>
-    </section>
-
-    <section class="slide">
-        <h2>Le puzzle s'assemble !</h2>
-        <pre><code lang="javascript">var temperatures = [];
-var lineChart = d3.chart.line();
-
-var tempChart = d3.select(".temperature .chart")
-    .data([temperatures])
-    .call(lineChart);
-
-socket.on("temp", function(value) {
-    temperatures.push(value);
-
-    d3.select(".temperature .chart")
-        .data([temperatures])
-        .call(lineChart.update);
-
-    $(".temperature .value").text(value + "°C");
-});</code></pre>
-    </section>
-</section>
-
-<section>
     <header class="slide" style="background-image: url(question.jpg); background-position: center -240px;">
-        <h1>Des questions ?</h1>
+        <h1>Any questions?</h1>
         <p class="attribution">
-            Photo :
+            Picture:
             <a href="https://www.flickr.com/photos/jarbo/9379813470">
                 Question Mark Block, Jared Cherup
             </a>
@@ -561,12 +437,16 @@ socket.on("temp", function(value) {
 </section>
 
 <footer class="slide" title="The End">
-	<h2>Thank you!</h2>
+	<h2>Thanks!</h2>
+    <p style="text-align: center; font-size: 2em; margin-top: 2em;">
+        <a href="http://www.twitter.com/Sethpolma">@Sethpolma</a><br />
+        <a href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a><br />
+        <span class="delayed">(and of course <a href="http://www.marmelab.com">www.marmelab.com</a>)</span>
+    </p>
 </footer>
 
 <script src="../csss/slideshow.js"></script>
 <script src="../csss/plugins/code-highlight.js"></script>
 <script>var slideshow = new SlideShow();</script>
-
 </body>
 </html>
