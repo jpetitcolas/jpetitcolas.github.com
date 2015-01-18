@@ -3,13 +3,13 @@ layout: post
 title: "Playing with websockets in Go"
 ---
 
-We believe in Go language to achieve a lot in asynchrounous world. With its system of channels, it is pretty straightforward to develop an application [...]. To achieve this purpose, we decided to start a new project during one of our hackday: building a collaborative editing tool such as CollabEdit in Go. Thus, name has been easily found: GollabEdit. ;)
+We believe in Go language to achieve a lot in asynchrounous world. With its system of channels, it is pretty straightforward to develop a multi-threaded application. To achieve this purpose, we decided to start a new project during one of our hackday: building a collaborative editing tool such as CollabEdit in Go: GollabEdit. ;)
 
-We inspired ourselves from chat application tutorials in Go. Indeed, our tool is simply a chat registered into a file, with the possibility to edit past conversations.
+We inspired ourselves from chat application tutorials. Indeed, it is pretty similar, except we don't only append messages but allow to edit the whole file.
 
 ## Executing Go in a Docker container
 
-As we don”t want to pollute our workstation with a wide set of softwares in several versions depending of the project, we use Docker. Our `Dockerfile` looks like the following:
+As we don”t want to pollute our workstation with a wide set of softwares in several versions depending of the project, let's use Docker. Our `Dockerfile` looks like the following:
 
 ```
 FROM ubuntu:14.04
@@ -34,13 +34,13 @@ WORKDIR /srv/
 ENTRYPOINT ["go"]
 ```
 
-We base our container on an Ubuntu image on which we install Go dependencies. Then, we follow the [official procedure](#) to install Go. Finally, we set some required Go environment variables:
+We base our container on an Ubuntu image on which we install Go dependencies. Then, we follow the [official procedure](https://golang.org/doc/install#install) to install Go. Finally, we set some required environment variables:
 
 * GOPATH: folder containing our application and its dependencies
 * GOROOT: folder containing Go binaries
 * PATH: just for convenience purpose, to be able to call `go` directly
 
-Finally, we make our container to execute the `go` command when run. 
+Finally, we make our container to execute the `go` command when run thanks to the `ENTRYPOINT` line.
 
 Our container is now ready to be built:
 
@@ -67,6 +67,8 @@ You can now execute:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
+	--tty
+	--interactive
 	marmelab/go src/marmelab/gollabedit/main.go 
 ```
 
@@ -74,6 +76,10 @@ It should display `hello world!` on your console. What are all of these argument
 
 * `--rm`: just remove all container data between executions
 * `--volume`: we map `pwd` (present working directory) to the `/srv` container folder
+* `--tty`: connect `stdin` and `stdout` to our process, allowing to forward interruption signals such as `CTRL+C`
+* `--interactive`: required with `--tty` option
+
+To ease our next commands, we can create a `makefile` with these commands.
 
 ## Using websockets in Go
 
@@ -108,7 +114,7 @@ var h = hub{
 	content:  	 "",
 }
 ```
-We defined several channels for our `Hub`. This way, we would be able to deal asynchronously well with both `register` or `unregister` events, or for broadcasting messages. At the end, we instantiate our hub.
+We defined several channels for our `Hub`. This way, we would be able to deal asynchronously with both `register` or `unregister` events, or for broadcasting messages. At the end, we instantiate our hub.
 
 Let's define its behavior thanks to a `run` method:
 
@@ -138,15 +144,13 @@ func (h *hub) run() {
 }
 ```
 
-We take advantage here of the Go channels. Channels are like FIFO stacks. A `Client` will store a request into one of these channels, then go routing will unstack them as soon as possible, by their arrival dates.
+We take advantage here of the Go channels. Channels are like FIFO stacks. A `Client` will store a request into one of these channels, then go routine will unstack them as soon as possible, by their arrival dates.
 
-Syntax `c := <-h.register` means attribute (`:=`) to `c` value first available value into `h.register` channel. `<-` shows we take a value from the channel. As the opposite, you put a value in a channel with `->`.
-
-So, when a `Client` wants to register, we add him to our connected clients array, and then send him current content. `[]byte` is just for casting reasons, as we are going to see later in `Client` code.
+Syntax `c := <-h.register` means attribute (`:=`) to `c` value first available value into `h.register` channel. `<-` shows we take a value from the channel. As the opposite, you put a value in a channel with `->`. So, when a `Client` wants to register, we add him to our connected clients array, and then send him current content. `[]byte` is just for casting reasons, as we are going to see later in `Client` code.
 
 If a customer sends an `unregister` event, we just have to close its channel and remove him from `Hub` connections.
 
-Finally, if we receive a message from one custome through the `broadcast` channel, we just update `Hub` content and broadcast the message to all other clients with following function:
+Finally, if we receive a message from one customer through the `broadcast` channel, we just update `Hub` content and broadcast the message to all other clients with following function:
 
 ``` go
 func (h *hub) broadcastMessage() {
@@ -261,7 +265,7 @@ func (c *client) readPump() {
 ```
 We `defer` the execution of `Client` disconnection. This mean that, either parent function succeeds of fails, this code is going to be executed.
 
-We set some properties on our websocket to ensure it won't hang indefinitely. Indeed, websocket first waits for a message during maximum `pongWait` seconds. If socket is still available when pinging it, we increase read limit duration by `pongWait` seconds. So, if `Client` is no more connected, websocket is going to throw an error, which will break the `for` loop below. We should then unregister.
+We set some properties on our websocket to ensure it won't hang indefinitely. Websocket first waits for a message during maximum `pongWait` seconds. If socket is still available when pinging it, we increase read limit duration by `pongWait` seconds. So, if `Client` is no more connected, websocket is going to throw an error, which will break the `for` loop below. We should then unregister.
 
 We can read data, but what's happening under the hood of `writePump`?
 
@@ -320,14 +324,10 @@ import (
 func main() {
 	go h.run()
 	http.Handle("/", http.FileServer(http.Dir("./public")))
-	http.HandleFunc("/ws", serveWs)
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 ```
-We simply run our `Hub` as a go-routine and create an HTTP server. The only `/ws` route launch the data pumps for current `Client`.
+We simply run our `Hub` as a go-routine and create an HTTP server. The only `/ws` route launch the data pumps for current `Client`. All static resources should be in the `public` folder.
 
 To launch our server, you should first retrieve `gorilla/websocket` dependency:
 
@@ -335,6 +335,8 @@ To launch our server, you should first retrieve `gorilla/websocket` dependency:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
+	--tty
+	--interactive
 	marmelab/go get github.com/gorilla/websocket
 ```
 
@@ -344,12 +346,17 @@ Then, just execute:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
+	--tty
+	--interactive
+	--publish="8080:8080"
 	marmelab/go run src/marmelab/gollabedit/*.go 
 ```
 
+We added a `--publish` option here, to map our host 8080 port to our Docker container 8080 port.
+
 ## Collaborative editing front
 
-As we are just developing a prototype, we restricted ourselves voluntarily only to browsers supporting native websockets. We won't embed third part libraries to better understand each interaction. However, if you need to pass this kind of project in production, [Socket.io](#) is bullet-proof!
+For our prototype needs, we didn't use any library. If you need a better support of websockets, have a look on [Socket.io](http://socket.io/), the reference in this topic.
 
 Our UI is damn simple: a simple textarea. So, let's focus on websocket connection:
 
@@ -373,8 +380,8 @@ $(function() {
 
     // Whenever we receive a message, update textarea
     conn.onmessage = function(e) {
-        if (e.data != doc.val()) {
-            doc.val(e.data);
+        if (e.data != content.val()) {
+            content.val(e.data);
         }
     };
 
@@ -382,7 +389,7 @@ $(function() {
     var typingTimeoutId = null;
     var isTyping = false;
 
-    doc.on("keydown", function() {
+    content.on("keydown", function() {
         isTyping = true;
         window.clearTimeout(typingTimeoutId);
     });
@@ -396,7 +403,7 @@ $(function() {
         timeoutId = window.setTimeout(function() {
 		if (isTyping) return;
 		conn.send(doc.val());
-        }, 100);
+        }, 1100);
     });
 });
 ```
@@ -405,8 +412,9 @@ Code is self-explained. The only particularity is our basic anti-flood protectio
 
 ## Going further?
 
-If you try it as civilized gentlemen, one after each, , everything is going to work fine. But, if you change the document exactly at the same time, troubles come...
+If you try it as civilized gentlemen, one after each, everything is going to work fine. But, if you change the document exactly at the same time, troubles come...
 
+```
 1. Initial document is: "Hello world!"
 2. User A changes "Hello" to "Good morning"
 3. Meanwhile, user B changes "world" to "everybody"
@@ -415,9 +423,10 @@ If you try it as civilized gentlemen, one after each, , everything is going to w
 	b. A and B receives "Good morning world!"
 	c. Hub changes "Good morning world!" to "Hello everybody!"
 	d. A and B receives "Hello everybody!"
+```
 
-Thus, user A changes have been lost. Furthermore, document should have blink between  4b and 4d. This is the core of concurrent edition issues. Our hackday is now well overran, and problematic is so complex it requires a lot of investigation. By lack of time, we stopped this experiment here.
+Thus, user A changes have been lost. Furthermore, document should have blink between 4b and 4d. This is the core of concurrent edition issues. Our hackday is now well overran, and problematic is so complex it requires further investigation. By lack of time, we had to stop here.
 
-Our first thought was to use Git and its branch system. For instance, initial document is `master`. User A creates a `user_a` branch and user B a `user_b` branch. Hub is in charge of merging each branches into master. If there is a conflict, then UI could show the diff and asks for user which version he would like to keep. But that's a big topic, requiring a dedicated post. Perhaps later?
+A solution consists to use Git and its branch system. For instance, initial document is `master`. User A creates a `user_a` branch and user B a `user_b` branch. Hub is in charge of merging each branches into master. If there is a conflict, then UI could show the diff and asks for user which version he would like to keep.
 
-If you want to try it at home, code is available as a [Gist](#).
+If you want to try it at home, code is available on GitHub.
