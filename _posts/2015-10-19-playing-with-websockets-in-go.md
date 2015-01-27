@@ -3,10 +3,8 @@ layout: post
 title: "Playing with websockets in Go"
 ---
 
-We believe in Go language to achieve a lot in asynchronous world. With its system of channels, it is quite straightforward
-to develop a multi-threaded application. We decided, with [Brice Bernard](https://twitter.com/brikou2), to experiment this
-feature with websockets during one of our [marmelab](http://www.marmelab.com) hack day. Our objective: build a collaborative
-editing tool such as CollabEdit in Go. Hence GollabEdit. ;)
+I believe in Go language to achieve a lot in asynchronous world. With its system of channels, it is quite straightforward to
+develop a multi-threaded application. We decided, with [Brice Bernard](https://twitter.com/brikou2), to experiment this feature with websockets during one of our [marmelab](http://www.marmelab.com) hack day. Our objective: build a collaborative editing tool such as CollabEdit in Go. Hence GollabEdit. ;)
 
 We inspired ourselves from several chat application tutorials. Indeed, our application is pretty similar, except instead
 of storing an array of messages, we store a whole document.
@@ -75,8 +73,8 @@ You can now execute:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
-	--tty
-	--interactive
+	--tty \
+	--interactive \
 	marmelab/go src/marmelab/gollabedit/main.go 
 ```
 
@@ -93,23 +91,16 @@ To ease our next commands, we can create a `makefile` with these commands.
 
 ### Creating a messages Hub
 
-We decided to use a centralized architecture: a central `Hub` is going to receive all ingoing messages and to broadcast
+We used a centralized architecture: a central `Hub` is going to receive all ingoing messages and to broadcast
 them to each connected `Client`.
 
 ``` go
 package main
 
 type hub struct {
-	// Registered clients
 	clients map[*client]bool
-
-	// Inbound messages
 	broadcast chan string
-
-	// Register requests
 	register chan *client
-
-	// Unregister requests
 	unregister chan *client
 
 	content string
@@ -207,7 +198,7 @@ const (
 
 type client struct {
 	ws *websocket.Conn
-	send chan []byte // Channel storing outcoming messages
+	send chan []byte
 }
 ```
 
@@ -287,7 +278,7 @@ func (c *client) readPump() {
 }
 ```
 We `defer` the execution of `Client` disconnection. This mean that, either parent function succeeds of fails, this code
-is going to be executed.
+will be executed.
 
 We set some properties on our websocket to ensure it won't hang indefinitely. Websocket first waits for a message during
 maximum `pongWait` seconds. If socket is still available when pinging it, we increase read limit duration by `pongWait`
@@ -330,7 +321,7 @@ func (c *client) write(mt int, message []byte) error {
 ```
 
 Code is pretty similar to the `readPump`. We just introduced a `ticker`. Regularly, we are going to ping the websocket.
-If it doesn't respond, we then close the websocket.
+If it doesn't respond, we close the websocket.
 
 ### Launching websocket server
 
@@ -360,8 +351,8 @@ To launch our server, you should first retrieve `gorilla/websocket` dependency:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
-	--tty
-	--interactive
+	--tty \
+	--interactive \
 	marmelab/go get github.com/gorilla/websocket
 ```
 
@@ -371,9 +362,9 @@ Then, just execute:
 docker run \
 	--rm \
 	--volume="`pwd`:/srv" \
-	--tty
-	--interactive
-	--publish="8080:8080"
+	--tty \
+	--interactive \
+	--publish="8080:8080" \
 	marmelab/go run src/marmelab/gollabedit/*.go 
 ```
 
@@ -383,7 +374,7 @@ We added a `--publish` option here, to map our host 8080 port to our Docker cont
 ## Collaborative editing front
 
 For our prototype needs, we didn't use any library. If you need a good support of websockets, have a look on
-[Socket.io](http://socket.io/), the reference in the subject.
+[Socket.io](http://socket.io/).
 
 Our UI is damn simple: a simple textarea. So, let's rather focus on websocket connection:
 
@@ -439,6 +430,8 @@ Code is self-explained. The only particularity is our basic anti-flood protectio
 you are going to get a serious bottleneck on your server. So, be smarter using timeouts: we send data only if user hasn't
 typed for the last second. This is a good compromise.
 
+<img src="/img/posts/websockets.gif" alt="Websockets sample" title="Websockets sample" width="600" style="padding: 0;" />
+
 ## Going further?
 
 If you try it as civilized gentlemen, one after each, everything is going to work fine. But, if you change the document
@@ -459,8 +452,8 @@ Thus, user A changes have been lost. Furthermore, document should have blink bet
 concurrent edition issues. Our hackday is now well overran, and problematic is so complex it requires further investigation.
 By lack of time, we had to stop here.
 
-A solution consists to use Git and its branch system. For instance, initial document is `master`. User A creates a `user_a`
-branch and user B a `user_b` branch. Hub is in charge of merging each branches into master. If there is a conflict, then
-UI could show the diff and asks for user which version he would like to keep.
+We thought to a solution, consisting to use Git and its branch system. For instance, initial document is `master`. User A
+creates a `user_a` branch and user B a `user_b` branch. Hub is in charge of merging each branches into master. If there is
+a conflict, then UI could show the diff and asks for user which version he would like to keep.
 
-If you want to try it at home, code is available on [GitHub](#) (soon).
+If you want to try it at home, code is available on [GitHub](https://github.com/marmelab/GollabEdit).
