@@ -13,7 +13,7 @@ As always in web development, we can't use a new technology, no matter how excit
 
 There are two main ES6 to ES5 transpilers: [Babel](http://babeljs.io/) (formerly known as 6to5) and [Traceur](https://github.com/google/traceur-compiler). We had to take one of them: Babel.
 
-The main reason we chose Babel is it doesn't need any runtime extra script to run. Everything is done server-side. You just have to execute a compilation task once, and then deploy the compiled sources. At the opposite, Traceur needs to embed such a script, bringing an extra overhead. Yet, it should be nuanced, as we still need a polyfill ([core-js](https://github.com/zloirock/core-js))for some missing browser methods, like `Array.from`. 
+The main reason we chose Babel is it doesn't need any runtime extra script to run. Everything is done server-side. You just have to execute a compilation task once, and then deploy the compiled sources. At the opposite, Traceur needs to embed such a script, bringing an extra overhead. Yet, it should be nuanced, as we still need a polyfill ([core-js](https://github.com/zloirock/core-js)) for some missing browser methods, like `Array.from`. 
 
 Another issue is that Traceur is not compliant with [React.js](http://facebook.github.io/react/). This is not a big deal in this case, but as we also use the Facebook framework at marmelab, let's accumulate knowledge on a single technology. He who can do more can do less.
 
