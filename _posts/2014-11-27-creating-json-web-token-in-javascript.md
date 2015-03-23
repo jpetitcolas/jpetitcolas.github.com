@@ -69,8 +69,8 @@ function base64url(source) {
   encodedSource = encodedSource.replace(/=+$/, '');
   
   // Replace characters according to base64url specifications
-  encodedSource = encodedSource.replace(/\+/g, '');
-  encodedSource = encodedSource.replace(/\//g, '');
+  encodedSource = encodedSource.replace(/\+/g, '-');
+  encodedSource = encodedSource.replace(/\//g, '_');
   
   return encodedSource;
 }
