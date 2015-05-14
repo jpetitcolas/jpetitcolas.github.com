@@ -14,12 +14,16 @@ title: Web developer and open-source aficionado
 
   <p>Get more articles by browsing the <a href="/archives.html">blog archives</a>.</p>
 
-  <h1>My latest talks</h1>
+  <h1>Talks</h1>
   <ul class="talks">
-    <li><a href="/talks/2014-09-24-advanced-mint-monitoring/2014-09-24-advanced-mint-monitoring.html">Advanced mint monitoring with Arduino</a> (Paris, September 2014)</li>
-    <li><a href="/talks/2014-02-20-creating-interactive-map-with-svg.html">Creating interactive map with SVG</a> (Nancy, February 20th 2014)</li>
-    <li><a href="/talks/2013-09-19-introduction-to-phantomcss.html">Introduction to PhantomCSS</a> (Nancy, September 19th 2013)</li>
-    <li><a href="/talks/bash-tips-and-tricks.html">Bash tips and tricks</a> (Nancy, June 20th 2013)</li>
+    {% assign sortedTalks = site.talks | sort:'date' | reverse %}
+    {% for talk in sortedTalks %}
+      <li>
+        <span class="date">{{ talk.date | date_to_string }}:</span>
+        <a href="{{ talk.url }}"><span class="title">{{ talk.title }}</span></a>
+        <span class="event">({{ talk.event }})</span>
+      </li>
+    {% endfor %}
   </ul>
 
   <h1>Major open-source contributions</h1>
