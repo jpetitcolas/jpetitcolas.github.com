@@ -4,7 +4,7 @@ title: Setup Webpack for React and SASS
 tags: Webpack, React, SASS, ES6
 ---
 
-I spent some time lately to play with Webpack. As Grunt or Gulp, Webpack is a JavaScript bundler, allowing you to turn your messy and numerous JavaScript into a single minified and optimized script. I used to use Gulp, but taking a look on Webpack and all its features made me switch pretty quickly, especially because of its `webpack-dev-server` and `react-hot-loader` killing features, allowing you to increase drastically your development processes. 
+I spent some time lately to play with [Webpack](https://github.com/webpack/webpack). As Grunt or Gulp, Webpack is a JavaScript bundler, allowing to turn our messy and numerous JavaScript into a single minified and optimized script. I used to use Gulp, but taking a look on Webpack and all its features made me switch pretty quickly, especially because of its `webpack-dev-server` and `react-hot-loader` killing features, increasing drastically our development workflow. 
 
 The only blot with this tool is its documentation. There are a lot of pages about all the available options, but not a real-world get started tutorial. After spending days to figure out the best way to handle with my application, here is a summary for an ES6 React application using some SASS.
 
@@ -15,12 +15,14 @@ Let's write a very simple and useless application splitted into two files:
 ``` js
 // js/hello.js
 console.log('Hello');
+```
 
+``` js
 // js/world.js
 console.log('World');
 ```
 
-Including these two scripts into your page outputs `Hello World!`. Nothing to write home about for the moment. But let's install Webpack to give more interest to them:
+Including these two scripts into our page outputs `Hello World!`. Nothing to write home about for the moment. Then fetch Webpack:
 
 ``` sh
 npm init
@@ -54,9 +56,8 @@ Let's compile our entry using the following command line:
 ``` sh
 ./node_modules/webpack/bin/webpack.js
 ```
-You should see a new file in your `public` folder, containing a lot of code, including the definition of a `__webpack__require__` function. 
 
-Adding this generated script alone into your page still display the same message in the console. That's the default behavior of Webpack: concatenating all your dependencies into a single file, preventing from sending a bench of different HTTP requests.
+There is a new file in `public` folder, containing a lot of code, especially the definition of a `__webpack__require__` function. Adding this generated script alone into our page still displays the same message in the console. That's the default behavior of Webpack: concatenating all your dependencies into a single file, preventing from sending a bench of different HTTP requests.
 
 That's fine, it reduces number of requests. But size is still the addition of my two dependency, plus size of all Webpack internals. Fortunately, you also can minify your scripts with Webpack. Just give it a `--production` (or `-p`) flag:
 
@@ -64,20 +65,21 @@ That's fine, it reduces number of requests. But size is still the addition of my
 ./node_modules/webpack/bin/webpack.js -p
 ```
 
-With such a simple case, we already pass from 1.7kb to 305 bytes.
+With such a simple case, we pass from 1.7kb to 305 bytes.
 
 ## Live-Reload with Webpack
 
-### Setting up Webpack Dev Server
-
 One of the most useful feature in my daily developer life is live-reload. Concept is pretty simple: when you save a file, it refreshes automatically your browser. No need to press F5 anymore. Looks a lazy developer tip, but it really increases your productivity, especially with dual-screen.
+
+### Setting up Webpack Dev Server
 
 Currently, we had to launch the webpack compilation command to refresh our file. Let's take a step higher using the `webpack-dev-server`:
 
 ``` sh
 npm install --save-dev webpack-dev-server
-`
-This module serves all your compiled files through a web server (by default on `localhost:8080`). This way, all your files would be in RAM. Thus, computing diffs and refreshing files don't include any disk I/O, providing a really blazing fast live reload.
+```
+
+This module serves all your compiled files through a web server (by default on `localhost:8080`). This way, all our files are computed in RAM. Thus, computing diffs and refreshing files don't include any disk I/O, providing a really blazing fast live reload.
 
 For development, instead of using `webpack` command, rather use the following one to launch dev server:
 
@@ -91,7 +93,7 @@ Replace your `script` tag by the following:
 ```
 Look at the console. It should display "Hello World". If we replace "World" by "John Doe" and simply save our file, we expect our console to be refreshed. Yet, nothing happens.
 
-Webpack uses Socket.io to know how to refresh the browser. We launched the Socket.io server, but didn't update our client script. Once again (<=== CHECK), Webpack ease our work with a pre-built module. Just modify your `entry` parameter:
+Webpack uses Socket.io to know how to refresh browser. We launched the Socket.io server, but didn't update our client script. Webpack eases our work with a pre-built module. Just modify your `entry` parameter:
 
 ``` js
 module.exports = {
@@ -105,15 +107,11 @@ module.exports = {
 };
 ```
 
-If we relaunch our dev server (we just modified configuration file) and refresh manually our browser, a Socket.io connection is then initialized.
-
-Switching `John Doe` to `Alice Brown` into our file now reloads automatically our browser. Hurrah! Live-reload is working!
+If we relaunch our dev server and refresh manually our browser, a Socket.io connection is then initialized. Switching `John Doe` to `Alice Brown` into our file now reloads automatically our browser. Hurrah! Live-reload is working!
 
 ### Webpack dev server and production?
 
-Of course, we are not going to pass our dev server in production. Instead, we are just going to push `webpack.js` compiled assets. But, how to handle that?
-
-I am using `NODE_ENV` variable on my `webpack.config.js` configuration to check if I should embed the dev client:
+Of course, we won't deploy our dev server in production. One solution is to use an environment variable. Let's use `NODE_ENV` to check if we should embed the dev server client:
 
 ``` js
 function getEntrySources(sources) {
@@ -140,7 +138,7 @@ Compiling for production would then looks like:
 NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p
 ```
 
-Another issue is the script `src` attribute. In development, we should embed it as a dev server served resource (using `http://localhost:8080`). In production, it would either be served from a CDN served by another machine, or be directly in `public` folder. 
+Another issue is the script `src` attribute. In development, we should embed it as a dev server served resource (using `http://localhost:8080`). In production, it would either be served from a CDN, or directly from `public` folder. 
 
 To differentiate these usages, I simply use a template variable. For instance, using Swig and Node.js:
 
@@ -155,12 +153,12 @@ swig.setDefaults({
 ```
 
 ``` xml
-	<script src="{{ cdn }}helloWorld.js"></script>
+{% raw %}<script src="{{ cdn }}helloWorld.js"></script>{% endraw %}
 ```
 
 ## Webpack and React.js
 
-I suppose in this part that you are already familiar with React.js. If not, please, go ahead to discover this amazing framework.
+I suppose in this part that you are already familiar with [React.js](https://facebook.github.io/react/). If not, please, go ahead to discover this amazing framework.
 
 ### Setting up a Basic "Hello World!" Application
 
@@ -172,13 +170,11 @@ First, install React.
 npm install --save-dev react
 ```
 
-Note we installed it as a dev dependency. Indeed, it won't be useful in production as it is going to be embedded directly into our compiled output.
+We install it as a dev dependency. Indeed, we won't use it directly in production, as it will be embedded into our compiled output.
 
 Let's write our application, using the far less verbose JSX notation.
 
-``` jsx
-// js/HelloSayer.js
-
+``` js
 var React = require('react');
 
 var HelloSayer = React.createClass({
@@ -190,9 +186,7 @@ var HelloSayer = React.createClass({
 module.exports = HelloSayer;
 ```
 
-``` jsx
-// js/HelloForm.js
-
+``` js
 var HelloSayer = require('./HelloSayer');
 var React = require('react');
 
@@ -221,17 +215,16 @@ module.exports = HelloForm;
 ```
 
 ``` js
-// js/helloworld.js
-
 var HelloForm = require('./HelloForm');
 var React = require('react');
 
 React.render(<HelloForm />, document.getElementsByTagName('body')[0]);
 ```
 
-That's some basic React. I won't cover this code as this is not the purpose of this post. Even if it should not work at this state, here is the final expected component:
+That's some basic React components. I won't cover this code as this is not the purpose of this post. Even if it should not work at this state, here is the final expected component for a better visualisation:
 
-<div id="react-hello-form"></div>
+<div class="labs" id="react-hello-form"></div>
+<script src="/labs/react-hello-form.js"></script>
 
 ### Transforming JSX on the fly
 
@@ -243,7 +236,7 @@ Webpack ecosystem has a lot of loaders available. A loader is simply a transform
 npm install --save-dev jsx-loader
 ```
 
-Modify your configuration accordingly:
+Modify our configuration accordingly:
 
 ``` js
 module.exports = function() {
@@ -328,8 +321,6 @@ We run our server on port 3000 and set the web root to current folder (this is `
 If we launch our application in current state, React Hot Loader would try to fetch its update on current host, ie on port 3000. As Webpack dev server is bound to port 8080, we have to force use of absolute URL, using the `publicPath` property:
 
 ``` js
-// webpack.config.js
-
 module.exports = {
 	// ...
 	output: {
@@ -343,7 +334,7 @@ Relaunch your server, and admire!
 
 ## Webpack and ES6 using Babel
 
-Let's prepare the future for our application using ES6. ES6 is the new standard of JavaScript, embedding nice features, such as classes or template strings. Unfortunately, all browsers are not fully compliant with this language evolution: we have to transpile it into good old ES5.
+Let's prepare the future for our application using ES6. ES6 is the new standard of JavaScript, embedding nice features, such as classes or template strings. Unfortunately, all browsers are compatible with this language evolution: we have to transpile it into good old ES5.
 
 There are two main transpilers: Babel and Traceur. My [choice is made on Babel](http://www.jonathan-petitcolas.com/2015/03/09/transpiling-es6-to-es5-using-babel.html), so let's use it with Webpack. 
 
@@ -357,27 +348,24 @@ Just add it to all your JS files, after the JSX loader, as Babel won't understan
 
 
 ``` js
-// webpack.config.js
-
 module.exports = {
 	// ...
 	module: {
 		loaders: [
 			{
 			    test: /\.js$/,
-			    loader: ['react-hot', 'jsx', 'babel'], // <-- changed line
+			    loaders: ['react-hot', 'jsx', 'babel'], // <-- changed line
 			    exclude: /node_modules/
 		    }
 		]
 	}
 }
 ```
+Be careful to your loaders order: they are applied from right to left. So, we first transpile our ES6 code, then we turn our ES5 JSX to pure JS, and then we watch for the hot reload.
 
 Webpack now transpiles ES6 into ES5. Let's check it converting one of our component into ES6:
 
 ``` js
-// js/HelloSayer.js
-
 import React from 'react';
 
 class HelloSayer extends React.Component {
@@ -407,7 +395,7 @@ Let's create a very basic SASS file for our component:
 }
 ```
 
-To compile SASS files, you need a SASS loader of course, but also a CSS and a style loaders. Indeed, Webpack understands only JS. Basically explained, when we write a `require('style.scss')`, SASS loader turns it into `style.css`, which should then be turned into JavaScript with CSS loader, and finally understood as styles using the style loader.
+To compile SASS files, you need a SASS loader of course, but also a CSS and a style loaders. Indeed, Webpack understands only JS. Basically explained, when we write a `require('style.scss')`, SASS loader turns it into `style.css`, which should then be turned into JavaScript with CSS loader, and finally embedded as styles using the style loader.
 
 ``` sh
 npm install --save-dev sass-loader css-loader style-loader
@@ -456,7 +444,7 @@ We are going to use the `ExtractTextPlugin`, which moves the generated content i
 npm install --save-dev extract-text-webpack-plugin
 ```
 
-Then, update your configuration file:
+Then, update your config:
 
 ``` js
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -479,9 +467,10 @@ module.exports = {
 	]
 }
 ```
-We first replace our `loaders` with a single `loader`, provided by the `ExtractTextPlugin`. We apply two filters on it, first `sass` then `css`. We removed the `style` one, as we don't want to embed styles directly in the page.
+We first replace our `loaders` with a single `loader`, provided by the `ExtractTextPlugin`. We apply two filters on it, first `sass` then `css`. We removed the `style` one, as we don't want to embed styles directly in the page anymore.
 
 Then, we effectively move the styles into `public/style.css`, embedding all the individual compiled chunks into a single file. 
 
 Just include a `link` tag on your page, and your styles should still be here.
 
+The whole project is available on GitHub: [jpetitcolas/webpack-react](https://github.com/jpetitcolas/webpack-react). Don't hesitate to browse through all commits, each one corresponding to a step of this post.
