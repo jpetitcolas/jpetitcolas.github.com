@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Setup Webpack for React and SASS
+title: How-to setup Webpack on an ES6 React Application with SASS?
 tags: Webpack, React, SASS, ES6
 ---
 
