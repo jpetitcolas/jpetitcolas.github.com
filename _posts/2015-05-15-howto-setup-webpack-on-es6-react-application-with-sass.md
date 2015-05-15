@@ -69,11 +69,11 @@ With such a simple case, we pass from 1.7kb to 305 bytes.
 
 ## Live-Reload with Webpack
 
-One of the most useful feature in my daily developer life is live-reload. Concept is pretty simple: when you save a file, it refreshes automatically your browser. No need to press F5 anymore. Looks a lazy developer tip, but it really increases your productivity, especially with dual-screen.
+One of the most useful features in my daily developer life is live-reload. Concept is pretty simple: when you save a file, it automatically refreshes your browser. No need to press F5 anymore. Looks like a lazy developer tip, but it really increases your productivity, especially with dual-screen.
 
 ### Setting up Webpack Dev Server
 
-Currently, we had to launch the webpack compilation command to refresh our file. Let's take a step higher using the `webpack-dev-server`:
+Currently, we had to launch the webpack compilation command to refresh our file. Let's take a step further using the `webpack-dev-server`:
 
 ``` sh
 npm install --save-dev webpack-dev-server
@@ -81,7 +81,7 @@ npm install --save-dev webpack-dev-server
 
 This module serves all your compiled files through a web server (by default on `localhost:8080`). This way, all our files are computed in RAM. Thus, computing diffs and refreshing files don't include any disk I/O, providing a really blazing fast live reload.
 
-For development, instead of using `webpack` command, rather use the following one to launch dev server:
+For development, instead of using the `webpack` command, rather use the following one to launch dev server:
 
 ``` sh
  ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors
@@ -93,21 +93,21 @@ Replace your `script` tag by the following:
 ```
 Look at the console. It should display "Hello World". If we replace "World" by "John Doe" and simply save our file, we expect our console to be refreshed. Yet, nothing happens.
 
-Webpack uses Socket.io to know how to refresh browser. We launched the Socket.io server, but didn't update our client script. Webpack eases our work with a pre-built module. Just modify your `entry` parameter:
+Webpack uses [Socket.io](http://socket.io/) to know when to refresh browser. We launched the Socket.io server, but didn't update our client script. Webpack eases our work with a pre-built module. Just modify your `entry` parameter:
 
 ``` js
 module.exports = {
     entry: {
         helloWorld: [
-        	'webpack-dev-server/client?http://localhost:8080',
-        	'./js/helloworld.js',
-    	]
+            'webpack-dev-server/client?http://localhost:8080',
+            './js/helloworld.js',
+        ]
     }
     // ...
 };
 ```
 
-If we relaunch our dev server and refresh manually our browser, a Socket.io connection is then initialized. Switching `John Doe` to `Alice Brown` into our file now reloads automatically our browser. Hurrah! Live-reload is working!
+If we relaunch our dev server and refresh manually our browser, a Socket.io connection is then initialized. Switching `John Doe` to `Alice Brown` into our file now automatically reloads the page in the browser. Hurrah! Live-reload is working!
 
 ### Webpack dev server and production?
 
@@ -123,7 +123,7 @@ function getEntrySources(sources) {
 }
 
 module.exports = function() {
-	entry: {
+    entry: {
         helloWorld: getEntrySources([
             './js/helloworld.js'
         ])
@@ -162,7 +162,7 @@ I suppose in this part that you are already familiar with [React.js](https://fac
 
 ### Setting up a Basic "Hello World!" Application
 
-Let's build a simple "Hello World!" application, allowing the user to enter its name.
+Let's build a simple "Hello World!" application, allowing the user to enter their name.
 
 First, install React.
 
@@ -178,9 +178,9 @@ Let's write our application, using the far less verbose JSX notation.
 var React = require('react');
 
 var HelloSayer = React.createClass({
-	render: function() {
-		return (<p>Hello {this.props.name}!</p>);
-	}
+    render: function() {
+        return (<p>Hello {this.props.name}!</p>);
+    }
 });
 
 module.exports = HelloSayer;
@@ -191,24 +191,24 @@ var HelloSayer = require('./HelloSayer');
 var React = require('react');
 
 var HelloForm = React.createClass({
-	getInitialState: function() {
-		return {
-			name: 'world'
-		};
-	},
+    getInitialState: function() {
+        return {
+            name: 'world'
+        };
+    },
 
-	render: function() {
-		return (<div className="hello-form">
-			<input type="text" onChange={this.onChange} />
-			<HelloSayer name={this.state.name} />
-		</div>);
-	},
+    render: function() {
+        return (<div className="hello-form">
+            <input type="text" onChange={this.onChange} />
+            <HelloSayer name={this.state.name} />
+        </div>);
+    },
 
-	onChange: function(e) {
-		this.setState({
-			name: e.target.value
-		});
-	}
+    onChange: function(e) {
+        this.setState({
+            name: e.target.value
+        });
+    }
 });
 
 module.exports = HelloForm;
@@ -221,7 +221,7 @@ var React = require('react');
 React.render(<HelloForm />, document.getElementsByTagName('body')[0]);
 ```
 
-That's some basic React components. I won't cover this code as this is not the purpose of this post. Even if it should not work at this state, here is the final expected component for a better visualisation:
+These are some basic React components. I won't cover this code as this is not the purpose of this post. Even if it should not work at this state, here is the final expected component for a better visualisation:
 
 <div class="labs" id="react-hello-form"></div>
 <script src="/labs/react-hello-form.js"></script>
@@ -230,7 +230,7 @@ That's some basic React components. I won't cover this code as this is not the p
 
 Even if you can use pure JavaScript, React is greatly simplified if you use JSX syntax, as above. Yet, JSX is understandable neither by browsers nor Webpack. So, to circumvent this issue, we have to transform JSX into pure JS **before** Webpack handles it.
 
-Webpack ecosystem has a lot of loaders available. A loader is simply a transformer, applied on all files matching a regular expression. So, implement a JSX loader to deal with our components:
+The Webpack ecosystem has a lot of loaders available. A loader is simply a transformer, applied on all files matching a regular expression. So, implement a JSX loader to deal with our components:
 
 ``` sh
 npm install --save-dev jsx-loader
@@ -240,17 +240,17 @@ Modify our configuration accordingly:
 
 ``` js
 module.exports = function() {
-	// ...
-	module: {
-		loaders: [
-			{
-			    test: /\.js$/,
-			    loader: 'jsx',
-			    exclude: /node_modules/
-		    }
-		]
-	}
-	// ...	
+    // ...
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'jsx',
+                exclude: /node_modules/
+            }
+        ]
+    }
+    // ...  
 };
 ```
 So, all files whose path finish with `.js` will be transformed by `jsx-loader`, except those under `node_modules` folder (for performances reason). This time, Webpack should not complain and should display your widget correctly.
@@ -287,16 +287,16 @@ Then, we add the `react-hot` loader to our React component files (in this case, 
 // webpack.config.js
 
 module.exports = {
-	// ...
-	module: {
-		loaders: [
-			{
-			    test: /\.js$/,
-			    loader: ['react-hot', 'jsx'], // <-- changed line
-			    exclude: /node_modules/
-		    }
-		]
-	}
+    // ...
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: ['react-hot', 'jsx'], // <-- changed line
+                exclude: /node_modules/
+            }
+        ]
+    }
 }
 ```
 Now, you have to launch your `webpack-dev-server` with a `--hot` option to enable React Hot Reload:
@@ -322,8 +322,8 @@ If we launch our application in current state, React Hot Loader would try to fet
 
 ``` js
 module.exports = {
-	// ...
-	output: {
+    // ...
+    output: {
         publicPath: 'http://localhost:8080/', // <-- New line!
         filename: 'public/[name].js'
     }
@@ -334,7 +334,7 @@ Relaunch your server, and admire!
 
 ## Webpack and ES6 using Babel
 
-Let's prepare the future for our application using ES6. ES6 is the new standard of JavaScript, embedding nice features, such as classes or template strings. Unfortunately, all browsers are compatible with this language evolution: we have to transpile it into good old ES5.
+Let's prepare the future for our application using [EcmaScript6](https://github.com/lukehoban/es6features). ES6 is the new standard of JavaScript, embedding nice features, such as classes or template strings. Unfortunately, not all browsers are compatible with this language evolution: we have to transpile ES6 into good old ES5.
 
 There are two main transpilers: Babel and Traceur. My [choice is made on Babel](http://www.jonathan-petitcolas.com/2015/03/09/transpiling-es6-to-es5-using-babel.html), so let's use it with Webpack. 
 
@@ -349,16 +349,16 @@ Just add it to all your JS files, after the JSX loader, as Babel won't understan
 
 ``` js
 module.exports = {
-	// ...
-	module: {
-		loaders: [
-			{
-			    test: /\.js$/,
-			    loaders: ['react-hot', 'jsx', 'babel'], // <-- changed line
-			    exclude: /node_modules/
-		    }
-		]
-	}
+    // ...
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                loaders: ['react-hot', 'jsx', 'babel'], // <-- changed line
+                exclude: /node_modules/
+            }
+        ]
+    }
 }
 ```
 Be careful to your loaders order: they are applied from right to left. So, we first transpile our ES6 code, then we turn our ES5 JSX to pure JS, and then we watch for the hot reload.
@@ -369,9 +369,9 @@ Webpack now transpiles ES6 into ES5. Let's check it converting one of our compon
 import React from 'react';
 
 class HelloSayer extends React.Component {
-	render() {
-		return <p>Hello {this.props.name}!</p>;
-	}
+    render() {
+        return <p>Hello {this.props.name}!</p>;
+    }
 }
 
 export default HelloSayer;
@@ -389,9 +389,9 @@ Let's create a very basic SASS file for our component:
 
 ``` css
 .hello-form {
-	p {
-		color: blue;
-	}
+    p {
+        color: blue;
+    }
 }
 ```
 
@@ -405,16 +405,16 @@ As usual, add a new loader into our configuration:
 
 ``` js
 module.exports = {
-	// ...
-	module: {
-		loaders: [
-			// ...
-			{
-				test: /\.scss$/,
-				loaders: ['style', 'css', 'sass']
-		    }
-		]
-	}
+    // ...
+    module: {
+        loaders: [
+            // ...
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass']
+            }
+        ]
+    }
 }
 ```
 
@@ -424,11 +424,11 @@ Now, if you include your SCSS file into your `HelloForm` JavaScript file:
 require('../sass/HelloForm.scss');
 ```
 
-Your style should be loaded. Some may find it really weird to include some SCSS into a JavaScript file. After playing several weeks with it, I must admit this is really nice. All your components are now better isolated, each one containing its own style and logical. Far better for maintainability and reuse.
+Your style should be loaded. Some may find it really weird to include some SCSS into a JavaScript file. After playing several weeks with it, I must admit this is really nice. All your components are now better isolated, each one containing its own style and logic. Far better for maintainability and reuse.
 
 #### Fixing uv__finish_close error
 
-There is an issue with current version of `sass-loader`:
+There is an issue with the current version of `sass-loader`:
 
 >  build modulesnode: ../deps/uv/src/unix/core.c:199: uv__finish_close: Assertion `0' failed.
 
@@ -436,7 +436,7 @@ To fix it, just downgrade your `node-sass` version to 0.5, editing your `package
 
 ### Move CSS in external stylesheet
 
-Taking a closer look on generated code, we may notice that styles are included using a `<style>` tag. That's a bad practice, as it prevents browsers from caching CSS. So, let's move it into a dedicated file.
+Taking a closer look at the generated code, we may notice that styles are included using a `<style>` tag. That's a bad practice, as it prevents browsers from caching CSS. So, let's move it into a dedicated file.
 
 We are going to use the `ExtractTextPlugin`, which moves the generated content into a file:
 
@@ -450,24 +450,24 @@ Then, update your config:
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-	// ...
-	module: {
-		loaders: [
-			// ...
-			{
-				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('css!sass')
-			}
-		]
-	},
-	plugins: [
-		new ExtractTextPlugin('public/style.css', {
-			allChunks: true
-		})
-	]
+    // ...
+    module: {
+        loaders: [
+            // ...
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('css!sass')
+            }
+        ]
+    },
+    plugins: [
+        new ExtractTextPlugin('public/style.css', {
+            allChunks: true
+        })
+    ]
 }
 ```
-We first replace our `loaders` with a single `loader`, provided by the `ExtractTextPlugin`. We apply two filters on it, first `sass` then `css`. We removed the `style` one, as we don't want to embed styles directly in the page anymore.
+We first replace our `loaders` with a single `loader`, provided by the `ExtractTextPlugin`. We apply two filters to it, first `sass` then `css`. We removed the `style` one, as we don't want to embed styles directly in the page anymore.
 
 Then, we effectively move the styles into `public/style.css`, embedding all the individual compiled chunks into a single file. 
 
