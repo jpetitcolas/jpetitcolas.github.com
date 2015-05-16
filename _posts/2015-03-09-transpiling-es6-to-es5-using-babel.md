@@ -209,6 +209,6 @@ grunt.loadNpmTasks('grunt-mocha-test'); // enable "grunt mochaTest" command
 If you prefer using mocha directly, just specify the `compilers` option:
 
 ``` sh
-mocha --compilers mocha-traceur --recursive src/javascripts/ng-admin/es6/tests/
+mocha --compilers js:mocha-traceur --recursive src/javascripts/ng-admin/es6/tests/
 ```
 Now you got the big picture on how we succeeded to rewrite ng-admin configuration classes using EcmaScript6. There is still a lot of work to do on ng-admin for a full migration. Don't hesitate to [give a helping hand](https://github.com/marmelab/ng-admin)!
