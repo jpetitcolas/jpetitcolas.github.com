@@ -432,7 +432,7 @@ There is an issue with the current version of `sass-loader`:
 
 >  build modulesnode: ../deps/uv/src/unix/core.c:199: uv__finish_close: Assertion `0' failed.
 
-To fix it, just downgrade your `node-sass` version to 0.5, editing your `package.json` file and redoing a new `npm install`.
+To fix it, just downgrade your `sass-loader` version to 0.5, editing your `package.json` file and redoing a new `npm install`.
 
 ### Move CSS in external stylesheet
 
