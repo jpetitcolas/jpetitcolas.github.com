@@ -8,6 +8,10 @@
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/syntax.css" />
+  {% if page.canonical %}
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="{{ page.canonical }}"/>
+  {% endif %}
   <!-- Google Analytics -->
   <script>
   var _gaq = _gaq || [];
