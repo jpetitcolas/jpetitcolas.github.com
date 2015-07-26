@@ -67,7 +67,7 @@ normals (to compute lighting correctly), and materials.
 ## Importing Mesh From Blender in Three.js
 
 Now we got our mesh into an understandable format, let's import it in Three.js.
-Based on the [last tutorial](http://localhost:4000/2013/04/02/create-rotating-cube-in-webgl-with-threejs.html)
+Based on the [last tutorial](http://www.jonathan-petitcolas.com/2013/04/02/create-rotating-cube-in-webgl-with-threejs.html)
 code, we just have to replace our `initCube` function by an `initMesh` one:
 
 ``` js
