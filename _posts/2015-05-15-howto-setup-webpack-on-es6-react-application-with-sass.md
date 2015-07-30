@@ -292,7 +292,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: ['react-hot', 'jsx'], // <-- changed line
+                loaders: ['react-hot', 'jsx'], // <-- changed line
                 exclude: /node_modules/
             }
         ]
