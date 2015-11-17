@@ -121,7 +121,7 @@ one from scratch. Give it a name, a description, and add the following content:
 
 ``` json
 {
-    "Version": "2015-09-21",
+    "Version": "2012-10-17",
     "Statement": [
         {
             "Effect": "Allow",
