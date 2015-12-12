@@ -377,41 +377,77 @@ article {
 		</section>
 		<section>
 			<h2>HTML Plugin</h2>
+			<pre><code class="hljs" data-trim contenteditable>$ npm install --save-dev html-webpack-plugin</code></pre>
+			<pre><code class="hljs" data-trim contenteditable>// webpack.config.js
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+module.exports = {
+    // ...
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: __dirname + '/index.html',
+            hash: true, // enable cache busters
+        })
+    ]
+};</code></pre></section>
+		<section>
+			<pre style="width: 95%;"><code class="hljs" data-trim contenteditable>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"/&gt;
+    &lt;title&gt;{%=o.htmlWebpackPlugin.options.title || 'Zombo'%}&lt;/title&gt;
+    &lt;link href="{%=o.htmlWebpackPlugin.files.css %}" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;!-- Previous body content --&gt;
+	&lt;script src="{%=o.htmlWebpackPlugin.files.js %}"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 		</section>
 		<section>
 			<h2>Move style into external file</h2>
+			<pre><code class="hljs" data-trim contenteditable>$ npm install --save-dev extract-text-webpack-plugin</code></pre>
+			<pre><code class="hljs" data-trim contenteditable>// webpack.config.js
+var ExtractText = require('extract-text-webpack-plugin');
+
+module.exports = {
+    loaders: [{
+        test: /\.scss$/, include: __dirname + '/style',
+        loader: ExtractText.extract('css!sass?' + sassOptions)
+    }],
+    plugins: [
+        // ...
+        new ExtractTextPlugin('style.css', {
+            allChunks: true,
+        })
+    ]
+};</code></pre>
 		</section>
 		<section>
 			<h2>Optimizing build</h2>
+			<pre><code class="hljs" data-trim contenteditable>$ ./node_modules/.bin/webpack -p</code></pre>
 		</section>
 	</section>
 
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
+	<section>
+		<h2>Any questions?</h2>
+	</section>
 
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-				</section>
-
-			</div>
-
-		</div>
+	<section style="text-align: center;">
+		<h1>THE END</h1>
+		<ul>
+			<li><a href="https://www.github.com/jpetitcolas/zombo-reloaded">Zombo Reloaded source code</a></li>
+			<li>
+				<a href="http://www.jonathan-petitcolas.com/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html">
+					How-to setup Webpack with ES6, React, and SASS?
+				</a>
+			</li>
+		</ul>
+	</section>
+	</div>
+</div>
 
 		<script src="./reveal.js-3.2.0/lib/js/head.min.js"></script>
 		<script src="./reveal.js-3.2.0/js/reveal.js"></script>
