@@ -429,10 +429,34 @@ module.exports = {
 			<h2>Optimizing build</h2>
 			<pre><code class="hljs" data-trim contenteditable>$ ./node_modules/.bin/webpack -p</code></pre>
 		</section>
+		<section>
+			<h2>File loader</h2>
+			<pre><code class="hljs" data-trim contenteditable>$ npm install --save-dev file-loader</code></pre>
+			<pre><code class="hljs" data-trim contenteditable>// webpack.config.js
+var images = function (path) {
+    return fs.readdirSync(path).map(function (i) {
+        return path + '/' + i;
+    });
+};
+
+module.exports = {
+    entry: [
+        // ...
+    ].concat(images(__dirname + '/img')),
+    loaders: [{
+        test: /\.png$/, include: __dirname + '/img',
+        loader: 'file?name=[path][name].[ext]'
+    }]
+};</code></pre></section>
 	</section>
 
 	<section>
 		<h2>Any questions?</h2>
+	</section>
+
+	<section>
+		<h2>We're hiring <a href="http://www.marmelab.com">@marmelab</a>!</h2>
+		<img class="fragment" style="max-width: 300px" src="img/jonathan-petitcolas-christmas.jpg" title="Jonathan Petitcolas" alt="Jonathan Petitcolas" />
 	</section>
 
 	<section style="text-align: center;">
