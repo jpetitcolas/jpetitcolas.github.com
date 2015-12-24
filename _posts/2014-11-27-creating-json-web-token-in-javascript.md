@@ -17,7 +17,7 @@ Client application                                            API
         |                   GET /api/employees                 |
         |----------------------------------------------------->|
         |                     403 Forbidden                    |
-        |<-----------------------------------------------------| 
+        |<-----------------------------------------------------|
         |                                                      |
         |                                                      |
         |                 POST /api/authenticate               |
@@ -32,7 +32,7 @@ Client application                                            API
         | Header { "Authorization: Token "my.personal.token" } |
         |----------------------------------------------------->|
         |                      200 Success                     |
-        |<-----------------------------------------------------| 
+        |<-----------------------------------------------------|
         |                                                      |
 ```
 
@@ -42,7 +42,7 @@ JSON Web Token is composed of three main parts:
 * Free set of claims embedding whatever you want: username, email, roles, expiration date, etc.
 * Signature ensuring data integrity
 
-## Forging a JSON Web Token in JavaScript
+## Creating a JSON Web Token in JavaScript
 
 JSON Web Tokens may be resumed by the following equations:
 
@@ -64,14 +64,14 @@ Implementing such a function can be achieved in JavaScript:
 function base64url(source) {
   // Encode in classical base64
   encodedSource = CryptoJS.enc.Base64.stringify(source);
-  
+
   // Remove padding equal characters
   encodedSource = encodedSource.replace(/=+$/, '');
-  
+
   // Replace characters according to base64url specifications
   encodedSource = encodedSource.replace(/\+/g, '-');
   encodedSource = encodedSource.replace(/\//g, '_');
-  
+
   return encodedSource;
 }
 ```
@@ -87,7 +87,7 @@ var source = "Hello!";
 console.log(CryptoJS.enc.Utf8.parse(source).toString());
 ```
 
-This extra call is not included into the `base64url` function for signature commodity. But you are going to notice it later. 
+This extra call is not included into the `base64url` function for signature commodity. But you are going to notice it later.
 
 ### Creating our unsigned token
 
@@ -131,7 +131,7 @@ signature = base64url(signature);
 
 var signedToken = token + "." + signature;
 ```
-No need of `Utf8.parse` the output of `HmacSHA256`. It is indeed already an array of UTF-8 characters. That's why I didn't include this method in our `base64url` function. 
+No need of `Utf8.parse` the output of `HmacSHA256`. It is indeed already an array of UTF-8 characters. That's why I didn't include this method in our `base64url` function.
 
 Of course, you shouldn't share your secret client-side. Tokens should be forged server-side. Otherwise, everyone would be able to modify your tokens and pass them as genuine.
 
@@ -141,7 +141,7 @@ If you execute this code, your signed token should look like:
 	<pre style="overflow-wrap: break-word;"><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMzNywidXNlcm5hbWUiOiJqb2huLmRvZSJ9.EvTdOJSfbffGHLyND3BMDwWE22zUBOCRspPZEHlNEw</code></pre>
 </div>
 
-There is plenty of libraries dealing with JWT. Forging tokens by hand is only a good idea to learn how they work. On a real project, don't reinvent the wheel and use existing third-part tools, such as [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle) for Symfony2 users or [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) for Node.js developers.
+There is plenty of libraries dealing with JWT. Creating tokens by hand is only a good idea to learn how they work. On a real project, don't reinvent the wheel and use existing third-part tools, such as [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle) for Symfony2 users or [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) for Node.js developers.
 
 The full code of this post is available as a [CodePen](http://codepen.io/jpetitcolas/pen/zxGxKN).
 
