@@ -6,7 +6,7 @@ tags:
 ---
 
 I am using Webpack for several months now, and I ended up to some more optimized
-solutions than the one given in the [Webpack introduction post](http://localhost:4000/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html). Using the [Webpack
+solutions than the one given in the [Webpack introduction post](/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html). Using the [Webpack
 HTML Plugin](https://github.com/ampedandwired/html-webpack-plugin) allows to counter
 some limitations of the HTML file we used in the previous post.
 
