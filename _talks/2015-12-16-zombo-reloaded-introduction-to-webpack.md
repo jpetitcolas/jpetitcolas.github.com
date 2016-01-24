@@ -7,7 +7,8 @@ location: Nancy, France
 ---
 
 Webpack is an awesome module bundler. But, it lacks a real *Getting Started* tutorial.
-So, let's discover this tool together on a real project: the [Zombo.com](http://zombo.com/) rebuild.
+So, let's discover this tool together on a real project: the [Zombo.com](http://zombo.com/)
+rebuild. And let's use ES6 and SASS, as we like to live on the edge! ;)
 
 <div class='embed-container'>
 	<iframe src='/slides/2015-12-17-zombo-reloaded-webpack-sass.html#/' frameborder='0' allowfullscreen></iframe>
