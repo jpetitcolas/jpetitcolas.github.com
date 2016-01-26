@@ -5,14 +5,14 @@ tags:
     - Webpack
 ---
 
-I am using Webpack for several months now, and I ended up to some more optimized
+I have been using Webpack for several months now, and I ended up to some more optimized
 solutions than the one given in the [Webpack introduction post](/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html). Using the [Webpack
-HTML Plugin](https://github.com/ampedandwired/html-webpack-plugin) allows to counter
+HTML Plugin](https://github.com/ampedandwired/html-webpack-plugin) allows to overcome
 some limitations of the HTML file we used in the previous post.
 
 ## Hard-Written Paths, Cache Busting... Help!
 
-If we apply literally the previous post way to setup our HTML, it would result to
+If we apply literally the previous post way to setup our HTML, it results to
 something like:
 
 ``` html
@@ -36,11 +36,11 @@ work elsewhere than on your machine.
     <img src="/img/posts/html-webpack-plugin/on-my-machine-it-works.jpg" alt="On my machine, it works!" title="On my machine, it works!" />
 </p>
 
-Of course, you can simply `sed` your build output, or use two several indexes (an `index.dev.html`
-and an `index.html` files), but that's far to be optimal. And what about adding some
+Of course, you can simply `sed` your build output, or use two distinct indexes (an `index.dev.html`
+and an `index.html` files), but that's far from optimal. And what about adding some
 cache busters at each generation?
 
-That's where the [HTML Webpack Plugin]((https://github.com/ampedandwired/html-webpack-plugin)) comes into play.
+That's where the [HTML Webpack Plugin](https://github.com/ampedandwired/html-webpack-plugin) comes into play.
 
 ## HTML Webpack Plugin: the Right Way to Load your HTML Template
 
@@ -103,12 +103,12 @@ inserting them properly in our page. It solves our both issues: hard-written pat
 and cache-busting (thanks to the `hash` configuration property).
 
 Note that we have to relaunch Webpack as template changes are not taken into account
-by watching daemon.
+by the watch daemon.
 
 ### Passing Variables to our HTML Template
 
-If we wanted to specify other variables in our HTML, we just have to retrieve them
-directly using the `o.htmlWebpackPlugin.options` variable. For instance, let's consider we
+If we want to specify other variables in our HTML, we just have to retrieve them
+directly using the `o.htmlWebpackPlugin.options` variable. For instance, let's imagine that we
 updated our configuration to add current environment to our config object:
 
 ``` js
@@ -145,7 +145,7 @@ Then, we would be able to retrieve it in our HTML using:
 {% endraw %}
 ```
 
-This code allows us to differentiate our site depending of environment. For instance,
+This code allows us to differentiate our site depending of the environment. For instance,
 we may put a red background on production. It would prevent us from committing to the
 world some testing data.
 
@@ -155,7 +155,7 @@ This plug-in is really useful. But, let's take it to its logical conclusion by
 generating a whole static website. It may be useful to
 add a few presentation pages to an existing single page application. And this plug-in
 helps us to do so, without having to add a new technology such as [Jekyll](https://jekyllrb.com/)
-on our stack.
+to our stack.
 
 As this plug-in doesn't allow to include other HTML files into the main one, we
 need some JavaScript here:
