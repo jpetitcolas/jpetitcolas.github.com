@@ -11,7 +11,7 @@ your app performance, or simply learn advanced features of some common modules t
 talk.
 
 <div class='embed-container'>
-	<iframe src='/slides/2016-05-26-20-howto-become-an-angularjs-guru' frameborder='0' allowfullscreen></iframe>
+	<iframe src='/slides/2016-05-26-howto-become-an-angularjs-guru.html#/' frameborder='0' allowfullscreen></iframe>
 </div>
 
 [See Slides](/slides/2016-05-26-20-howto-become-an-angularjs-guru)
