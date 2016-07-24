@@ -1,0 +1,10 @@
+jekyll:
+    build: docker/
+    volumes:
+        - .:/srv
+    ports:
+        - "4000:4000"
+    command: >
+        serve
+            --host=0.0.0.0
+            --watch
