@@ -6,5 +6,6 @@ jekyll:
         - "4000:4000"
     command: >
         serve
+            --config _config.yml,_config.dev.yml
             --host=0.0.0.0
             --watch
