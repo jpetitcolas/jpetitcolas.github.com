@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently 'docker-compose up' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "deploy": "webpack -p && git add build/ && (git commit -m 'Rebuilding assets' || true) && git push origin master"
   },
   "repository": {
     "type": "git",
