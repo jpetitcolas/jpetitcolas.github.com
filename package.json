@@ -4,6 +4,7 @@
   "description": "Source of www.jonathan-petitcolas.com",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently 'docker-compose up' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/jpetitcolas/jpetitcolas.github.com#readme",
   "devDependencies": {
+    "concurrently": "^2.2.0",
     "node-sass": "^3.8.0"
   }
 }
