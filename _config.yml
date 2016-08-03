@@ -1,4 +1,9 @@
-assets_base_url: '/'
+assets_base_url: '/build/'
+exclude:
+    - docker
+    - sass
+    - node_modules
+    - webpack.config.js
 markdown: kramdown
 redcarpet:
     extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript"]
