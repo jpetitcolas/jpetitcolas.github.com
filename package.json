@@ -4,9 +4,8 @@
   "description": "Source of www.jonathan-petitcolas.com",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently 'docker-compose up' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
+    "start": "concurrently 'docker run -v /home/jpetitcolas/dev/jpetitcolas.github.com:/usr/src/app -p 4000:4000 starefossen/github-pages jekyll serve --config _config.yml,_config.dev.yml -d /_site --watch --force_polling -H 0.0.0.0 -P 4000' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p",
     "deploy": "webpack -p && git add build/ && (git commit -m 'Rebuilding assets' || true) && git push origin master"
   },
   "repository": {

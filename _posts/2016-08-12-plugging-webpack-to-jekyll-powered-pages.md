@@ -3,74 +3,50 @@ layout: post
 title: "Plugging Webpack to Jekyll Powered Pages"
 ---
 
-As I already explained on this blog, I chose [Jekyll](https://jekyllrb.com/) to build this blog.
-It allows a blazing-fast display (as this blog is just pure static HTML) and [a free
-hosting on GitHub Pages](http://localhost:4000/2012/12/25/migrating-to-github-pages.html).
+I chose [Jekyll](https://jekyllrb.com/) to power this blog. It allows a blazing-fast
+display (as rendering is just composed of pure HTML static files) and [a free
+hosting on GitHub Pages](/2012/12/25/migrating-to-github-pages.html).
 Yet, when I started to build these pages a few years ago, I didn't know about Webpack.
 Better late than never, let's see how to plug these two powerful tools together.
 
 ## Using Jekyll via Docker
 
 Running Jekyll requires Ruby and some other dependencies. As I don't need Ruby except
-for Jekyll, I rather like to use a Docker container. There is probably an image
-from Docker registry which would work well. Yet, as I am in vacation with a
-really slow Internet connection, I use an image I already have on my computer (the
-one we use on [marmelab's blog](http://marmelab.com/blog/)).Here is the related
-`Dockerfile`:
+for Jekyll, I prefer to use a Docker container. Thanks to Docker ecosystem,
+there is strong chances that someone already made an image fitting our needs. And,
+indeed, we can use [starefossen/github-pages](https://github.com/Starefossen/docker-github-pages)
+image:
 
-<pre>FROM ubuntu:14.04
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV HOME /root
-
-RUN apt-get update && \
-    apt-get upgrade --yes
-
-RUN apt-get install --quiet --yes curl
-RUN apt-get install --quiet --yes git
-RUN apt-get install --quiet --yes make
-RUN apt-get install --quiet --yes npm
-RUN apt-get install --quiet --yes python-software-properties
-RUN apt-get install --quiet --yes software-properties-common
-RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update
-RUN apt-get install --quiet --yes ruby2.2 ruby2.2-dev ruby-switch
-RUN ruby-switch --set ruby2.2
-
-RUN npm install --global n
-RUN npm install --global bower
-
-RUN n 0.10
-
-RUN gem install --no-rdoc --no-ri jekyll -v 3.0.1
-
-WORKDIR /srv/
-
-EXPOSE 4000
-
-ENTRYPOINT ["jekyll"]</pre>
-
-In order to get more concise Docker launch command, we are going to use `docker-compose`.
-Create a `docker-compose.yml` file with the following content:
-
-``` yaml
-jekyll:
-    build: docker/
-    volumes:
-        - .:/srv
-    ports:
-        - "4000:4000"
-    command: serve --host=0.0.0.0 --watch
+``` sh
+docker run -v $PWD:/usr/src/app -p 4000:4000 starefossen/github-pages
 ```
 
-We retrieve our `Dockerfile` from the `docker` folder, mount our project folder
-into the `/src` container folder and open 4000 port to outside world. And then,
-we launch the command `jekyll serve` (`jekyll` coming from the configured `ENTRYPOINT`)
-with `--watch` argument to refresh automatically.
+We just run the image, exposing port 4000 to the outside world and mounting current
+working directory (`$PWD`) in the expected container source files location (`/usr/src/app`).
+
+Let's add this quite long command into our `package.json` file:
+
+``` js
+{
+    // [...]
+    "scripts": {
+        "start": "docker run -v $PWD:/usr/src/app -p 4000:4000 starefossen/github-pages"
+    }
+}
+```
+
+This way, instead of typing the previous boring command, we just need to type:
+
+``` sh
+npm start
+```
 
 ## Setting Up Webpack
 
-First of all, let's install all our required dependencies:
+For our blog purpose, we have really basic needs: we just want to compile and
+compress some SASS files to a CSS single file.
+
+First of all, let's install all required dependencies:
 
 ``` sh
 npm install --save-dev \
@@ -82,10 +58,7 @@ npm install --save-dev \
     webpack-dev-server
 ```
 
-### Basic Webpack Configuration
-
-Webpack configuration is quite basic in this case. We just want to compile SASS
-files into pure CSS:
+Webpack configuration is quite basic in our case:
 
 ``` js
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -124,7 +97,6 @@ module.exports = {
 
 To sum up these lines, we compile every `scss` files in the `sass/` folder into
 `style.css` file, taking into account every images in the `sass/` and `posts/` folders.
-
 If you are not familiar with this configuration, please refer to my [Webpack introduction
 post](/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html).
 
@@ -134,7 +106,7 @@ Executing `./node_modules/.bin/webpack-dev-server` should serve your stylesheet 
 ### Running Webpack Dev Server and Jekyll Concurrently
 
 We now have two different servers. Launching them manually works fine, but it requires
-two different commands. Too cumbersome. So, we are going to add a new dependency to
+two different commands. Too cumbersome. So, let's add a new dependency to
 our project:
 
 ``` sh
@@ -148,12 +120,25 @@ perfect package for our purpose. We now just need to add a new command in our
 ``` js
 {
     "scripts": {
-        "start": "concurrently 'docker-compose up' 'webpack-dev-server --host=0.0.0.0'",
+        "start": "concurrently 'docker run -v $PWD:/usr/src/app -p 4000:4000 starefossen/github-pages' 'webpack-dev-server --host=0.0.0.0'",
     }
 }
 ```
 
-Launching our project locally is now done using:
+If we try to launch our project using the previous command, it would fail
+as `$PWD` is not translated to current working directory. That's a [concurrently
+issue](https://github.com/kimmobrunfeldt/concurrently/issues/52) I didn't solve yet.
+Meanwhile, we can still hard-write our project path:
+
+``` js
+{
+    "scripts": {
+        "start": "concurrently 'docker run -v /home/johndoe/myproject:/usr/src/app -p 4000:4000 starefossen/github-pages' 'webpack-dev-server --host=0.0.0.0'",
+    }
+}
+```
+
+That's not optimal, but it works. Launching our project locally is now done using:
 
 ``` sh
 npm start
@@ -177,7 +162,7 @@ assets_base_url: 'http://localhost:8080/'
 Now, we can use this variable through the `site` object in our layout:
 
 ``` xml
-<link rel="stylesheet" href="{{ site.assets_base_url }}style.css" />
+<link rel="stylesheet" href="{% raw %}{{ site.assets_base_url }}{% endraw %}style.css" />
 ```
 
 It works locally. Yet, when pushing our code to GitHub, we won't be able to fetch
@@ -186,16 +171,20 @@ build our assets using `webpack` and use the generated `build/style.css` file.
 
 So, we need to handle two different configuration files, depending our environment
 (dev for dev server, prod for built files). An easy way to handle it is to take profit
-of our Docker configuration and to specify our container two configuration files, such as:
+of our Docker use, specifying our container two configuration files.
+Let's override Jekyll launch parameters updating Docker `run` command:
 
-``` sh
-serve \
-    --config _config.yml,_config.dev.yml \
-    --host=0.0.0.0 \
-    --watch
+``` js
+{
+    "scripts": {
+        "start": "concurrently 'docker run [...] starefossen/github-pages jekyll serve --config _config.yml,_config.dev.yml -d /_site --watch --force_polling -H 0.0.0.0 -P 4000'",
+    }
+}
 ```
+The only change here is we repeated the [default command executed in Dockerfile](https://github.com/Starefossen/docker-github-pages/blob/master/Dockerfile#L13)
+adding it a `--config` parameter.
 
-With this configuration, Jekyll would fetch all configuration parameters from our
+With this new parameter, Jekyll would fetch all configuration parameters from our
 `_config.yml` file, and override all parameters by those from `_config.dev.yml` file
 if they exist. So, we just need to create the `_config.dev.yml` file with following
 content:
@@ -215,8 +204,7 @@ and production environment.
 
 ### Enabling Live-Reload
 
-Enabling live-reload is quite easy. We just need to add the built `script` tag
-to our layout:
+Enabling live-reload is quite easy. We just need to add the built `script` to our layout:
 
 ``` xml
 <script src="{{ site.assets_base_url }}build.js" />
@@ -232,7 +220,7 @@ webpack-dev-server --inline --hot
 
 We still need to push our pages to GitHub `gh-pages` branch to deploy a new version
 of our website. However, we should not forget to rebuild Webpack assets. Let's automate
-it adding a custom `deploy` command in your `package.json`:
+it adding a custom `deploy` command in our `package.json` file:
 
 ``` js
 {

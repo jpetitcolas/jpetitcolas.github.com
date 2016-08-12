@@ -1,6 +1,6 @@
 @import "./syntax.scss";
 
-code {
+p code {
     padding: 2px 4px;
     color: #d14;
     background-color: #f7f7f9;
@@ -9,11 +9,14 @@ code {
 
 pre {
     text-align: left;
+    background: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    padding: 2px 4px;
+    color: #d14;
     font-family: monospace;
     overflow: auto;
     margin: 1.2em 2.4em 1.2em 2.4em;
     border-left: 2px solid #bbb;
-    padding-left: 1.2rem;
     &.console {
         font-size: 0.9em;
         background: #222;
