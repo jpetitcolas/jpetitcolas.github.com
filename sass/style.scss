@@ -40,6 +40,7 @@ h4 {
 
 a {
     color: #5284B9;
+    cursor: pointer;
     text-decoration: none;
     &:hover {
         text-decoration: underline;
@@ -104,6 +105,23 @@ article img {
     width: 100%;
     height: 100%;
     position: absolute;
+}
+
+.main-illustration {
+    text-align: left;
+    img {
+        padding: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    figcaption {
+        text-align: right;
+        margin-bottom: .5rem;
+        a {
+            color: #999;
+        }
+    }
 }
 
 @media screen and (min-width: 480px) {

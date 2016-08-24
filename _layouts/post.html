@@ -3,6 +3,14 @@ layout: commentable
 ---
 <article>
     <h1>{{ page.title }}</h1>
+    {% if page.illustration %}
+        <figure class="main-illustration">
+            <figcaption>
+                <a href="{{ page.illustration_link }}">{{ page.illustration_title }}</a>
+            </figcaption>
+            <img src="{{ page.illustration }}" alt="{{ page.illustration_title }}" title="{{ page.illustration_title }}" />
+        </figure>
+    {% endif %}
     {% if page.canonical %}
         <p class="canonical">This post was originally written for <a href="{{ page.canonical }}">{{ page.canonicalLabel }}</a>.</p>
     {% endif %}

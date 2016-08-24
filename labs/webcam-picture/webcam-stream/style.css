@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+body {
+  font-size: 16px;
+  background: #333;
+  padding: 2rem;
+  color: #eee;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+.wrapper {
+  width: 640px;
+}
+
+.wrapper video {
+  border: 1px solid #222;
+}
