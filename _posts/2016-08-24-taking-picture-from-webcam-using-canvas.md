@@ -81,7 +81,7 @@ from being stuck at the first frame.
 At this step, we are able to display our webcam stream:
 
 <div class='embed-container' style="padding-bottom: 35rem;">
-    <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/webcam-stream" height="580" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/webcam-stream/index.html" height="580" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ## Taking a Picture using Canvas and Live Webcam Stream
@@ -182,7 +182,7 @@ Now, we can take a picture from our webcam, getting its content via a data URL.
 Here is the result of previous code:
 
 <div class='embed-container' style="padding-bottom: 41rem;">
-    <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/capture-button" height="580" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/capture-button/index.html" height="580" frameborder="0" allowfullscreen></iframe>
 </div>
 
 In case we need to save the image server-side, we just need to send the `canvas.toDataUrl()`
