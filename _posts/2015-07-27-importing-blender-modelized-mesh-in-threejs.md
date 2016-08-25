@@ -191,7 +191,7 @@ you don't have to worry about the light position. As we are going to see lights 
 more details in another post, I won't cover it for the moment.
 
 <div class='embed-container'>
-    <iframe src="http://www.jonathan-petitcolas.com/webgl-experiments/01-rotating-mesh/"></iframe>
+    <iframe src="https://www.jonathan-petitcolas.com/webgl-experiments/01-rotating-mesh/index.html"></iframe>
 </div>
 
 Woohoo! We now have a nice looking marmelab logo. As usual, [demonstration](http://www.jonathan-petitcolas.com/webgl-experiments/01-rotating-mesh/) and [source code](https://github.com/jpetitcolas/webgl-experiments/tree/gh-pages/01-rotating-mesh) are
