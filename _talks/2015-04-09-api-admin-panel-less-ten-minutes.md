@@ -10,5 +10,7 @@ Create an REST API is a very time-consuming task, even if there are some famous 
 Fortunately, some third libraries give priority to *convention over configuration* philosophy. This is especially the
 case for [stanlemon/rest-bundle](https://github.com/stanlemon/rest-bundle). As for the administration panel, we will use
 [ng-admin](https://github.com/marmelab/ng-admin), an Angular.js admin GUI for REST API.
- 
-**Live-coding video soon**
+
+<div class='embed-container'>
+	<iframe src="https://www.youtube.com/embed/1FozSC3AVcU" frameborder="0" allowfullscreen></iframe>
+</div>
