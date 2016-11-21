@@ -1,65 +1,72 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
-  <title>{{ page.title }} - Jonathan Petitcolas</title>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/atom.xml" rel="alternate" title="Jonathan Petitcolas" type="application/atom+xml" />
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="{{ site.assets_base_url }}style.css" />
-  {% if page.canonical %}
-    <meta name="robots" content="noindex" />
-    <link rel="canonical" href="{{ page.canonical }}"/>
-  {% endif %}
-  <!-- Google Analytics -->
-  <script>
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-2016151-9']);
-  _gaq.push(['_trackPageview']);
+    <title>{{ page.title }} - Jonathan Petitcolas</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/atom.xml" rel="alternate" title="Jonathan Petitcolas" type="application/atom+xml" />
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ site.assets_base_url }}style.css" />
+    {% if page.canonical %}
+        <meta name="robots" content="noindex" />
+        <link rel="canonical" href="{{ page.canonical }}"/>
+    {% endif %}
+    {% if page.illustration %}
+        <meta property="og:image" content="https://www.jonathan-petitcolas.com{{ page.illustration }}" />
+    {% endif %}
+    {% if page.teaser %}
+        <meta property="og:description" content="{{ teaser }}" />
+    {% endif %}
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-  </script>
-  <!-- End of Google Analytics -->
- </head>
- <body>
-  <header>
-    <div>
-      <a href="/">
-        <img src="/img/jonathan-petitcolas.jpg" alt="Jonathan Petitcolas - Photo : © Lucille Caballero http://www.lucillecaballero.com" title="Jonathan Petitcolas - Photo : © Lucille Caballero http://www.lucillecaballero.com" />
-      </a>
-      <h1><a href="/">Jonathan Petitcolas</a></h1>
-      <h2>Symfony2 and Node.js enthusiast</h2>
-      <nav>
-        <p>
-          <a href="/">Home</a> &bull;
-          <a href="/resume">Resume</a> &bull;
-          <a href="/archives">Archives</a>
-        </p>
-      </nav>
-      <ul class="social-networks">
-        <li>
-          <a href="https://twitter.com/intent/user?screen_name=Sethpolma">
-            <img src="/img/twitter.png" alt="Follow me on Twitter: @Sethpolma" title="Follow me on Twitter: @Sethpolma" />
-          </a>
-        </li>
-        <li>
-          <a href="https://plus.google.com/+JonathanPetitcolas">
-            <img src="/img/google-plus.png" alt="Follow me on Google+: +Jonathan.Petitcolas" title="Follow me on Google+: +Jonathan.Petitcolas" />
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/jpetitcolas">
-            <img src="/img/github.png" alt="Follow me on GitHub: @jpetitcolas" title="Follow me on GitHub: @jpetitcolas" />
-          </a>
-        </li>
-      </ul>
-    </div>
-  </header>
-  <div class="content">{{ content }}</div>
-  <script src="{{ site.assets_base_url }}build.js"></script>
+    <!-- Google Analytics -->
+    <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-2016151-9']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <!-- End of Google Analytics -->
+</head>
+<body>
+    <header>
+        <div>
+            <a href="/">
+                <img src="/img/jonathan-petitcolas.jpg" alt="Jonathan Petitcolas - Photo : © Lucille Caballero http://www.lucillecaballero.com" title="Jonathan Petitcolas - Photo : © Lucille Caballero http://www.lucillecaballero.com" />
+            </a>
+            <h1><a href="/">Jonathan Petitcolas</a></h1>
+            <h2>Symfony2 and Node.js enthusiast</h2>
+            <nav>
+                <p>
+                    <a href="/">Home</a> &bull;
+                    <a href="/resume">Resume</a> &bull;
+                    <a href="/archives">Archives</a>
+                </p>
+            </nav>
+            <ul class="social-networks">
+                <li>
+                    <a href="https://twitter.com/intent/user?screen_name=Sethpolma">
+                        <img src="/img/twitter.png" alt="Follow me on Twitter: @Sethpolma" title="Follow me on Twitter: @Sethpolma" />
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/+JonathanPetitcolas">
+                        <img src="/img/google-plus.png" alt="Follow me on Google+: +Jonathan.Petitcolas" title="Follow me on Google+: +Jonathan.Petitcolas" />
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/jpetitcolas">
+                        <img src="/img/github.png" alt="Follow me on GitHub: @jpetitcolas" title="Follow me on GitHub: @jpetitcolas" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="content">{{ content }}</div>
+    <script src="{{ site.assets_base_url }}build.js"></script>
 </body>
 </html>
