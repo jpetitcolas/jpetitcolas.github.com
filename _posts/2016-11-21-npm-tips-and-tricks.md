@@ -39,15 +39,16 @@ npm i -D lodash
 
 **Peer dependencies** are a special kind of production dependencies. Declared as `peerDependencies` in the `package.json` file, they are dependencies required by the project in production, but not embedded directly in current module. For instance, in [ng-admin](https://github.com/marmelab/ng-admin), we have declared `angular` as a peer dependency. Indeed, this is a module for Angular, and we assume our final users would already have Angular configured in their own project. No need to duplicate source code.
 
-**Optional dependencies** are another kind of dependencies stored in `optionalDependencies` property (we can install them using `--save-optional` flag). Imagine we want to give our users the ability to choose which rich text editor they can use. We can specify [tinyMCE](https://github.com/tinymce/tinymce) and [Quill](https://github.com/quilljs/quill) as optional dependencies. Then, in our code, just check which one is installed to enable features from one or the other:
+**Optional dependencies** are another kind of dependencies stored in `optionalDependencies` property (we can install them using `--save-optional` flag). Imagine we want to give our users the ability to choose which rich text editor they can use. We can specify [tinyMCE](https://github.com/tinymce/tinymce) and [Quill](https://github.com/quilljs/quill) as optional dependencies. Then, in our code, just check which one is configured to embed features from one or the other:
 
 ``` js
-const tinymce = require('tinymce');
-const quill = require('quill');
+const config = require('config');
 
-if (tinymce) {
+if (config.rte === 'tinymce') {
+    const tinymce = require('tinymce');
     // configure TinyMCE field
-} else {
+} else if (config.rte === 'quill'){
+    const quill = require('quill');
     // configure Quill
 }
 ```
