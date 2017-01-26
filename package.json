@@ -4,7 +4,7 @@
   "description": "Source of www.jonathan-petitcolas.com",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently 'docker run -v /home/jpetitcolas/dev/jpetitcolas.github.com:/usr/src/app -p 4000:4000 starefossen/github-pages jekyll serve --config _config.yml,_config.dev.yml -d /_site --watch --force_polling -H 0.0.0.0 -P 4000' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
+    "start": "concurrently 'docker run -v /home/jpetitcolas/dev/jpetitcolas.github.com:/usr/src/app -p 4000:4000 starefossen/github-pages jekyll serve --config _config.yml,_config.dev.yml -d /_site --future --watch --force_polling -H 0.0.0.0 -P 4000' 'webpack-dev-server --inline --hot --host=0.0.0.0'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "webpack -p && git add build/ && (git commit -m 'Rebuilding assets' || true) && git push origin master"
   },
@@ -26,6 +26,12 @@
   "homepage": "https://github.com/jpetitcolas/jpetitcolas.github.com#readme",
   "devDependencies": {
     "concurrently": "^2.2.0",
-    "node-sass": "^3.8.0"
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.1.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }
