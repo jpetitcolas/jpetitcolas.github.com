@@ -95,8 +95,8 @@ services:
 `docker-compose` would replace automatically variables from its configuration file using environment ones. Hence, we would just need to export both `UID` and `GID` variables before calling our `docker-compose run` command. To ease our future dependencies installation, we can use a `Makefile` task:
 
 ``` sh
-export UID = $(id -u)
-export GID = $(id -g)
+export $UID = $(id -u)
+export $GID = $(id -g)
 
 install:
     docker-compose run --rm --no-deps node bash -ci 'npm install'
