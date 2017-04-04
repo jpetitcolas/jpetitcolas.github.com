@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Conditional Babel configuration: introducing Babel env"
-excerpt: "After being stuck a few hours about some Babel configuration issues within an isomorphic app, we finally discovered the Babel `env` property. It allows to apply a kind of conditional configuration depending of a given environment variable."
+title: "Conditional Babel Configuration: Introducing Babel Env"
+excerpt: "After being stuck for a few hours because of some Babel configuration issues in an isomorphic app, we finally discovered the Babel env property. It allows to apply some sort of conditional configuration, depending on a given environment variable."
 tags:
     - Babel
     - Webpack
@@ -12,7 +12,7 @@ illustration_title: "Babel, the compiler for writing next generation JavaScript"
 illustration_link: "https://babeljs.io/"
 ---
 
-We recently got stuck on an issue with Babel configuration inside an isomorphic React application. Let's consider our app includes some styles directly from JavaScript:
+We recently got stuck on an issue with Babel configuration inside an isomorphic React application. Our app includes some styles directly from JavaScript:
 
 ``` js
 require('./MyComponent.scss');
@@ -34,7 +34,7 @@ SyntaxError: Unexpected token .
     [...]
 ```
 
-Fortunately, the `babel-plugin-transform-require-ignore` plugin allows to ignore some `require` based on the extensions. Hence, to ignore all SCSS files from our transpilation, we just add the following to our `.babelrc` file:
+Fortunately, the `babel-plugin-transform-require-ignore` plugin allows to ignore some `require` statements based on the extensions. Hence, to ignore all SCSS files from our transpilation, we just add the following to our `.babelrc` file:
 
 ``` json
 {
@@ -46,19 +46,19 @@ Fortunately, the `babel-plugin-transform-require-ignore` plugin allows to ignore
 }
 ```
 
-If we try to execute our transpiled file again, it should not raise any error anymore. Success? Not exactly: executing this code client-side now displays our component without any CSS. Indeed, `.babelrc` configuration file is global to our project. Our module bundler also uses it, hence ignoring all style `require`.
+If we try to execute our transpiled file again, it should not raise any error anymore. Success? Not exactly: executing this code client-side now displays our component without any CSS. Indeed, the `.babelrc` configuration file is global to our project. Our module bundler also uses it, hence ignoring all style-related `require`.
 
-Our first thought was to find a way to override Babel configuration directly in CLI using the `--plugins` option:
+My first thought was to find a way to override Babel configuration directly in CLI using the `--plugins` option:
 
 ``` sh
 ./node_modules/.bin/babel --plugins transform-require-ignore MyComponent.js
 ```
 
-However, we didn't find how to pass an argument using CLI. It seems [it is currently not supported](https://github.com/babel/babel/issues/4344). Diving deeper into Babel documentation, we noticed an interesting feature: the [Babel env property](https://babeljs.io/docs/usage/babelrc/#env-option).
+However, I didn't find how to pass an argument using CLI. It seems [it is currently not supported](https://github.com/babel/babel/issues/4344). Diving deeper into Babel documentation, I noticed an interesting feature: the [Babel env property](https://babeljs.io/docs/usage/babelrc/#env-option).
 
 > You can use the env option to set specific options when in a certain environment. Options specific to a certain environment are merged into and overwrite non-env specific options.
 
-So, we can apply a different configuration within a single `.babelrc` file simply using a `BABEL_ENV` environment variable. Looks like the perfect solution. And indeed, adding the following lines to our `.babelrc` file solved our issue:
+So, we can apply a different configuration within a single `.babelrc` file, simply by using a `BABEL_ENV` environment variable. Looks like the perfect solution. And indeed, adding the following lines to the `.babelrc` file solved our issue:
 
 ``` js
 {
