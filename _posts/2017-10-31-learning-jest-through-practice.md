@@ -7,9 +7,9 @@ tags:
     - Jest
     - testing
 
-illustration: "/img/checklist.jpg"
-illustration_title: "Check-list - Pixabay"
-illustration_link: "https://pixabay.com/fr/liste-de-v%C3%A9rification-v%C3%A9rifier-liste-2077022/"
+illustration: "/img/posts/jest.png"
+illustration_title: ""
+illustration_link: ""
 ---
 
 Jest is a Javascript testing framework published by Facebook. When browsing the [official website's homepage](https://facebook.github.io/jest/), three points are highlighted in particular: no configuration, improved performance and easy mocking. Are they marketing promises or reality? To answer this question, we will test Jest on a basic React project and explore its various possibilities.
@@ -23,7 +23,7 @@ Let's consider a very simple application whose mock-up is the following:
 
 This application consists of a text input and a button. When the user clicks on the button, we display an answer ("yes" or "no") with an illustration image. Quite simple, but perimeter would be enough to test main Jest features.
 
-The answer comes from a ~sophisticated deep learning~ random API: https://yesno.wtf/api/, returning either a `yes` or `no` response. Its format is:
+The answer comes from a ~~sophisticated deep learning~~ random API: [https://yesno.wtf/api/](https://yesno.wtf/api/). It returns either a `yes` or `no` answer as a JSON response:
 
 ``` js
 {
@@ -41,7 +41,7 @@ We can also pass a `force` parameter to set an expected response. Yet, let postp
 
 ## Using Create React App
 
-We are going to use create-react-app in this whole post. Create React App is a tool bootstrapping a pre-configured React project. For instance, it handles Hot Module Reload (HMR) allowing us to selectively reload a component we just changed instead of reloading the whole page.
+We are going to use [create-react-app](https://github.com/facebookincubator/create-react-app) in this post. `create-react-app` is a tool bootstrapping a pre-configured ready-to-use React project. For instance, it handles Hot Module Reload (HMR) allowing us to selectively reload a component we just changed instead of reloading the whole page.
 
 ``` sh
 # install create-react-app globally
@@ -120,15 +120,15 @@ Time:        1.285s
 
 We may achieve the same result using Jest binary directly in a React app created from scratch.
 
-So our Jest is correctly installed and configured. Despite a very long paragraph, there is no configuration to write in order to make Jest working. One of its promises is ~resolved~ kept!
+So our Jest is correctly installed and configured. Despite a very long paragraph, there is no configuration to write in order to make Jest working. One of its promises is ~~resolved~~ kept!
 
-## Applying Test-Driven Development on our App
+## Let's Test-Driven Develop our App!
 
 ### What is TDD?
 
-We are now going to work on our application. We are going to use Test-Driven Development (TDD). This process ensures we do not forget to test any feature, and that we are testing them right. It consists of a four steps process:
+We are now going to work on our application using Test-Driven Development (TDD). This process ensures we do not forget to test any feature, and that we are testing them right. It consists of a four steps process:
 
-1. Write a test to prove a feature – or a part of it – which does not exist yet works,
+1. Write a test to demonstrate how an incoming feature should work,
 2. Launch it and see it fail,
 3. Write the feature,
 4. Launch the test and see it pass.
@@ -147,7 +147,9 @@ it('should display Internet Gods answer in both text and picture format');
 
 At this point, we just translated our product owner wishes (materialized as a backlog story) into automated test assertions.
 
-A special care has to be brought in this part. Writing such assertions has several advantages. The most important one is the share of currently implemented business rules. When an agile project grows, it is not rare we have to implement some business rules contradicting some previous one. Having a clear understanding of why a test fails after a new feature implementation is fundamental to make a good decision about this conflict. That's why I strongly encourage to write some functional assertions (`should display Internet Gods answer in text format`) instead of technical one (`should display API answer in a title tag`). This way, we may share the test output directly with our product owner (even the non-technical one), and they would be able to understand it without further explanations.
+A special care has to be brought in this part. Writing such assertions has several advantages. The most important one is the share of currently implemented business rules. When an agile project grows, it is not rare we have to implement some business rules contradicting some previous one. Having a clear understanding of why a test fails after a new feature implementation is fundamental to make a good decision about this conflict.
+
+That's why I strongly encourage to write some functional assertions (`should display Internet Gods answer in text format`) instead of technical one (`should display API answer in a title tag`). This way, we may share the test output directly with our product owner (even the non-technical one), and they would be able to understand it without further explanations.
 
 ### Writing our First Tests
 
@@ -170,13 +172,13 @@ it('should display a submit button to send question to the Internet Gods', () =>
 });
 ```
 
-We included `enzyme` library. This package is a set of utilities making React component testing easy as a breeze. The `shallow` method compiles our React component, but not its children. Hence, if our `<App />` component contained a `<CustomForm />` component, the `<CustomForm />` component would not be compiled and would appear pristine in our output. `shallow` ensures we are testing our component unitary.
+We included [enzyme](https://github.com/airbnb/enzyme) library. This package is a set of utilities making React component testing easy as a breeze. The `shallow` method compiles our React component, but not its children. Hence, if our `<App />` component contained a `<CustomForm />` component, the `<CustomForm />` component would not be compiled and would appear pristine in our output. This way, `shallow` ensures we are testing our component unitary.
 
 Rest of the test is self-explained. Note we don't have to include `expect` import: it is already done in `jest`, as `it` function.
 
 ### Installing Enzyme on a React 16 project
 
-As we required `enzyme`, we need to grab this dependency:
+As we required `enzyme`, we need to grab it as a dependency:
 
 ```
 yarn add -D enzyme
@@ -245,7 +247,7 @@ So, let's make them pass!
 
 ### Prototyping our Application
 
-The code here would be really simple to make our tests pass:
+Here is the code to make our tests pass:
 
 ``` js
 import React, { Component } from 'react';
@@ -268,7 +270,7 @@ class App extends Component {
 export default App;
 ```
 
-Fine. Our test suite now looks promising:
+Our test suite now looks promising:
 
 ```
  PASS  src/App.test.js
@@ -277,7 +279,7 @@ Fine. Our test suite now looks promising:
   ○ skipped 1 test
 ```
 
-We still need to handle response display. So, let's complete our tests like the following:
+Fine! Yet, we still need to handle response display. So, let's complete our tests like the following:
 
 ``` js
 it('should display Internet Gods answer in both text and picture format', () => {
@@ -397,7 +399,7 @@ export default () => fetch(`https://yesno.wtf/api/`)
 
 `fetch` is the modern successor of `XmlHttpRequest` or `$.ajax`. It allows making some network calls using promises. It is not well supported yet, and we would need a [polyfill](https://github.com/matthew-andrews/isomorphic-fetch) if we use it on oldest browsers or Node versions. However, we don't really care about IE6 support in this proof of concept, do we?
 
-As the code is self-explanatory, let's focus on tests. We need to check which URL has been called by `fetch`. We can use some spies on it. A spy is simply an object tracking all function calls: how many times was it called? With which arguments? Jest provide an easy way to set up spies using `jest.fn()` function.
+As the code is self-explanatory, let's focus on tests. We need to check which URL has been called by `fetch`. We can use some spies on it. A spy is an object tracking all function calls: how many times was it called? With which arguments? Jest provide an easy way to set up spies using `jest.fn()` function.
 
 ``` js
 import ask from './Api';
@@ -541,11 +543,15 @@ it('should display Internet Gods answer in both text and picture format', () => 
     const wrapper = shallow(<App />);
     wrapper.find('button').simulate('click');
 
+    wrapper.update();
+
     const answer = wrapper.find('.answer');
     expect(answer.find('h1').text()).toBe('no');
     expect(answer.find('img').prop('src')).toBe('https://yesno.wtf/assets/no/0-b6d3e555af2c09094def76cf2fbddf46.gif');
 });
 ```
+
+Note the call to `wrapper.update()`. This is required as we updated state.
 
 We replaced the `setState` call by a click on the submit button. We now need to update our `<App />` component to send a real API call:
 
@@ -636,8 +642,6 @@ it('should display Internet Gods answer in both text and picture format', () => 
 });
 ```
 
-Note the call to `wrapper.update()`. This is required as we updated state.
-
 Finally, if we give a last look on our test suite, everything should be green. Our app is ready to be shipped!
 
 ```
@@ -665,7 +669,7 @@ We may improve rendering by setting a loader or by hiding already displayed pict
 
 ### Snapshot Testing
 
-Another interesting feature of Jest is the Snapshot Testing. When we test a huge or unknown input, instead of console-logging the output and insert it into a `.toEqual()` method, we can use the `.toMatchSnapshot()` function. For instance, if we want to test the total output of our `<App />` render function, we can use something like:
+Another interesting feature of Jest is the Snapshot Testing. When we test a huge or unknown input, instead of console-logging the output and inserting it into a `.toEqual()` method, we can use the `.toMatchSnapshot()` function. For instance, if we want to test the total output of our `<App />` render function, we can use something like:
 
 ``` js
 it('should render <App /> correctly', () => {
@@ -680,14 +684,14 @@ This feature is interesting but should not be used compulsively. If our use case
 
 I see two use cases where snapshot testing is useful:
 
-* When arriving on an existing project with no tests: it allows to setup quickly a basic test coverage which will be refined over time,
+* When joining an existing project with no tests: it allows to setup quickly a basic test coverage which will be refined over time,
 * When writing some integration tests: we just want to ensure everything works but don't care about implementation details.
 
 Hence, we must be careful with this tool: with great feature comes great responsability!
 
 ### Interactive Filters on Jest Interface
 
-The last killer feature of Jest is probably its interface. In addition to its great colors and output, we can filter interactively tests we want to run:
+Another Jest killer feature is its interface. In addition to its great colors and output, we can filter interactively tests we want to run:
 
 ```
  › Press o to only run tests related to changed files.
@@ -699,8 +703,12 @@ The last killer feature of Jest is probably its interface. In addition to its gr
 
 Filtering tests without setting up some `.only` is great! Of course, with some code reviews, with some Git hooks and with some rigor, we never skip by mistake any tests before a production deployment. Or, do we?
 
+<p class="center">
+    <img src="/img/forgotten-only.png" alt="Oops!" title="Oops!" class="reponsive" />
+</p>
+
 ## Conclusion
 
-In conclusion, we are far from our past experience with Jest. No configuration, a very simple mock system, an interface designed for developers (for once, it's a compliment!), good performances... I strongly encourage you testing it! And, last but not least: Jest is not restricted to the React ecosystem. For example, we use it on [EventDrops](https://github.com/marmelab/EventDrops), a data visualization project based on D3.js.
+In conclusion, we are far from [our past experience](https://marmelab.com/blog/2015/06/24/jest-in-practice.html) with Jest. No configuration, a very simple mock system, an interface designed for developers (for once, it's a compliment!), good performances... I strongly encourage you testing it! And, last but not least: Jest is not restricted to the React ecosystem. For example, we use it on [EventDrops](https://github.com/marmelab/EventDrops), a data visualization project based on D3.js.
 
 All source code of this application is available on [GitHub](https://github.com/jpetitcolas/yesno-jest-sample-app). Take a look on commits history, each one is a step of this tutorial.
