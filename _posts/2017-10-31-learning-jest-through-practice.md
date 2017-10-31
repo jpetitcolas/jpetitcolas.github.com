@@ -35,9 +35,9 @@ The answer comes from a ~sophisticated deep learning~ random API: https://yesno.
 
 As a side-note, it doesn't always set `yes` or `no` as explained on the website:
 
-> To make things more exciting, we return `{"answer": "maybe"}` every 10.000 time.
+> To make things more exciting, we return `{"answer": "maybe"}` every 10.000 times.
 
-We can also pass a `force` parameter set to expected response. Yet, let postpone the implementation of this parameter in a future version of our YesNo application.
+We can also pass a `force` parameter to set an expected response. Yet, let postpone the implementation of this parameter in a future version of our YesNo application.
 
 ## Using Create React App
 
@@ -51,7 +51,7 @@ yarn add -g create-react-app
 create-react-app yesno
 ```
 
-This command creates several files and folder. The most interesting is the `src` folder:
+This command creates several files and folder. The most interesting are in the `src` folder:
 
 ``` sh
 src/
@@ -64,7 +64,7 @@ src/
   └── registerServiceWorker.js
 ```
 
-Main file of our application is the `App.js` file. It contains a single `render` method displaying our page. It is the file we are going to change in this tutorial.
+The main file of our application is the `App.js` file. It contains a single `render` method displaying our page. It is the file we are going to change in this tutorial.
 
 To launch our application, we just need to execute:
 
@@ -78,7 +78,7 @@ It should then open a browser tab on `http://localhost:3000` with our current ap
     <iframe src="/labs/jest/default-create-app/index.html" height="580" frameborder="0" allowfullscreen></iframe>
 </div>
 
-**Note:** if you are using some versionning control, do not forget to initialize it at this step. Even if this tool does a big amount of things by itself, it doesn't know the project should be versionned.
+**Note:** if you are using some versioning control, do not forget to initialize it at this step. Even if this tool does a big amount of things by itself, it doesn't know the project should be versioned.
 
 ## Installing Jest
 
@@ -91,7 +91,7 @@ yarn add -D jest babel-jest
 
 We installed an extra package in the previous command: `babel-jest`. Thanks to this package, Jest will use our `.babelrc` file to better understand JSX and ES6. We install these two dependencies as development (`-D`) dependencies, as they are used only for testing purposes.
 
-By default, Jest looks for all files suffixed by `.spec.js` or `.test.js`. In current project, we have a `.test.js` suffixed file. So, no need of extra configuration. Note that Jest also takes into account all files found in `__tests__` folders.
+By default, Jest looks for all files suffixed by `.spec.js` or `.test.js`. In current project, we have a `.test.js` suffixed file. So, no need for extra configuration. Note that Jest also takes into account all files found in `__tests__` folders.
 
 To execute our tests, we may use:
 
@@ -120,7 +120,7 @@ Time:        1.285s
 
 We may achieve the same result using Jest binary directly in a React app created from scratch.
 
-So our Jest is correctly installed and configured. Despite of a very long paragraph, there is no configuration to write in order to make Jest working. One of its promise is ~resolved~ kept!
+So our Jest is correctly installed and configured. Despite a very long paragraph, there is no configuration to write in order to make Jest working. One of its promises is ~resolved~ kept!
 
 ## Applying Test-Driven Development on our App
 
@@ -133,11 +133,11 @@ We are now going to work on our application. We are going to use Test-Driven Dev
 3. Write the feature,
 4. Launch the test and see it pass.
 
-Then, we rince and repeat once our whole feature is finally done. Step 2 is really important. It is not rare indeed to write a test which always pass. Main example is writing a asynchronous test and to exit before waiting the end of it. Don't worry, we'll see an example later in this post.
+Then, we rinse and repeat once our whole feature is finally done. Step 2 is really important. It is not rare indeed to write a test which always passes. Main example is writing an asynchronous test and to exit before waiting for the end of it. Don't worry, we'll see an example later in this post.
 
 ### Writing Good Assertions
 
-Based on our above mock-up, we basically need four things on our page: an input with a submit button for the question part, and a text with a picture for the answer one. Let's write some assertions we need to prove our mock-up is correctly implemented. Here is our updated `App.test.js` file:
+Based on our above mock-up, we basically need four things on our page: an input with a submit button for the question part and a text with a picture for the answer one. Let's write some assertions we need to prove our mock-up is correctly implemented. Here is our updated `App.test.js` file:
 
 ``` js
 it('should display a text input to fill question');
@@ -147,7 +147,7 @@ it('should display Internet Gods answer in both text and picture format');
 
 At this point, we just translated our product owner wishes (materialized as a backlog story) into automated test assertions.
 
-A special care has to be brought on this part. Writing such assertions has several advantages. The most important one is the share of currently implemented business rules. When an agile project grows, it is not rare we have to implement some business rules contradicting some previous one. Having a clear understanding of why a test fails after a new feature implementation is fundamental to make a good decision about this conflict. That's why I strongly encourage to write some functional assertions (`should display Internet Gods answer in text format`) instead of technical one (`should display API answer in a title tag`). This way, we may share the test output directly with our product owner (even the non technical one), and they would be able to understand it without further explanations.
+A special care has to be brought in this part. Writing such assertions has several advantages. The most important one is the share of currently implemented business rules. When an agile project grows, it is not rare we have to implement some business rules contradicting some previous one. Having a clear understanding of why a test fails after a new feature implementation is fundamental to make a good decision about this conflict. That's why I strongly encourage to write some functional assertions (`should display Internet Gods answer in text format`) instead of technical one (`should display API answer in a title tag`). This way, we may share the test output directly with our product owner (even the non-technical one), and they would be able to understand it without further explanations.
 
 ### Writing our First Tests
 
@@ -172,7 +172,7 @@ it('should display a submit button to send question to the Internet Gods', () =>
 
 We included `enzyme` library. This package is a set of utilities making React component testing easy as a breeze. The `shallow` method compiles our React component, but not its children. Hence, if our `<App />` component contained a `<CustomForm />` component, the `<CustomForm />` component would not be compiled and would appear pristine in our output. `shallow` ensures we are testing our component unitary.
 
-Rest of the test is self explained. Note we don't have to include `expect` import: it is already done by `jest`, as `it` function.
+Rest of the test is self-explained. Note we don't have to include `expect` import: it is already done in `jest`, as `it` function.
 
 ### Installing Enzyme on a React 16 project
 
@@ -186,7 +186,7 @@ However, when launching our test suite, we encounter the following error:
 
 > Enzyme Internal Error: Enzyme expects an adapter to be configured, but found none. To
 > configure an adapter, you should call `Enzyme.configure({ adapter: new Adapter() })`
-> before using any of Enzyme's top level APIs, where `Adapter` is the adapter
+> before using any of Enzyme's top-level APIs, where `Adapter` is the adapter
 > corresponding to the library currently being tested. For example:
 
 In order to make it work, we need another extra package:
@@ -245,7 +245,7 @@ So, let's make them pass!
 
 ### Prototyping our Application
 
-Code here would be really simple to make our tests pass:
+The code here would be really simple to make our tests pass:
 
 ``` js
 import React, { Component } from 'react';
@@ -332,7 +332,7 @@ Even without launching our web browser, we can notice something is wrong in test
     TypeError: Cannot read property 'answer' of null
 ```
 
-And indeed: by default, our state is not populated. Hence, JavaScript complains of displaying `answer` property of a null state property. Our testsuite misses a special case: when there is no answer. When we notice such an edge case, we should add a test to ensure it is correctly handled. So, let's update our test file:
+And indeed: by default, our state is not populated. Hence, JavaScript complains of displaying `answer` property of a null state property. Our test suite misses a special case: when there is no answer. When we notice such an edge case, we should add a test to ensure it is correctly handled. So, let's update our test file:
 
 ``` js
 it('should not display any answer by default', () => {
@@ -395,7 +395,7 @@ export default () => fetch(`https://yesno.wtf/api/`)
     .then(response => response.json());
 ```
 
-`fetch` is the modern successor of `XmlHttpRequest` or `$.ajax`. It allows to make some network calls using promises. It is not well supported yet, and we would need a [polyfill](https://github.com/matthew-andrews/isomorphic-fetch) if we use it on oldest browsers or Node versions. However, we don't really care about IE6 support in this proof of concept, do we?
+`fetch` is the modern successor of `XmlHttpRequest` or `$.ajax`. It allows making some network calls using promises. It is not well supported yet, and we would need a [polyfill](https://github.com/matthew-andrews/isomorphic-fetch) if we use it on oldest browsers or Node versions. However, we don't really care about IE6 support in this proof of concept, do we?
 
 As the code is self-explanatory, let's focus on tests. We need to check which URL has been called by `fetch`. We can use some spies on it. A spy is simply an object tracking all function calls: how many times was it called? With which arguments? Jest provide an easy way to set up spies using `jest.fn()` function.
 
@@ -414,7 +414,7 @@ describe('API Caller', () => {
 });
 ```
 
-Let's focus on these three lines. We start by defining a spy on the `fetch` method. Indeed, Jest can only mock object methods. Yet, we circumvent the issue using the `global` object. Then we wall our API, and check that our spy has been correctly called, using YesNo API URL.
+Let's focus on these three lines. We start by defining a spy on the `fetch` method. Indeed, Jest can only mock object methods. Yet, we circumvent the issue using the `global` object. Then we call our API and check that our spy has been correctly called, using YesNo API URL.
 
 Note we returned a promise in our test suite. This is done to ensure our test would wait until the end of the returned promise. Without this `return`, test would create a new parallel thread to launch our API call, yet the test would reach its end and simply finish. All tests in our `then` would not be executed, causing an always green test. Not really useful, is it?
 
@@ -425,7 +425,7 @@ TypeError: Network request failed
     at XMLHttpRequest.xhr.onerror (/home/jpetitcolas/dev/yesno/node_modules/whatwg-fetch/fetch.js:436:16)
 ```
 
-Our test suite broke because we made a network request. This is a really bad practice. Calling external systems within our tests increase the time to execute (network is slow) and reduce their fiability. What about if the third system is temporarily down? Our tests should be resilient to other system failures. At least, for the unit ones. So, we need to prevent this network request. Fortunately, Jest provide a `mockImplementation` method:
+Our test suite broke because we made a network request. This is a really bad practice. Calling external systems within our tests increase the time to execute (network is slow) and reduce their viability. What about if the third system is temporarily down? Our tests should be resilient to other system failures. At least, for the unit ones. So, we need to prevent this network request. Fortunately, Jest provides a `mockImplementation` method:
 
 ``` js
 it('should call YesNo API', () => {
@@ -520,7 +520,7 @@ describe('API Caller', () => {
 
 Our `console.log` should not display any calls anymore.
 
-If we didn't used `create-react-app`, we may have configured this behavior globally, telling Jest to reset mocks automatically between each tests. We can achieve that editing our `package.json` file and adding the following configuration:
+If we didn't use `create-react-app`, we may have configured this behavior globally, telling Jest to reset mocks automatically between each test. We can achieve that editing our `package.json` file and adding the following configuration:
 
 ``` json
 {
@@ -589,7 +589,7 @@ TypeError: Network request failed
     at XMLHttpRequest.xhr.onerror (/home/jpetitcolas/dev/yesno/node_modules/whatwg-fetch/fetch.js:436:16)
 ```
 
-Indeed: our application still calls the real API as we didn't mock `Api` module in `App` tests. In this case, we are going to use `jest.mock` function. This powerful function allows to mock a module directly in the Node requirements resolution process.
+Indeed: our application still calls the real API as we didn't mock `Api` module in `App` tests. In this case, we are going to use `jest.mock` function. This powerful function allows mocking a module directly in the Node requirements resolution process.
 
 ```
 jest.mock('./Api');
@@ -608,7 +608,7 @@ export default () => Promise.resolve({
 
 All calls to our `Api.js` file would resolve a promise with an example of successful response. With this single reusable line of code, our `<App />` component is mocked.
 
-Note we can put this line whereever we want in the file. It uses code hoisting. Behind this obscure expression is a very simple concept: all code "hoisted" would appear at the very beginning of the file. It prevents some `require` resolution conflicts.
+Note we can put this line wherever we want in the file. It uses code hoisting. Behind this obscure expression is a very simple concept: all code "hoisted" would appear at the very beginning of the file. It prevents some `require` resolution conflicts.
 
 Launching our tests again gives us another error:
 
