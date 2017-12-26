@@ -12,7 +12,7 @@ illustration_title: ""
 illustration_link: ""
 ---
 
-While browsing Stack Overflow, I generally browse one or two links from the sidebar "Hot Network Questions". It brings me to several interesting topics, not necessarily related to development. And this time, I found an interesting post: [how do ASCII art image conversion algorithms work?](https://stackoverflow.com/questions/394882/how-do-ascii-art-image-conversion-algorithms-work)
+While browsing Stack Overflow, I generally click on one or two links from the sidebar "Hot Network Questions". It brings me to several interesting topics, not necessarily related to development. And this time, I found an interesting post: [how do ASCII art image conversion algorithms work?](https://stackoverflow.com/questions/394882/how-do-ascii-art-image-conversion-algorithms-work)
 
 ASCII art image conversion basically consists in two steps: converting our picture into gray colors, and map each pixel to a given character depending of the grayscale value. For instance, `@` is darker than `+`, which is also darker than `.`. So, let's try to implement such an algorithm in pure JavaScript.
 
@@ -128,4 +128,175 @@ Adding a call to `convertToGrayScales` function at the end of our `image.onload`
 
 ## Mapping the Pixels to GrayScale Values
 
+Now that we have a list of grayscales value for every pixel, we can map each of these value to a different character. Reasons behind this mapping is simple: some characters are darker than others. For instance, `@` is darker than `.`, which occupies less space on screen.
+
+The following character ramp is generally used for this conversion:
+
+```
+$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'.&nbsp;
+```
+
+Hence, mapping a gray scale value to its equivalent character can be done via:
+
+``` js
+const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
+const rampLength = grayRamp.length;
+
+const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
+```
+
+We retrieve the corresponding character using a cross-shaped product: gray scale of 0 (black) should be `$`, and a white pixel (gray scale of 255) should be a space ` `. We substract 1 to `rampLength` as arrays start at 0 index.
+
+Let's translate our input image into pure characters:
+
+``` js
+const asciiImage = document.querySelector('pre#ascii');
+
+const drawAscii = (grayScales) => {
+    const ascii = grayScales.reduce((asciiImage, grayScale) => {
+        return asciiImage + getCharacterForGrayScale(grayScale);
+    }, '');
+
+    asciiImage.textContent = ascii;
+};
+```
+
+We have added a `pre` tag in our code with "ascii" id. `pre` in this case is important to keep aspect ratio of our picture, using a monospaced font.
+
+Calling the `drawAscii` method at the end of our `image.onload` callback, we get the following result:
+
+![Drawing ASCII image without break lines](/img/posts/single-line-ascii-image.gif)
+
+At first glance, it seems it doesn't work. Yet, if we scroll horizontally, we notice some strings wandering through the screen. Our picture seems to be on a single line. And indeed: all our values are on a single dimensional array. Hence, we need to add a break line every `width` value:
+
+``` js
+const drawAscii = (grayScales, width) => {
+    const ascii = grayScales.reduce((asciiImage, grayScale, index) => {
+        let nextChars = getCharacterForGrayScale(grayScale);
+
+        if (index % width === 0) {
+            nextChars += '\n';
+        }
+
+        return asciiImage + nextChars;
+    }, '');
+
+    asciiImage.textContent = ascii;
+};
+```
+
+Result is now far better, except for a detail...
+
+![Drawing far too big ASCII image](/img/posts/too-big-ascii-image.gif)
+
+Our image ASCII representation is huge. Indeed, we mapped any single pixel to a character, spread on a lot of pixels. Drawing a 10x10 small picture would then take 10 lines of 10 characters. Too big. We can of course keep this huge text picture and reduce font-size as shown in previous picture. Yet, that's not optimal, especially if you want to share it by email.
+
+## Lowering ASCII Image Definition
+
+When browsing the Web to check how other achieve such a resolution downgrade, we often find the average method:
+
+![Computing Average Pixels Value on Image](/img/posts/ascii-image-average-value.png)
+
+This technique consists in taking sub-arrays of pixels and to compute their average grayscale. Then, instead of drawing 9 white pixels for the red section above, we would draw a single one, still completly white.
+
+I first dove into the code, trying to compute this average on the unidimensional array. Yet, after an hour of tying myself in knots, I remembered the next two arguments of `drawImage` canvas method: the output width and height. Their main goal is to resize picture before drawing it. Exactly what we have to do! I wasn't able to find how this is done under the hood, but I guess this is using the same average process.
+
+Let's clamp our image dimension:
+
+``` js
+const MAXIMUM_WIDTH = 80;
+const MAXIMUM_HEIGHT = 50;
+
+const clampDimensions = (width, height) => {
+    if (width > MAXIMUM_WIDTH) {
+        return [MAXIMUM_WIDTH, height * MAXIMUM_WIDTH / width];
+    }
+
+    if (height > MAXIMUM_HEIGHT) {
+        return [width * MAXIMUM_HEIGHT / height, MAXIMUM_HEIGHT];
+    }
+
+    return [width, height];
+};
+```
+
+Note that we keep image aspect ratio to prevent some weird distortions. Then, we need to update our `image.onload` handler to use the clamped values:
+
+``` js
+image.onload = () => {
+    const [width, height] = clampDimensions(image.width, image.height);
+
+    canvas.width = width;
+    canvas.height = height;
+
+    context.drawImage(image, 0, 0, width, height);
+    const grayScales = convertToGrayScales(context, width, height);
+
+    drawAscii(grayScales, width);
+};
+```
+
+If we upload our favorite Simpson character, here is the result:
+
+```
+                            k@d8
+                          :c     a
+                        "@h*k    .c
+                       X.*   j]&kf}[1U%l
+                       ^ Q  qJiiiiiii>}}Z!
+                      M  -C-iiiiiiiiiiii}}h
+                      0 .8;iiiiiiiiiiiiii}}Z
+                      t W%iiiiiiiiiiiiiiii}]^
+                      W&`!liiiiiiiiiiiiiiii}Z
+                      m^iiiiiiiiiiiiiiiiiii_}-
+                     .~#iiiiiiiiiiiiiiiiiiii}p
+                     &`iiiiiiiiiiiiiiiiiiiii]}`
+                     o`iiiiiiiiiiiiiiiiiiiiii}&
+                     ';iiiiiiiiiiiiiiiiiiiiii}p]
+                     `!iiiiiiiiiiiiiiiiiiiiiii}}~
+                     'iiiiiiiiiiiiiiiiiiiiii++!}M
+                     '!iiiiiiiiiiiii>iiiiIB. .!W@
+                     o"iiiiiiiii)%1>1@+i[,      d
+                     B'iiiiiiii%       #:        M
+                     '`iiiiiiiM         j
+                      w!iiiiii.         z     W*  ?
+                      X`iiiiiB                 .  >
+                       niiiiiW   .W.     ^
+                       w`iiiiW    W,      .;b&8' %
+                        [iYrif          k|>iiii}Wh
+                        *iu}iiY         }iiiiiiiZU
+                       z.}xioi!(      .piiiiiiiih}
+                       !{hxiiWiiB~   o_iiiiiii!nL&
+                        .xuiiiiiii!Iiiiiiii>-j8?|z8
+                        > aiiiiiiiiiii]&BW#v_[[[[}zB
+                        @ /iiiiiiiiZw[[[[[[[[[[[[[[cf
+                          O~I;iiiib[[[[[[[[[[[[[[[[)0
+                         `"iiiiil1[[[[[[[[[[[[[[[[[[z|
+                         z!q&iiiX[[[[[[[[[[[[[[[[[[[j8
+                         ]>]iiio[[[[[[[[[[[[[[[[[[[[[vx
+                          miiiic[[[[[[[[[[[[[[[[[[[[[[C
+                           b%Li][[[[[[[[[[[[[[[[[[[[[[8
+                            .}!][[[[[[[[[[[[[[[[[[][/p
+                             ?i][8[[[[[[[[[[[[[[]U&!
+                             W!n[Y]J&*QcncZ#&#Z{]c(
+                             Mi8[[[[[[[[[[[[[[[[{n
+                             Ii>[[[[[[[[[[[[[[[[0i
+                             .iiW[[[[[[[[[[[[[[c@
+                              iii%[[[[[[[[[[[[}X.
+                              iiiiMv][[[[[[[[}v*
+                            .^<iiii>&c{[[[[[cQc#@n.
+                            z"+iiiiii<oWoaM&(i[1" *
+                           %".Q&m?>iiiiiiiiiii>}0 L%
+                           :""   . ';Y@@WMiiiii[q`"'
+                          ["""          k,_?iii?}W<"&*'
+                          @""""         B"  diii}b),?",Uc
+                          0","""       .,,  .Wii>I"&,;",,l*
+```
+
+Resolution has been decreased and we can't see as many details as before, but that's a mandatory inconvenience to get a shareable ASCII masterpiece.
+
 ## Final Demonstration
+
+If we hide the `canvas` for the user and add some fancy CSS, here is our final ASCII Art Converter. And as usual, all the converter code is available on GitHub.
+
+Note that we only handle static image in this case, but some people also handle live video stream, such as [the ASCII camera](https://idevelop.ro/ascii-camera/). Useless, therefore indispensable!
