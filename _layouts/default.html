@@ -13,9 +13,11 @@
     {% endif %}
     {% if page.illustration %}
         <meta property="og:image" content="https://www.jonathan-petitcolas.com{{ page.illustration }}" />
+        <meta property="twitter:image" content="https://www.jonathan-petitcolas.com{{ page.illustration }}" />
     {% endif %}
     {% if page.teaser %}
         <meta property="og:description" content="{{ teaser }}" />
+        <meta property="twitter:description" content="{{ teaser }}" />
     {% endif %}
 
     <!-- Google Analytics -->
