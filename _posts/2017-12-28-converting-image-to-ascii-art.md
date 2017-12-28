@@ -8,7 +8,7 @@ tags:
     - fun
 
 illustration: "/img/posts/ascii-art-converter/homer-living-room-ascii.png"
-illustration_title: "ASCII Homer in its living room"
+illustration_title: "ASCII Homer in his living room"
 illustration_link: ""
 ---
 
