@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Taking Picture From Webcam Using Canvas"
+excerpt: "I recently needed to take a picture from a web browser using webcam. As this is a basic need, I thought it would be quite easy. Yet, solution is not trivial, and implies both using new user media HTML5 API and some canvas manipulation. Here is a reminder which may be useful to everyone."
 illustration: "/img/posts/webcam.jpg"
+illustration_thumbnail: "/img/posts/webcam.jpg"
 illustration_title: "Webcam, by David Burillo"
 illustration_link: "https://www.flickr.com/photos/dgbury/5695679595/in/photolist-9FiR7k-98et2a-98etvR-98hBZ9-6Ed5wT-ohM1Ua-9AMe8t-99gMt-4EtoSE-91enR6-aCLhA-71vCP-93Mxqn-59WYvo-71vAt-3mwzw-7DapU-7NDuqJ-aceHr-6cGRyB-4QK9Ed-4SFKp-33532-R93tf-9AcPZV-6KuEf-o1NMBf-551kGR-oxedo5-ozefa5-ohLnLV-ohL95C-ohL96E-ohL94A-oxedno-ozg5uc-miKhC-4QK9DY-moxg4g-62xZ8c-8gpDB-TY7Ry-vRtD4-5QzXBV-8zNSb-5QEdXL-9muvC-4iLMqg-dtKJqc-e1gAy3"
 ---

@@ -1,7 +1,10 @@
 ---
 layout: post
 title: "Using HTTPs with Custom Domain Name on GitHub Pages"
+excerpt: "GitHub supports HTTPs natively, but only for <code>github.io</code> domain names. It doesn't work with custom domain names. Fortunately, CloudFlare,
+a free (for basic needs) DNS/CDN, provides a solution to use HTTPs any domain. Here is a step-by-step tutorial to secure your own GitHub Pages."
 illustration: "/img/posts/octocat.png"
+illustration_thumbnail: "/img/posts/octocat.png"
 illustration_title: "GutHub Octocat, by Side-7"
 illustration_link: "http://www.deviantart.com/art/GutHub-Octocat-215728549"
 ---

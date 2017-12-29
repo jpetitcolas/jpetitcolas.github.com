@@ -1,6 +1,9 @@
 ---
 layout: post
-title: How-to dump your Docker-ized database on Amazon S3?
+title: "How-to dump your Docker-ized database on Amazon S3?"
+excerpt: "I got a few side-projects in production, a majority using Docker containers. Who says production also says data backup. Here is a post describing how I regularly upload my database dumps directly from a Docker container to Amazon S3 servers."
+illustration: "/img/posts/s3-backup/backup.jpg"
+illustration_thumbnail: "/img/posts/s3-backup/backup-thumb.jpg"
 ---
 
 I got a few side-projects in production, a majority using Docker containers. Who

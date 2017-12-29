@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Npm Tips and Tricks"
+excerpt: "All Node.js developers have already used `npm` to install their favorite dependencies. However, far beyond the very famous `npm install`, npm offers a wide bench of available commands to ease our daily job. Most of them are unknown, so let's enlight them."
 illustration: "/img/posts/npm-wombat-coding.png"
+illustration_thumbnail: "/img/posts/npm-wombat-coding.png"
 illustration_title: "Npm Coding Wombat found on Npm Blog"
 illustration_link: "http://blog.npmjs.org/"
 ---

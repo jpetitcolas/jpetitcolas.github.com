@@ -1,6 +1,9 @@
 ---
 layout: post
-title: Webpack HTML plug-in in a Nutshell
+title: Webpack HTML plug-in&nbsp;in&nbsp;a&nbsp;Nutshell
+excerpt: "I have been using Webpack for several months now, and I ended up to some more optimized solutions than the one already presented on this blog. Let's see some solutions to handle correctly assets paths, cache busting, and use of configuration parameters, using the Webpack HTML Plugin."
+illustration: "/img/posts/html-webpack-plugin/webpack.png"
+illustration_thumbnail: "/img/posts/html-webpack-plugin/webpack-thumbnail.png"
 tags:
     - Webpack
 ---

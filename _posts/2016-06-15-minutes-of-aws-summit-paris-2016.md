@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "Minutes of AWS Summit Paris 2016"
+title: "Minutes of AWS&nbsp;Summit&nbsp;Paris&nbsp;2016"
 canonical: http://marmelab.com/blog/2016/06/15/minutes-of-aws-summit-paris-2016.html
 canonicalLabel: marmelab blog
+excerpt: "Thanks to marmelab, I attended to the AWS Summit last month in Paris. Here is our feedback about this event which is, as its name implies, focused on Amazon Web Services."
+illustration: "/img/posts/aws-summit/aws-summit-entrance.jpg"
+illustration_thumbnail: "/img/posts/aws-summit/aws-summit-thumb.jpg"
 ---
-
-<img src="/img/posts/aws-summit-entrance.jpg" class="responsive" title="AWS Summit 2016" />
 
 Thanks to [marmelab](http://www.marmelab.com), I attended, with [Kevin Maschtaller](https://twitter.com/kmaschta) who helped me to write this post, to the [AWS Summit](https://aws.amazon.com/summits/?nc1=h_ls) last month in Paris. Here is our feedback about this event which is, as its name implies, focused on Amazon Web Services.
 
@@ -17,7 +18,7 @@ We met several people, especially the news editor of [Programmez](http://www.pro
 
 We also hanged out along different partner stands. Nothing really new here, the majority of the partners was monitoring companies. However, we spent some time at the Intel stand, where they brought a prototype of plant supervisor. With some sensors plugged on the Amazon IoT platform, they are able to detect when the plant is thirsty. It reminds us one of our previous project ([Advanced Mint Monitoring with Arduino and D3.js](http://www.jonathan-petitcolas.com/talks/2014-09-24-advanced-mint-monitoring-with-arduino-and-d3js.html)).
 
-<img src="/img/posts/aws-summit-networking.jpg" class="responsive" title="AWS Summit 2016" />
+<img src="/img/posts/aws-summit/aws-summit-networking.jpg" class="responsive" title="AWS Summit 2016" />
 
 Another partner who interested us was [DataDog](https://www.datadoghq.com/). They offer a monitoring service (such as [New Relic](https://newrelic.com/) and newly discovered [Instana](https://www.instana.com/)), but this one seems really completed, with nice infrastructure data visualization and well trained setup (at least, from what we have seen in a commercial presentation). The only drawback is the price, which seems excessive, $15 per host, for smallest projects.
 

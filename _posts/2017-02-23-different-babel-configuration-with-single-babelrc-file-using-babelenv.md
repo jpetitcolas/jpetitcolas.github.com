@@ -7,7 +7,8 @@ tags:
     - Webpack
     - isomorphic
 
-illustration: "/img/posts/babel.png"
+illustration: "/img/posts/babel/babel.png"
+illustration_thumbnail: "/img/posts/babel/babel.png"
 illustration_title: "Babel, the compiler for writing next generation JavaScript"
 illustration_link: "https://babeljs.io/"
 ---

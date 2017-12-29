@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f1f1f1;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    color: #444;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    color: #42342b;
+}
+
+a:hover {
+    color: #f39313;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body > header {
+    padding: 70px 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1d1d1d;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+    margin-bottom: 60px;
+}
+
+body > header h1 {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 2.25em;
+}
+
+body > header p {
+    font-size: 1.1em;
+    line-height: 110%;
+    font-weight: 400;
+    color: #999;
+    margin: 20px 0 0 0;
+}
+
+body > header a {
+    color: #fff;
+}
+
+body > .wrapper {
+    position: relative;
+    margin: 0 auto;
+    width: 1440px;
+    max-width: 92.6%;
+}
+
+.posts {
+    width: 100%;
+}
+
+.post-wrapper {
+    padding: 0 1.5% 2.5% 1.5%;
+    width: 33%;
+    float: left;
+}
+
+.post {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.post > header {
+    padding: 8% 10%;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.post > header::before {
+    content: "";
+    display: block;
+    border: 12px solid transparent;
+    border-top-color: #eee;
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    left: 10%;
+    margin-bottom: -24px;
+}
+
+.post > header::after {
+    content: "";
+    display: block;
+    border: 11px solid transparent;
+    border-top-color: #fff;
+    position: absolute;
+    z-index: 11;
+    bottom: 0;
+    left: 10%;
+    margin-left: 1px;
+    margin-bottom: -21px;
+}
+
+.post h2 {
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 1.25em;
+    line-height: 120%;
+    font-weight: 700;
+    color: #2B3542;
+    word-break: break-word;
+}
+
+.post .picture img {
+    transition: all 0.3s ease-in-out;
+}
+
+.post .picture img:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.post .excerpt {
+    padding: 10%;
+    color: #666;
+    line-height: 150%;
+    font-size: 0.95em;
+}
+
+.post .excerpt a {
+    color: #f39313;
+    display: block;
+    margin-top: 1.1em;
+}
+
+.post .excerpt a:hover {
+    text-decoration: underline;
+}
+
+.post > footer {
+    background: #F9F9F9;
+    padding: 0 10%;
+}
+
+.post > footer a {
+    display: block;
+    color: #999;
+    font-size: 0.8em;
+    font-weight: 700;
+    padding: 20px 0px 20px 24px;
+    background: no-repeat left center;
+    background-size: 18px auto;
+}
+
+.post > footer .date {
+    background-image: url(img/clock.png);
+}
