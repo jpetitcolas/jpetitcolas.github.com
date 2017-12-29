@@ -1,12 +1,13 @@
 ---
 layout: post
 title: "Internationalizing a React Application using Polyglot"
-excerpt: "Following an Internationalization tutorial is generally quite straightforward. But what about implementing it on a real-world application? Here is a tested solution using context and provider."
+excerpt: "Following an Internationalization tutorial is generally quite straightforward. But what about implementing it on a real-world application? Here is a tested solution using Polyglot. We'll also learn how to use context by creating a custom Provider."
 tags:
     - React
     - I18n
 
-illustration: "/img/posts/flags.jpg"
+illustration: "/img/posts/polyglot/flags.jpg"
+illustration_thumbnail: "/img/posts/polyglot/flags-thumb.jpg"
 illustration_title: "Flags - FreeImages.com / Iva Villi"
 illustration_link: "http://fr.freeimages.com/photo/flags-1524304"
 ---
@@ -47,7 +48,7 @@ import Polyglot from 'node-polyglot';
 
 const locale = 'fr';
 const phrases = {
-    'actions.fullscreen': 'Voir en plein écran',    
+    'actions.fullscreen': 'Voir en plein écran',
 };
 
 const polyglot = new Polyglot({ locale, phrases });

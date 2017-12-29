@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Converting an Image into ASCII Art"
+title: "Converting an Image into&nbsp;ASCII&nbsp;Art&nbsp;Masterpiece"
 excerpt: "While browsing Stack Overflow, I generally browse one or two links from the sidebar 'Hot Network Questions'. It brings me to several interesting topics, not necessarily related to development. And this time, I found an interesting post: how do ASCII art image conversion algorithms work?"
 tags:
     - canvas
@@ -8,6 +8,7 @@ tags:
     - fun
 
 illustration: "/img/posts/ascii-art-converter/homer-living-room-ascii.png"
+illustration_thumbnail: "/img/posts/ascii-art-converter/homer.png"
 illustration_title: "ASCII Homer in its living room"
 illustration_link: ""
 ---

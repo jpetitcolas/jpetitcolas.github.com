@@ -1,10 +1,12 @@
 ---
 layout: post
 title: "Npm (or Yarn) Install within a Docker Container, the Right Way"
+excerpt: "Docker is awesome. Yet, it brings some common pitfalls, especially when you need to handle file permissions correctly, or need to use SSH. Here are some solutions to counter these issues."
 illustration: "/img/docker.svg"
+illustration_thumbnail: "/img/docker.svg"
 ---
 
-Working as a web agency (or more specifically at [marmelab](https://www.marmelab.com), as an innovation workshop), we have to deal with several different customers and projects. Each of these projects has its own set of technologies, and sometimes, their own version requirements. Installing concurrently all these heterogeneous components would be a nightmare. 
+Working as a web agency (or more specifically at [marmelab](https://www.marmelab.com), as an innovation workshop), we have to deal with several different customers and projects. Each of these projects has its own set of technologies, and sometimes, their own version requirements. Installing concurrently all these heterogeneous components would be a nightmare.
 
 Fortunately, Docker exists. Docker containers are a kind of very light virtual machines (let be simple for this post). They have a lot of advantages, the best one being probably the Docker repository. It provides a wide range of ready-to-use components. Either you need a [WordPress](https://hub.docker.com/_/wordpress/) or a [Golang server](https://hub.docker.com/_/golang/), we can simply download the related Docker image and we are ready to go.
 
@@ -42,15 +44,15 @@ services:
         # map host project folder to /app container folder
         volumes:
             - .:/app
-        
+
         # which port should be accessible from the outside?
-        expose: 
+        expose:
             - "3000"
 
         # start container once `db` service is up
         depends_on:
             - db
-        
+
         # `db` and `node` should be able to communicate
         links:
             - db
@@ -66,11 +68,11 @@ Now, let's suppose we don't have `npm` installed on our host machine. Bootstrapp
 docker-compose run --rm --no-deps node bash -ci 'npm install'
 ```
 
-Note the `--no-deps` argument, which prevents to start `db` service in this case. 
+Note the `--no-deps` argument, which prevents to start `db` service in this case.
 
 This command would work fine. Yet, if we check `node_modules` file permissions, we would get an unpleasantly surprise:
 
-``` 
+```
 ls -al node_modules
 
 total 3184
@@ -116,7 +118,7 @@ make install
 
 If you check file permissions, they all should be fine now.
 
-``` 
+```
 ls -al node_modules
 
 total 3184

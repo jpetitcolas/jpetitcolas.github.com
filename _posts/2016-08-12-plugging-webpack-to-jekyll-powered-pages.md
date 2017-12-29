@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Plugging Webpack to Jekyll Powered Pages"
+excerpt: "I chose Jekyll to power this blog. It allows a blazing-fast display (as rendering is just composed of pure HTML static files) and a free hosting via GitHub. Yet, when I started to build these pages a few years ago, I didn't know about Webpack. Better late than never, let's see how to plug these two powerful tools together."
+illustration: "/img/posts/jekyll-webpack/jekyll-webpack.png"
+illustration_thumbnail: "/img/posts/jekyll-webpack/jekyll-webpack-thumb.png"
 ---
 
 I chose [Jekyll](https://jekyllrb.com/) to power this blog. It allows a blazing-fast

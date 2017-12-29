@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "Learning Jest Through Practice"
-excerpt: ""
+excerpt: "Jest is a Javascript testing framework published by Facebook. When browsing the official website homepage, three points are highlighted in particular: no configuration, improved performance, and easy mocking. Are they marketing promises, or reality? To answer this question, we will test Jest on a basic React project and explore its various possibilities."
 tags:
     - React
     - Jest
     - testing
 
-illustration: "/img/posts/jest.png"
-illustration_title: ""
-illustration_link: ""
+illustration: "/img/posts/jest/react-jest.png"
+illustration_thumbnail: "/img/posts/jest/jest.png"
+illustration_title: "Jest, best testing framework for React?"
 ---
 
 Jest is a Javascript testing framework published by Facebook. When browsing the [official website's homepage](https://facebook.github.io/jest/), three points are highlighted in particular: no configuration, improved performance and easy mocking. Are they marketing promises or reality? To answer this question, we will test Jest on a basic React project and explore its various possibilities.
