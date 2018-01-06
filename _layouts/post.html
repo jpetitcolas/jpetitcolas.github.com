@@ -11,8 +11,8 @@ layout: commentable
             <img src="{{ page.illustration }}" alt="{{ page.illustration_title }}" title="{{ page.illustration_title }}" />
         </figure>
     {% endif %}
-    {% if page.canonical %}
-        <p class="canonical">This post was originally written for <a href="{{ page.canonical }}">{{ page.canonicalLabel }}</a>.</p>
-    {% endif %}
+        {% if page.canonical %}
+            <p class="canonical">This post was originally written for <a href="{{ page.canonical }}">{{ page.canonicalLabel }}</a>.</p>
+        {% endif %}
     {{ content }}
 </article>

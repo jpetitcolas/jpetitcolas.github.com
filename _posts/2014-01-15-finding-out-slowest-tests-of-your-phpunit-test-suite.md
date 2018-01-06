@@ -1,12 +1,14 @@
 ---
 layout: post
 title: "Finding out slowest tests of your PHPUnit test suite"
+excerpt: "We just wrote a brand new visualization tool provideing a quick way to monitor your PHPUnit test suites. Within a single glance, you will be able to identify the slowest tests, helping you to improve the overall execution time of your tests."
+illustration: "/img/posts/phpunit-d3/report.png"
+illustration_thumbnail: "/img/posts/phpunit-d3/report-thumbnail.png"
 ---
 
 Writing tests is a very important and tranquilizing task in developer daily life. Delivering a new feature with green tests removes so much stress, telling the developer he had not break anything. That&#39;s why you should write tests for every single new piece of code you implement.
 
-If you joined a big project, you should have noticed that tests are very slow to execute. For instance, on a current huge project we have at [Marmelab](http://www.marmelab.com), tests are taking 45 minutes. This is generally not an issue with continuous integration server, as you can execute tests in background without monopolizing your workstation. Yet, long tests are really a bad point
-when you are in a matter of urgency.
+If you joined a big project, you should have noticed that tests are very slow to execute. For instance, on a current huge project we have at [Marmelab](http://www.marmelab.com), tests are taking 45 minutes. This is generally not an issue with continuous integration server, as you can execute tests in background without monopolizing your workstation. Yet, long tests are really a bad point when you are in a matter of urgency.
 
 Let's consider this (sadly) common situation where you just released a new version in production and when your customer calls you completely panicked to warn you about a critical bug. Fix may be quick, deployment may also be if you decide to bypass tests. Yet, this is so much stressful and dangerous: you do not have any net and may break something else with your fix. That&#39;s why reducing tests duration is really important.
 
@@ -38,7 +40,7 @@ I may have used a bash command to check each test duration individually. It may 
 
 Then, I took a look for another solution and came on [Christian Weiske's post](http://cweiske.de/tagebuch/visualizing-phpunit-runs.htm) talking about the [Phing phpunitreport task](http://www.phing.info/docs/master/webhelp/PHPUnitReport.html). Producing the same [Faker] (https://github.com/fzaninotto/Faker) report brought me the following page:
 
-<img src="/img/posts/phing-phpunitreport-faker.png" alt="Phing PHPUnit report of Faker" title="Phing PHPUnit report of Faker" />
+<img src="/img/posts/phpunit-d3/phing-phpunitreport-faker.png" alt="Phing PHPUnit report of Faker" title="Phing PHPUnit report of Faker" />
 
 This display is of course truncated. But as you may have noticed, this output only displays raw numbers. Too difficult to interpret.
 

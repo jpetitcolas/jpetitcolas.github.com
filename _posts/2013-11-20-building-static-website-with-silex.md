@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Building a static website with Silex"
+excerpt: "I recently helped a contact of mine to develop her company website. Her needs were basic: some static pages and a FAQ. No need for a whole big framework for such simple needs. So, let's look on Silex, a great PHP micro-framework."
+illustration: "/img/posts/silex/silex.png"
+illustration_thumbnail: "/img/posts/silex/silex-thumbnail.png"
 ---
 
 I recently helped a contact of mine to develop her company website (<a href="http://www.up-grading.fr">up'grading</a>). Her needs were basic: some static pages and a FAQ.

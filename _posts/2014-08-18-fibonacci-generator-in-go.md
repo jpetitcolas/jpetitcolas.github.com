@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Fibonacci sequence generator in Go"
+excerpt: "Is it possible to develop generators in Golang? Sure! Here is an elegant way based on Fibonacci sequence."
+illustration: "/img/posts/fibonacci/fibonacci.jpg"
+illustration_thumbnail: "/img/posts/fibonacci/fibonacci-thumbnail.jpg"
+illustration_title: "Aloe polyphylla Schönland ex Pillans, by brewbooks"
+illustration_link: "https://www.flickr.com/photos/brewbooks/184343329/in/photolist-hhNRg-anWEym-jy4a28-8uZ1sH-EGkdv-8uZ1ei-8uZ14Z-7SgN3K-aoVdEv-anUSGr-dxvd-bv8MnG-9vRVmS-4ikigj-9DbKwK-5KeLV6-9RTaVL-bmdTD4-76e6Qi-hhNZc-9bVtin-dxZk3Q-bPBLWR-4EyoZu-8xqiUp-6otXyz-oKrwBx-4hMW59-zy5W1-7vwzri-6osmzH-4DTHGZ-nwQzjA-9To3zv-5Pimso-hhA7Fs-b4NbR2-o8z6-5SQHTF-oHpG4L-7y3Du-aYR4jP-4tL7of-FV8eV-8qTcFy-aYR4f4-dKeAhD-aYR3Lp-aYR4Vn-aYR3Sc"
 ---
 
 When completing one of the mathematical challenge of [Project Euler](https://projecteuler.net/), I had to compute some

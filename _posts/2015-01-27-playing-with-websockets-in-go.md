@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Playing with websockets in Go"
+excerpt: "Go is quite good for asynchronous tasks. So, let's experiment it with websockets, creating a (basic) collaborative text editor, GollabEdit."
+illustration: "/img/posts/go-sockets/network.jpg"
+illustration_thumbnail: "/img/posts/go-sockets/network-thumbnail.jpg"
 ---
 
 I believe in Go language to achieve a lot in asynchronous world. With its system of channels, it is quite straightforward to
@@ -11,7 +14,7 @@ of storing an array of messages, we store a whole document.
 
 ## Executing Go in a Docker container
 
-To not pollute our workstation with a wide set of softwares, each in several versions depending of the project,  we 
+To not pollute our workstation with a wide set of softwares, each in several versions depending of the project,  we
 generally use Docker. So, let's keep our system clean by creating the following `Dockerfile`:
 
 ```
@@ -75,7 +78,7 @@ docker run \
 	--volume="`pwd`:/srv" \
 	--tty \
 	--interactive \
-	marmelab/go src/marmelab/gollabedit/main.go 
+	marmelab/go src/marmelab/gollabedit/main.go
 ```
 
 It should display `hello world!` on your console. What are all of these arguments?
@@ -249,7 +252,7 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 
 We first define a `websocket.Upgrader`, taken from the [gorilla/webwocket](http://www.gorillatoolkit.org/pkg/websocket)
 library. Then we retrieve a pointer to the websocket thanks to the `Upgrade` function. Finally, we register the `Client`
-to the `Hub`, stacking a message in the `register` channel. 
+to the `Hub`, stacking a message in the `register` channel.
 
 At the end, we can see we started a `writePump` and a `readPump`. Let's dive into the first:
 
@@ -262,7 +265,7 @@ func (c *client) readPump() {
 
 	c.ws.SetReadLimit(maxMessageSize)
 	c.ws.SetReadDeadline(time.Now().Add(pongWait))
-	c.ws.SetPongHandler(func(string) error { 
+	c.ws.SetPongHandler(func(string) error {
 		c.ws.SetReadDeadline(time.Now().Add(pongWait));
 		return nil
 	})
@@ -365,10 +368,10 @@ docker run \
 	--tty \
 	--interactive \
 	--publish="8080:8080" \
-	marmelab/go run src/marmelab/gollabedit/*.go 
+	marmelab/go run src/marmelab/gollabedit/*.go
 ```
 
-We added a `--publish` option here, to map our host 8080 port to our Docker container 8080 port. So, if you connect to 
+We added a `--publish` option here, to map our host 8080 port to our Docker container 8080 port. So, if you connect to
 `http://0.0.0.0:8080` it will connect to your Go webserver.
 
 ## Collaborative editing front
@@ -441,7 +444,7 @@ exactly at the same time, here comes some troubles...
 1. Initial document is: "Hello world!"
 2. User A changes "Hello" to "Good morning"
 3. Meanwhile, user B changes "world" to "everybody"
-4. Server receives first B request, then A request. 
+4. Server receives first B request, then A request.
 	a. Hub changes "Hello world" to "Good morning world!"
 	b. A and B receives "Good morning world!"
 	c. Hub changes "Good morning world!" to "Hello everybody!"

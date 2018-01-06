@@ -1,6 +1,10 @@
 ---
 layout: post
 title: "Parsing binary files in Go"
+excerpt: "I am currently working on a Go library to parse Starcraft2 replay files. These files are stored in binary format (called
+MoPaQ) where each sequence of bytes is related to a specific information. Let's see how to decrypt binary files using Go."
+illustration: "/img/posts/binary/binary.jpg"
+illustration_thumbnail: "/img/posts/binary/binary-thumbnail.jpg"
 ---
 
 I am currently working on a Go library to parse Starcraft2 replay files. These files are stored in binary format (called

@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Create a clickable SVG map"
+excerpt: "How to create a clickable SVG map without using obsolete Flash or bad-DX image maps? A single answer: SVG!"
+illustration: "/img/posts/clickable-map/france.png"
+illustration_thumbnail: "/img/posts/clickable-map/france-thumbnail.png"
 ---
 
 <script src="/labs/svg/raphael-min.js"></script>

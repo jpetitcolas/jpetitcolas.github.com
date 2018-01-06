@@ -1,6 +1,9 @@
 ---
 layout: post
-title: Importing a Modeled Mesh From Blender to Three.js
+title: "Importing a Modeled Mesh From Blender to Three.js"
+excerpt: "In this Three.js tutorial, we are going to see how to import a modeled mesh from Blender to our scene, animating it with some basic rotations."
+illustration: "/img/posts/blender-threejs/marmelab-screen.png"
+illustration_thumbnail: "/img/posts/blender-threejs/marmelab-thumb.png"
 ---
 
 It has been a very long time since the last [Three.js rotating cube post](http://www.jonathan-petitcolas.com/2013/04/02/create-rotating-cube-in-webgl-with-threejs.html).

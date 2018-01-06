@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Changing Arduino RGBL color through a web interface"
+excerpt: "I decided to go further with my Arduino: using a web interface to drive my board. Let's see how to use Johnny Five framework (allowing to program on Arduino with Javascript and Socket.io to allow a browser to change my LED colors."
+illustration: "/img/posts/arduino-leds/arduino-leds.jpg"
+illustration_thumbnail: "/img/posts/arduino-leds/arduino-leds-thumbnail.jpg"
 ---
 
 After the first tutorial about [a morse encoder with Arduino](http://www.jonathan-petitcolas.com/2014/03/16/creating-morse-encoder-with-arduino.html), I decided to go further: using a web interface to drive my board. To achieve this purpose, I used the [Johnny Five framework](https://github.com/rwaldron/johnny-five) (allowing to program on Arduino with Javascript) and [Socket.io](http://www.socket.io) for communication between the browser and the circuit.

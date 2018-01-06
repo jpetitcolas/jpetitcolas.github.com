@@ -120,6 +120,10 @@ body > .wrapper {
     word-break: break-word;
 }
 
+.post .picture {
+    /* CHECK OVERFLOW */
+}
+
 .post .picture img {
     transition: all 0.3s ease-in-out;
 }
