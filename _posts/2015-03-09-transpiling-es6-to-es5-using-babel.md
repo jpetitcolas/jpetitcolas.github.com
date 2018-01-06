@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Transpiling EcmaScript6 code to ES5 using Babel"
+excerpt: "During more than a week, we worked hard to introduce some EcmaScript6, the future of JavaScript, to ng-admin. Here is how we transpiled our code to ES5, to ensure every browser understands our code."
+illustration: "/img/posts/babel/babel.png"
+illustration_thumbnail: "/img/posts/babel/babel.png"
 ---
 
 If you also watch [marmelab blog](http://marmelab.com/en/), you have probably already heard of [ng-admin](https://github.com/marmelab/ng-admin), the REST-based admin panel powered by Angular.js. Developed in good old EcmaScript5 JavaScript, it was time to make a step forward, introducing ES6 and its wide set of new features (a post on it soon).
@@ -13,7 +16,7 @@ As always in web development, we can't use a new technology, no matter how excit
 
 There are two main ES6 to ES5 transpilers: [Babel](http://babeljs.io/) (formerly known as 6to5) and [Traceur](https://github.com/google/traceur-compiler). We had to take one of them: Babel.
 
-The main reason we chose Babel is it doesn't need any runtime extra script to run. Everything is done server-side. You just have to execute a compilation task once, and then deploy the compiled sources. At the opposite, Traceur needs to embed such a script, bringing an extra overhead. Yet, it should be nuanced, as we still need a polyfill ([core-js](https://github.com/zloirock/core-js)) for some missing browser methods, like `Array.from`. 
+The main reason we chose Babel is it doesn't need any runtime extra script to run. Everything is done server-side. You just have to execute a compilation task once, and then deploy the compiled sources. At the opposite, Traceur needs to embed such a script, bringing an extra overhead. Yet, it should be nuanced, as we still need a polyfill ([core-js](https://github.com/zloirock/core-js)) for some missing browser methods, like `Array.from`.
 
 Another issue is that Traceur is not compliant with [React.js](http://facebook.github.io/react/). This is not a big deal in this case, but as we also use the Facebook framework at marmelab, let's accumulate knowledge on a single technology. He who can do more can do less.
 
@@ -87,7 +90,7 @@ If you open the `build/ListView.js` file, you will see some calls to `require` f
 var View = _interopRequire(require("./View"));
 ```
 
-On ng-admin, we use [requirejs](http://requirejs.org/) to load our dependencies. So, I first thought I just had to embed `requirejs` and that everything would work out of the box. Unfortunately, after several hours of debug, I learnt it wasn't the case. Indeed, this `require` call is not the same than the `require` from `requirejs`. While the first is related to CommonJS, `requirejs` uses the AMD standard. 
+On ng-admin, we use [requirejs](http://requirejs.org/) to load our dependencies. So, I first thought I just had to embed `requirejs` and that everything would work out of the box. Unfortunately, after several hours of debug, I learnt it wasn't the case. Indeed, this `require` call is not the same than the `require` from `requirejs`. While the first is related to CommonJS, `requirejs` uses the AMD standard.
 
 #### AMD? CommonJS? UMD?
 

@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Creating JSON Web Token in JavaScript"
+excerpt: "One of the best way to secure an API is JSON Web Tokens. As understanding a concept passes by experimenting it, here is a post describing how to forge such a token in JavaScript."
+illustration: "/img/posts/jsonwebtoken/fiber-optic-globe.jpg"
+illustration_thumbnail: "/img/posts/jsonwebtoken/fiber-optic-globe-thumbnail.jpg"
+illustration_title: "Fiber Optic Globe, by JaredZammit"
+illustration_link: "https://flic.kr/p/5vuWZz"
 ---
 
 I challenged myself during last weeks to implement an authentication on a freshly created API. After digging around, I found that one of the best solution would be JSON Web Tokens. As understanding a concept passes by experimenting it, here is a post describing how to forge such a token in JavaScript.

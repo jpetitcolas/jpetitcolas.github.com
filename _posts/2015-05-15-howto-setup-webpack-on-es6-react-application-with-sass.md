@@ -1,10 +1,13 @@
 ---
 layout: post
 title: How-to setup Webpack on an ES6 React Application with SASS?
+excerpt: "Webpack is really a great JavaScript bundler, allowing to turn messy and numerous JavaScript into a single minified and optimized script. Yet, we missed a good getting started tutorial. Here is one, using ES6 React app with SASS."
+illustration: /img/posts/webpack/webpack.png
+illustration_thumbnail: /img/posts/webpack/webpack.png
 tags: Webpack, React, SASS, ES6
 ---
 
-I spent some time lately to play with [Webpack](https://github.com/webpack/webpack). As Grunt or Gulp, Webpack is a JavaScript bundler, allowing to turn our messy and numerous JavaScript into a single minified and optimized script. I used to use Gulp, but taking a look on Webpack and all its features made me switch pretty quickly, especially because of its `webpack-dev-server` and `react-hot-loader` killing features, increasing drastically our development workflow. 
+I spent some time lately to play with [Webpack](https://github.com/webpack/webpack). As Grunt or Gulp, Webpack is a JavaScript bundler, allowing to turn our messy and numerous JavaScript into a single minified and optimized script. I used to use Gulp, but taking a look on Webpack and all its features made me switch pretty quickly, especially because of its `webpack-dev-server` and `react-hot-loader` killing features, increasing drastically our development workflow.
 
 The only blot with this tool is its documentation. There are a lot of pages about all the available options, but not a real-world get started tutorial. After spending days to figure out the best way to handle with my application, here is a summary for an ES6 React application using some SASS.
 
@@ -138,7 +141,7 @@ Compiling for production would then looks like:
 NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p
 ```
 
-Another issue is the script `src` attribute. In development, we should embed it as a dev server served resource (using `http://localhost:8080`). In production, it would either be served from a CDN, or directly from `public` folder. 
+Another issue is the script `src` attribute. In development, we should embed it as a dev server served resource (using `http://localhost:8080`). In production, it would either be served from a CDN, or directly from `public` folder.
 
 To differentiate these usages, I simply use a template variable. For instance, using Swig and Node.js:
 
@@ -250,7 +253,7 @@ module.exports = function() {
             }
         ]
     }
-    // ...  
+    // ...
 };
 ```
 So, all files whose path finish with `.js` will be transformed by `jsx-loader`, except those under `node_modules` folder (for performances reason). This time, Webpack should not complain and should display your widget correctly.
@@ -336,7 +339,7 @@ Relaunch your server, and admire!
 
 Let's prepare the future for our application using [EcmaScript6](https://github.com/lukehoban/es6features). ES6 is the new standard of JavaScript, embedding nice features, such as classes or template strings. Unfortunately, not all browsers are compatible with this language evolution: we have to transpile ES6 into good old ES5.
 
-There are two main transpilers: Babel and Traceur. My [choice is made on Babel](http://www.jonathan-petitcolas.com/2015/03/09/transpiling-es6-to-es5-using-babel.html), so let's use it with Webpack. 
+There are two main transpilers: Babel and Traceur. My [choice is made on Babel](http://www.jonathan-petitcolas.com/2015/03/09/transpiling-es6-to-es5-using-babel.html), so let's use it with Webpack.
 
 As usual, we use a loader:
 
@@ -469,7 +472,7 @@ module.exports = {
 ```
 We first replace our `loaders` with a single `loader`, provided by the `ExtractTextPlugin`. We apply two filters to it, first `sass` then `css`. We removed the `style` one, as we don't want to embed styles directly in the page anymore.
 
-Then, we effectively move the styles into `public/style.css`, embedding all the individual compiled chunks into a single file. 
+Then, we effectively move the styles into `public/style.css`, embedding all the individual compiled chunks into a single file.
 
 Just include a `link` tag on your page, and your styles should still be here.
 

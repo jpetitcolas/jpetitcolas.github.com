@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Improve your Linux battery life with TLP"
+excerpt: "Transitionning from Windows to Linux caused a few troubles. Most painful one was the battery life, which was drastically reduced. Yet, installing TLP boosted my laptop autonomy. Here is how."
+illustration: "/img/posts/battery/battery.jpg"
+illustration_thumbnail: "/img/posts/battery/battery-thumbnail.jpg"
+illustration_title: "Free Battery Power 2, by Paige Foster"
+illustration_link: "https://www.freeimages.com/photo/battery-power-2-1258245"
 ---
 
 I used to work on Windows, using some virtual machines for development. It is a good system, and I would have probably

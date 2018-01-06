@@ -1,6 +1,11 @@
 ---
 layout: post
 title: "Creating a Morse encoder with Arduino"
+excerpt: "A few days ago, I received a brand new Arduino. Let's try a first prototype: a Morse language encoder, using a simple LED and a few lines of code."
+illustration: "/img/posts/morse/morse.jpg"
+illustration_thumbnail: "/img/posts/morse/morse-thumbnail.jpg"
+illustration_title: "Free Electronic Telegraph, by Martin Ewing"
+illustration_link: "https://www.freeimages.com/photo/electronic-telegraph-key-1543748"
 ---
 
 A few days ago, I received my [SparkFun inventor's kit](https://www.sparkfun.com/products/12001). This kit includes an Arduino and many electronic components such as LCD panel or drive motor. And, icing on the cake, it also provides several tutorials to brush up on electronics. In short, a perfect starter kit.

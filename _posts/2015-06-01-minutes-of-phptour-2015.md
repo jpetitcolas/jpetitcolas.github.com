@@ -2,7 +2,9 @@
 layout: post
 title: Minutes of PHP Tour 2015
 canonical: http://marmelab.com/blog/2015/06/01/minutes-of-phptour-2015.html
-canonicalLabel: marmelab blog
+excerpt: "Two weeks ago, we (at marmelab) attended the PHP Tour 2015, organized by AFUP in Luxembourg. Here is a summary of each talk we saw."
+illustration: /img/posts/phptour/phptour.jpg
+illustration_thumbnail: /img/posts/phptour/phptour-thumbnail.jpg
 ---
 
 Two weeks ago, we attended the PHP Tour 2015, organized by [AFUP](http://afup.org/), the French PHP Users Association in Luxembourg. It was a great chance to meet other passionate developers, to exchange about current PHP best practices, brand new frameworks, or other indispensable tips to enhance our productivity. But it was also the occasion to watch several interesting talks.
