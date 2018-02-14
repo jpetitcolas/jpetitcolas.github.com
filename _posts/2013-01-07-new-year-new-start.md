@@ -1,7 +1,9 @@
 ---
 layout: post
-title: New year, new start...
-date: 2013-01-07
+title: "New Year, New Start..."
+excerpt: "I have decided to commit myself into two major professional changes this incoming new year: accepting a new job proposal and closing my own company. Here are the changes."
+illustration: "/img/posts/new-year-new-start/new-year.jpg"
+illustration_thumbnail: "/img/posts/new-year-new-start/new-year-thumb.jpg"
 ---
 
 I have decided to commit myself into two major professional changes this new year: accepting a new job proposal and closing my own company. Here are the reasons of these two big steps.
