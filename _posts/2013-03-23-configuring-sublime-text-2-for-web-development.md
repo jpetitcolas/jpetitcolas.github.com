@@ -1,6 +1,9 @@
 ---
 layout: post
 title: "Using Sublime Text 2 for web development"
+excerpt: "Sublime Text 2 is an awesome text editor, a worthy successor to Notepad++. It supports great features , is really reactive, and is cross platform. Moreover, it embeds a package manager allowing you to install or remove very easily community plug-ins. Here are the details of my own installation."
+illustration: "/img/posts/sublime/sublime.png"
+illustration_thumbnail: "/img/posts/sublime/sublime-thumbnail.png"
 ---
 
 As everyone else, I started development with basic utility, such as Notepad (without the ++). Then, I gave a try to more advanced tools allowing me to have some syntax highlighting, basic auto-completion, etc. When I started professional development, I switched to more robust looking IDEs (especially Eclipse and Netbeans). It was pleasant at the beginning, when my needs were really basic. Yet, they are often based on Java, which provide them a particular heaviness (and critical security flaws). And, if you HAVE the misfortune to work on a remote Samba share, it is better you are really patient...

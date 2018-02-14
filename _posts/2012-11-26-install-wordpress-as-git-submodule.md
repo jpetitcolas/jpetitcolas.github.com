@@ -1,7 +1,9 @@
 ---
 layout: post
-title: Installing WordPress as a Git submodule
-date: 2012-11-26
+title: "Installing WordPress as a Git submodule"
+excerpt: "Updating a WordPress blog with all its plug-ins may be very time-consuming, especially for those who maintain several blogs. Fortunately, there is a solution to reduce maintenance time. Using Git, you will be able to update your blogs just by checking out the new tag of your WordPress submodule."
+illustration: "/img/posts/wordpress/wordpress.jpg"
+illustration_thumbnail: "/img/posts/wordpress/wordpress-thumb.jpg"
 ---
 
 ## Installing WordPress submodule

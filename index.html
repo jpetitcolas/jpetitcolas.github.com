@@ -14,7 +14,7 @@ title: Jonathan Petitcolas - Full-Stack Web Developer, Open-Source Contributor, 
         </header>
         <div class="picture">
             <a href="{{ post.url }}">
-                <img width="600" height="300" src="{{ post.illustration_thumbnail }}" />
+                <img src="{{ post.illustration_thumbnail }}" />
             </a>
         </div>
         <div class="excerpt">
@@ -30,8 +30,13 @@ title: Jonathan Petitcolas - Full-Stack Web Developer, Open-Source Contributor, 
 </div>
 
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
-    new Masonry('.posts', {
+    var masonry = new Masonry('.posts', {
         itemSelector: '.post-wrapper',
+    });
+
+    imagesLoaded('.posts .picture', function () {
+        masonry.layout();
     });
 </script>

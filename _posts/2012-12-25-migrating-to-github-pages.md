@@ -1,7 +1,9 @@
 ---
 layout: post
-title: Migrating to GitHub Pages
-date: 2012-12-25
+title: "Migrating to GitHub Pages"
+excerpt: "I used WordPress during several years, since the first time I blogged. However, this tool complexity becomes too high for my basic needs. It is time to find a new tool to focus on writing. GitHub Pages looks like the perfect solution to me."
+illustration: "/img/posts/github-pages/github-pages.png"
+illustration_thumbnail: "/img/posts/github-pages/github-pages-thumb.png"
 ---
 
 ## WordPress, an overkill CMS
