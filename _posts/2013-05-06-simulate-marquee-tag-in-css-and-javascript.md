@@ -10,13 +10,13 @@ Several days ago, one of my following [asked on Twitter](https://twitter.com/Orn
 
 First, the HTML:
 
-{% highlight html %}
+``` html
 <p class="marquee">Do not use marquee tag for improve accessibility and readability.</p>
-{% endhighlight %}
+```
 
 And now the related CSS:
 
-{% highlight css %}
+``` css
 @keyframes marquee {
     0%   { text-indent: 430px }
     100% { text-indent: -485px }
@@ -38,7 +38,7 @@ And now the related CSS:
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
 }
-{% endhighlight %}
+```
 
 This trick deals with a `text-indent` animation. I do not use a padding animation, to avoid some issues with border-box specifications. Here is a small schema to better explain the value I set:
 
@@ -57,7 +57,7 @@ Moreover, there are two extra features with this solution:
 
 However, previous solution has a major issue: it requires to specify hard-written text indentation extremes. We are going to use some Javascript to change keyframe values on the fly:
 
-{% highlight javascript %}
+``` javascript
 function getStringWidth(str) {
 
     var span = document.createElement("span");
@@ -113,7 +113,7 @@ function updateMarqueeAmplitude(element) {
 }
 
 updateMarqueeAmplitude(document.querySelector(".marquee"));
-{% endhighlight %}
+```
 
 The first function `getStringWidth` is straightforward: we calculate the length in pixel of a string by hiding it into the DOM. It is a far more reliable way to measure it than to use string length and font size.
 
