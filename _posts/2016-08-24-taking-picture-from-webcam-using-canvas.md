@@ -82,7 +82,7 @@ from being stuck at the first frame.
 
 At this step, we are able to display our webcam stream:
 
-<div class='embed-container' style="padding-bottom: 35rem;">
+<div class='embed-container'>
     <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/webcam-stream/index.html" height="580" frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -183,7 +183,7 @@ Note the `revokeObjectURL` call to prevent from some memory leaks, as explained 
 Now, we can take a picture from our webcam, getting its content via a data URL.
 Here is the result of previous code:
 
-<div class='embed-container' style="padding-bottom: 41rem;">
+<div class='embed-container'>
     <iframe src="https://www.jonathan-petitcolas.com/labs/webcam-picture/capture-button/index.html" height="580" frameborder="0" allowfullscreen></iframe>
 </div>
 

@@ -3,7 +3,7 @@ layout: default
 title: Jonathan Petitcolas - Full-Stack Web Developer, Open-Source Contributor, Seasoned Speaker
 ---
 
-<div class="posts">
+<div class="posts-list">
 {% for post in site.posts %}
   <div class="post-wrapper">
     <div class="post">
@@ -32,11 +32,11 @@ title: Jonathan Petitcolas - Full-Stack Web Developer, Open-Source Contributor, 
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
-    var masonry = new Masonry('.posts', {
+    var masonry = new Masonry('.posts-list', {
         itemSelector: '.post-wrapper',
     });
 
-    imagesLoaded('.posts .picture', function () {
+    imagesLoaded('.posts-list .picture', function () {
         masonry.layout();
     });
 </script>

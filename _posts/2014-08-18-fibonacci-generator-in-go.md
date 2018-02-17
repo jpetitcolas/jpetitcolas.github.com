@@ -20,15 +20,15 @@ A very naive and simple way to implement it would be the following:
 
 ``` go
 func GetFibonacci(first int, second int, rank int) int {
-	if rank == 1 {
-		return first
-	}
+    if rank == 1 {
+        return first
+    }
 
-	if rank == 2 {
-		return second
-	}
+    if rank == 2 {
+        return second
+    }
 
-	return GetFibonacci(first, second, rank - 1) + GetFibonacci(first, second, rank - 2)
+    return GetFibonacci(first, second, rank - 1) + GetFibonacci(first, second, rank - 2)
 }
 ```
 
@@ -37,15 +37,15 @@ is a more elegant and Go-friendly way, including a generator:
 
 ``` go
 func FibonacciGenerator(first int, second int) chan int {
-	c := make(chan int)
+    c := make(chan int)
 
-	go func() {
-		for i, j := first, second ; ; j, i = i + j, j {
-			c <- i
-		}
-	}()
+    go func() {
+        for i, j := first, second ; ; j, i = i + j, j {
+            c <- i
+        }
+    }()
 
-	return c
+    return c
 }
 ```
 As the initial conditions may vary, we parametrize the first and second Fibonacci terms. Then, we create a new channel

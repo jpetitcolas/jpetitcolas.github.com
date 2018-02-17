@@ -13,3 +13,7 @@ collections:
         output: true
         default:
             layout: talk
+sass:
+    sass_dir: styles
+    style: compressed
+

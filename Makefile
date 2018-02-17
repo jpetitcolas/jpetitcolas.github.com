@@ -3,6 +3,7 @@ start:
 		--config _config.yml,_config.dev.yml \
 		-d /_site \
 		--future \
+		--incremental \
 		--watch \
 		--force_polling \
 		-H 0.0.0.0 \

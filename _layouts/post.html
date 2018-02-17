@@ -1,18 +1,39 @@
 ---
-layout: commentable
+layout: default
 ---
-<article>
-    <h1>{{ page.title }}</h1>
-    {% if page.illustration %}
-        <figure class="main-illustration">
-            <figcaption>
-                <a href="{{ page.illustration_link }}">{{ page.illustration_title }}</a>
-            </figcaption>
-            <img src="{{ page.illustration }}" alt="{{ page.illustration_title }}" title="{{ page.illustration_title }}" />
-        </figure>
-    {% endif %}
-        {% if page.canonical %}
-            <p class="canonical">This post was originally written for <a href="{{ page.canonical }}">{{ page.canonicalLabel }}</a>.</p>
+<article class="post">
+    <header>
+        <h1>{{ page.title }}</h1>
+        <p class="metas">Published on {{ page.date | date: "%-d %B %Y" }}</p>
+    </header>
+
+    <div class="picture">
+        <img src="{{ page.illustration }}" alt="{{ page.illustration_title }}" />
+        {% if page.illustration_title %}
+            <p class="caption">
+                {% if page.illustration_link %}<a href="{{ page.illustration_link }}">{% endif %}
+                    {{ page.illustration_title }}
+                {% if page.illustration_link %}</a>{% endif %}
+            </p>
         {% endif %}
-    {{ content }}
+    </div>
+
+    <section class="content">{{ content }}</section>
+
+    <section class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'jonathanpetitcolas'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </section>
 </article>

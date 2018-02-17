@@ -241,7 +241,7 @@ image.onload = () => {
 If we upload our favorite Simpson character, here is the result:
 
 {% raw %}
-<pre style="font-size: 10px;">
+<pre style="background: #fff; color: #444; font-size: 10px;" class="highlight">
                                                   U88f
                                              mr kzB   C'
                                             8  f   @   t

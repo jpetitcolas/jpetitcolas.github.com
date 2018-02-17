@@ -142,9 +142,9 @@ Of course, you shouldn't share your secret client-side. Tokens should be forged 
 
 If you execute this code, your signed token should look like:
 
-<div class="highlight">
-	<pre style="overflow-wrap: break-word;"><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMzNywidXNlcm5hbWUiOiJqb2huLmRvZSJ9.EvTdOJSfbffGHLyND3BMDwWE22zUBOCRspPZEHlNEw</code></pre>
-</div>
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMzNywidXNlcm5hbWUiOiJqb2huLmRvZSJ9.EvTdOJSfbffGHLyND3BMDwWE22zUBOCRspPZEHlNEw
+```
 
 There is plenty of libraries dealing with JWT. Creating tokens by hand is only a good idea to learn how they work. On a real project, don't reinvent the wheel and use existing third-part tools, such as [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle) for Symfony2 users or [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) for Node.js developers.
 
