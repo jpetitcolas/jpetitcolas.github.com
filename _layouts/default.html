@@ -10,6 +10,12 @@
     {% if page.canonical %}
         <link rel="canonical" href="{{ page.canonical }}" />
     {% endif %}
+
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.excerpt }}">
+    <meta property="og:image" content="{{ page.illustration }}">
+    <meta property="og:url" content="https://www.jonathan-petitcolas.com{{ page.url }}">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
     <header>
