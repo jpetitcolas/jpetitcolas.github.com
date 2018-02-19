@@ -59,6 +59,18 @@ ul {
     }
 }
 
+blockquote {
+    font-size: 1.5rem;
+    color: #888;
+    border-left: 3px solid silver;
+    margin-left: 2rem;
+    padding-left: 2rem;
+
+    p {
+        line-height: 1.5;
+    }
+}
+
 body > header {
     padding: 1rem 0;
     background-size: cover;

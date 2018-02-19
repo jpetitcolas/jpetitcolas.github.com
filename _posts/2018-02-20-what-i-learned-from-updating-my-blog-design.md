@@ -6,8 +6,8 @@ tags:
     - design
     - CSS
 
-illustration: "/img/posts/updating-design/new-design.png"
-illustration_thumbnail: "/img/posts/updating-design/new-design-thumb.png"
+illustration: "/img/posts/updating-design/new-design.jpg"
+illustration_thumbnail: "/img/posts/updating-design/new-design-thumb.jpg"
 illustration_title: ""
 illustration_link: ""
 ---
@@ -32,7 +32,7 @@ new Masonry('.posts-list', {
 });
 ```
 
-We just need to set correct dimensions to your `.post` list item (in our case, only `width` is constrained), and we are ready to go!
+We just need to set correct dimensions to our `.post` list item (only `width` is constrained in our case), and we are ready to go!
 
 To provide a lighter experience for my readers, I tried to remove Masonry dependency and to check the result, either by fixing height, or by using some `float` properties.
 
@@ -78,12 +78,167 @@ We wait that all `.posts-list .picture` images are correctly loaded, and we re-r
 
 ## Illustrating Blog
 
+I strongly under-estimated the value provided by some images. And I guess this is visible reading this highly illustrated post. Of course, it requires much work as we need to find correct pictures, and sometimes edit them.
+
+It may look like an anxious task. How are we supposed to illustrate a post about React Native without the over-used React Native logo? Well... Just use an inspiring picture. We may always find a good reason later if we are asked. For instance, having an [airplane wing](https://marmelab.com/blog/2018/02/07/jeu-du-taquin-en-react.html) for such a post isn't obvious at the first sight. Yet, we may imagine Adrien took a flight to the exotic unkown world of React Native.
+
+And, honestly, do we really take care of all post illustration pictures when browsing the Web? We just don't like a huge amount of endless text.
+
+> "The world is old, they say. Well, so it is! But it is as greedy for amusement as a child!" - Jean de la Fontaine
+
+And no need of a picture. We just need some media breaks, such as the previous quote. Mind always tries to evade from boring task. So, let's give it a break from time to time. It would help the reader to focus on post content this way.
+
 ## Triangle Arrow with Pure CSS
+
+From a pure technical point of view, I also learned a useful tip to add a triangle arrow in pure CSS.
+
+![Triangle Arrow](/img/posts/updating-design/triangle-arrow.png)
+
+The arrow over the picture is in fact a `div` with only a top colored border. To better understand what is happening, consider a `div` with following style:
+
+```css
+div {
+    border: 50px solid red;
+    border-color: yellow green blue red;
+    width: 0;
+    height: 0;
+}
+```
+
+The result of this `style` property is:
+
+<div style="
+    border: 50px solid red;
+    border-color: yellow green blue red;
+    width: 20px;
+    height: 0;
+    margin-bottom: 1rem;
+"></div>
+
+Hence, every border has a trapezoidal form. If width is null, then we would have perfect triangles. This is the tip used to make triangle arrows. We just need to keep the top border, and we are done.
+
+If we look carefully at the previous arrow, we can notice a subtle border at the bottom of the arrow. This relief is achieved using the following code:
+
+```scss
+.title-wrapper {
+    position: relative;
+
+    &:before, &:after {
+        content: '';
+        display: block;
+        border: 12px solid transparent;
+        position: absolute;
+        left: 10%;
+        bottom: 0;
+        margin-bottom: -24px;
+    }
+
+    &:before {
+        border-top-color: #eee;
+        z-index: 10;
+    }
+
+    &:after {
+        border-top-color: #fff;
+        z-index: 11;
+        margin-left: 1px;
+        margin-bottom: -21px;
+    }
+}
+```
+
+The `margin-bottom` property helps to move the arrow outside the title container, just above the below picture. It would probably be better to move this code to target the picture directly, but done is better than perfect, right? ;)
 
 ## Subtle Image Effect with Scale Transition
 
-## Responsive Cover Picture
+Another great way to improve user experience is to add subtle animations to our site. We are all used to see some color transition when hovering a link. But, how can we tell our user a picture is clickable? There are [a lot of interesting effects](https://tympanus.net/Development/HoverEffectIdeas/) when hovering an image. I took the original theme effect: a light zoom on the picture.
 
-## Jekyll Tips and Tricks
+![Image Zoom Hover EFfect](/img/posts/updating-design/image-zoom.gif)
+
+This is done in only a few lines of CSS:
+
+```scss
+img {
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+```
+
+And, according to the feedbacks I received, this simple effect brings some "Woah!" effect:
+
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">Can&#39;t stop zooming on Homer</p>&mdash; Kmaschta (@Kmaschta) <a href="https://twitter.com/Kmaschta/status/964854589806784514?ref_src=twsrc%5Etfw">17 février 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Making an [animation feel natural](https://marmelab.com/blog/2017/12/04/material-design-animations-react-router.html) is sometimes tricky, as we need to handle a chain of animations. However, in this case, the animation is simple and provide a great way to improve look and feel of the blog. An easy win I will probably reproduce in the future.
+
+## Responsive Cover Picture and Iframes
+
+While speaking above pictures, I spent some time figuring out how to make a responsive cover image to my posts, without specifying any height.
+
+![Image Zoom Hover EFfect](/img/posts/updating-design/responsive-cover.gif)
+
+The solution I chose was the simpler one:
+
+```css
+img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+```
+
+The responsive part comes from the `max-width` set to 100%. It ensures our picture won't overflow outside picture container.
+
+That was the easy part. I also embed iframes at several places of the blog (for instance on the [AWS Summit Paris 2016 Minutes](/2016/06/15/minutes-of-aws-summit-paris-2016.html) to embed some slideshows). I always hated to give a specific `width` and `height` attributes as advised by all *Embed this* buttons. Indeed, it doesn't fit well on a full responsive website.
+
+After digging around this issue, I finally found the (almost) perfect solution. Just wrap your content in a `div` (the extra markup caused the *almost*) and apply the following CSS rule:
+
+``` scss
+div {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+```
+
+We set an absolute `iframe` to take the whole parent space. However, the WTF part relies on the container `div`: null `height` and a magic `56.25%` bottom padding... It wasn't obvious before reading [Creating Intrinsic Ratios for Video](http://alistapart.com/article/creating-intrinsic-ratios-for-video) post from [Thierry Koblentz](https://twitter.com/thierrykoblentz) that `56.25% = 9/16`. Hence, the iframe would have an aspect ratio of 16/9, which is universal enough for my needs.
+
+But, why setting a null height? `height` percentage values would be relative to the parent element. Yet, `padding` percentage is relative to the parent width. Brilliant!
 
 ## Optimizing Social Network Share
+
+Having a nice picture helps to make our content more visible in all social network feeds. Hence, taking care of the final render is important. And, icing on the cake: it just consists in adding a bunch of metas.
+
+![Facebook Share](/img/posts/updating-design/facebook-share.png)
+
+Here is a list of all required metas to get a similar result:
+
+{% raw %}
+```xml
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:description" content="{{ page.excerpt }}">
+<meta property="og:image" content="{{ page.illustration }}">
+<meta property="og:url" content="https://www.jonathan-petitcolas.com{{ page.url }}">
+<meta name="twitter:card" content="summary_large_image">
+```
+{% endraw %}
+
+Here are the Facebook (`og:`) and Twitter (`twitter:`) metas used to optimize sharing experience. An interesting fact is that Twitter allows to substitute OpenGraph (`og`) metas for its own use. Hence, no need to repeat ourself for common fields.
+
+We can check if we implemented these metas correctly using the [Twitter Card Validator](https://cards-dev.twitter.com/validator) and the [Facebook Share Validator](https://developers.facebook.com/tools/debug/sharing/).
+
+## Conclusion
+
+Integration is not always the most interesting part of a developer life. However, diving hunder the hood of some CSS experts technic was really interesting, and give me the motivation required to finalize this new design. A big thanks to [Anders Norén](http://www.andersnoren.se/) for providing the raw material you currently watch!
