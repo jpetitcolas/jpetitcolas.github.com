@@ -19,7 +19,7 @@ First, let's initialize our project. We just create a basic empty HTML page, inc
 
 So, just include the minified [three.min.js](https://raw.github.com/mrdoob/three.js/master/build/three.min.js) file as following:
 
-{% highlight html %}
+```html
 <!doctype html>
 <html>
 <head>
@@ -31,11 +31,11 @@ So, just include the minified [three.min.js](https://raw.github.com/mrdoob/three
     <script src="js/main.js"></script>
 </body>
 </html>
-{% endhighlight %}
+```
 
 Now, let's write our `main.js` file, containing all the logic of our rendering.
 
-{% highlight javascript %}
+```javascript
 function init() {
 }
 
@@ -45,7 +45,7 @@ function render() {
 
 init();
 render();
-{% endhighlight %}
+```
 
 We split our code into two parts: the initialization and rendering. The only interesting thing to notice here is the call to `requestAnimationFrame`. This function acts similarly than `setTimeout`, but in a slightly better way. To better understand it, let's compare the ways Javascript offers to repeat a function call.
 
@@ -63,7 +63,7 @@ That's why using `requestAnimationFrame` is the best choice (in this case). Howe
 
 After this small digression, let's come back to our main topic. To display something, you need three elements: a scene, a camera and a renderer.
 
-{% highlight javascript %}
+```javascript
 var scene, camera, renderer;
 
 var WIDTH  = window.innerWidth;
@@ -87,7 +87,7 @@ function initRenderer() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(WIDTH, HEIGHT);
 }
-{% endhighlight %}
+```
 
 We first define global variables to store our three main elements. You should rather use nested namespaces instead of. But for clarity, I voluntarily ignored this best practice. We also defined two constants to keep the dimensions of our WebGL element (here, the whole window).
 
@@ -116,7 +116,7 @@ Finally, we initialize our renderer. As we are making WebGL, we use the `WebGLRe
 
 Now we are ready to display our first mesh. So, let's begin by drawing a cube:
 
-{% highlight javascript %}
+```javascript
 var cube;
 
 function init() {
@@ -133,7 +133,7 @@ function initCube() {
 function render() {
     renderer.render(scene, camera);
 }
-{% endhighlight %}
+```
 
 The previous code will display a cube seen from high angle view (as `y` position of our camera is greater than our cube position).
 
@@ -159,7 +159,7 @@ Do not forget to call the renderer to see your cube, by calling the `render` fun
 
 Now, let's rotate it with the simple following code:
 
-{% highlight javascript %}
+```javascript
 var SPEED = 0.01;
 
 function rotateCube() {
@@ -173,7 +173,7 @@ function render() {
     rotateCube();
     renderer.render(scene, camera);
 }
-{% endhighlight %}
+```
 
 We play with the rotation angle of our cube, and just call the rotation function before rendering our cube.
 
