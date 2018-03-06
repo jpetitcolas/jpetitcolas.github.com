@@ -63,9 +63,9 @@ Often, all pictures are correctly loaded prior to Masonry initialization (at lea
 
 ![Masonry Glitch sample](/img/posts/updating-design/masonry-glitch.png)
 
-Indeed, Masonry computed each card position taking into account their height. However, an image has not yet loaded: post card is smaller than expected. Once the picture has loaded, position is no longer valid, and we need to relaunch a Masonry layout computation. This is easily verifiable: just resize the browser, and the glitch disappear.
+Indeed, Masonry computes each card position taking into account their height. However, at the beginning, all images have not yet loaded: post card heights are lower than expected. Once pictures are loaded, card heights are increased. However, Masonry is not aware of these changes, and still has the lower height positions in memory. We need to relaunch a Masonry layout computation to fix it. This is easily verifiable: just resize the browser, and the glitch disappears.
 
-We are obviously not the only one having the issue, so there should be an existing solution. And indeed, there is [imagesloaded](https://imagesloaded.desandro.com/). Just like its name says, this lib executes a function once all images are loaded. So, we can update our Masonry code to handle image loads:
+I am obviously not the only one having the issue, so there should be an existing solution. And indeed, there is [imagesloaded](https://imagesloaded.desandro.com/). Just like its name says, this lib executes a function once all images are loaded. So, we can update our Masonry code to handle image loads:
 
 
 ```js
@@ -78,7 +78,7 @@ We wait that all `.posts-list .picture` images are correctly loaded, and we re-r
 
 ## Illustrating Blog
 
-I strongly under-estimated the value provided by some images. And I guess this is visible reading this highly illustrated post. Of course, it requires much work as we need to find correct pictures, and sometimes edit them.
+I strongly under-estimated the value provided by images. And I guess this is visible reading this highly illustrated post. Of course, it requires much work as we need to find correct pictures, and sometimes edit them.
 
 It may look like an anxious task. How are we supposed to illustrate a post about React Native without the over-used React Native logo? Well... Just use an inspiring picture. We may always find a good reason later if we are asked. For instance, having an [airplane wing](https://marmelab.com/blog/2018/02/07/jeu-du-taquin-en-react.html) for such a post isn't obvious at the first sight. Yet, we may imagine Adrien took a flight to the exotic unkown world of React Native.
 
@@ -176,7 +176,7 @@ Making an [animation feel natural](https://marmelab.com/blog/2017/12/04/material
 
 ## Responsive Cover Picture and Iframes
 
-While speaking above pictures, I spent some time figuring out how to make a responsive cover image to my posts, without specifying any height.
+While speaking about pictures, I spent some time figuring out how to make a responsive cover image to my posts, without specifying any height.
 
 ![Image Zoom Hover EFfect](/img/posts/updating-design/responsive-cover.gif)
 
