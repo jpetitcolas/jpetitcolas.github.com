@@ -144,7 +144,7 @@ To enable SSH forwarding within our container, we just need to map SSH authentic
 services:
     node:
         volumes:
-            - $(SSH_AUTH_SOCK):/ssh_agent
+            - ${SSH_AUTH_SOCK}:/ssh_agent
         environment:
             - SSH_AUTH_SOCK=/ssh_agent
 ```
