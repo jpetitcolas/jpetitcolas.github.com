@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Updating Elastic Search Mapping on a Live Index"
-excerpt: "Elastic Search (ES) excels in guessing types of its indexed fields. Yet, in some specific case, we need to update the mapping manually. Here is how to do such an update, even on a live index!"
+excerpt: "Elastic Search excels in guessing types of its indexed fields. Yet, in some specific case, we need to update the mapping manually. Here is how to do such an update, even on a live index!"
 illustration: "/img/posts/elastic-search-update-mapping/blue-search.jpg"
 illustration_thumbnail: "/img/posts/elastic-search-update-mapping/blue-search-small.jpg"
 illustration_author: "Markus Winkler"
