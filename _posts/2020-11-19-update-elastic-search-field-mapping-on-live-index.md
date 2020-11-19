@@ -14,6 +14,12 @@ I faced such an issue recently. I was configuring a Kibana dashboard based on a 
 
 ![Missing customerName field in Kibana dashboard](/img/posts/missing-customer-name-filter.png)
 
+**Note:** to simplify our Elastic Search requests, we are going to use two useful tools:
+
+* [HTTPie](https://httpie.io/), a dev-friendly and more modern alternative to CURL,
+* [jq](https://stedolan.github.io/jq/), the Bash equivalent of `lodash.get` function
+
+
 First of all, let's check that ES receives this field. To do so, we can query one of our document via the `_search` endpoint:
 
 ```sh
@@ -28,7 +34,7 @@ http http://localhost:9200/my-index/_search?size=1 | jq '.hits.hits._source'
 }
 ```
 
-So, our documents contains the `customerName` field. After several Google searches, I discovered it is due to a mapping issue. Kibana ignores `text` fields for filters. Indeed, a filter aggregates some data, and `text` type is not `aggretable`. Checking type of our missing field, it confirmed that Kibana considers it as a `text`:
+So, our documents contains the `customerName` field. After several Google searches, I discovered it is due to a mapping issue. Kibana ignores `text` fields for filters. Indeed, a filter aggregates some data, and `text` type is not `aggretable`. Checking type of our missing field, it confirmed that Kibana considered it as a `text`:
 
 ``` sh
 http http://localhost:9200/my-index/_mapping/field/customerName \
@@ -55,12 +61,6 @@ Our index has been in production for months and contains hundreds of thousands o
 Elastic Search does not allow to update an index mapping once it has been created. We need to work around this limitation.
 
 Our strategy here is to to create a new index with the correct mapping. Then, we would re-index all our existing data into the new index, and finally update our main alias to target our new index.
-
-**Note:** to simplify our Elastic Search requests, we are going to use two useful tools:
-
-* [HTTPie](https://httpie.io/), a dev-friendly and more modern alternative to CURL,
-* [jq](https://stedolan.github.io/jq/), the Bash equivalent of `lodash.get` function
-
 
 ## Create New Index With Correct Mapping
 
@@ -89,8 +89,8 @@ EOF
 Checking our new index mapping confirms we use the `keyword` type:
 
 ``` sh
-http http://localhost:9200/my-index/_mapping/field/customerName \
-    | jq '.my-index.mappings.customerName'
+http http://localhost:9200/my-index-mapping_fix/_mapping/field/customerName \
+    | jq '.my-index-mapping_fix.mappings.customerName'
 ```
 
 ```json
@@ -106,7 +106,7 @@ http http://localhost:9200/my-index/_mapping/field/customerName \
 
 ## Re-indexing Data From our Previous Index into our New Index
 
-Our new index is empty: we need to fill it with our former index data. Re-indexing them from the datasource is not possible. It contains logs from CloudWatch, and would then be super slow and quite complex to achieve. Instead, we need to migrate data from our previous index to our new one.
+Our new index is empty: we need to fill it with our former index data. Re-indexing them from the datasource is not possible. It contains logs from CloudWatch, and importing these logs would then be super slow and quite complex to achieve. Instead, we need to migrate data from our previous index to our new one.
 
 It can be done using the [reindex](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html) built-in command. It takes both the source and destination indices as parameters:
 
@@ -127,7 +127,7 @@ http http://localhost:9200/my-index-mapping_fix/_count | jq '.count'
 
 ## Point Alias to our new Index
 
-One of the best Elastic Search practice is to use an alias in front of your indices. Instead of querying directly indices, we query the alias, which targets one or several indices. This extral layer allows to perform some maintenance operations without any downtime. If we need to re-index all our data, or update an index mapping, we can do in background. Once terminated, we update the alias target to point on the new index.
+One of the best Elastic Search practice is to use an alias in front of your indices. Instead of querying directly indices, we query the alias, which targets one (or several) indices. This extral layer allows to perform some maintenance operations without any downtime. If we need to re-index all our data, or update an index mapping, we can do in background. Once terminated, we update the alias to point on the new index.
 
 Let's change the target of our `my-index` alias to our new index:
 
