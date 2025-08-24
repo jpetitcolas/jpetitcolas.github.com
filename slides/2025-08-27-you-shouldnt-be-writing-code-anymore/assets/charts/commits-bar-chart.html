@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Commits Per Day - AI Impact Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 20px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0;
+        }
+        .chart-container {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+        .stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            color: #999;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+        .legend {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: #999;
+            font-size: 0.85em;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 10px;
+            margin-right: 6px;
+            vertical-align: middle;
+            border-radius: 2px;
+            position: relative;
+            top: -1px;
+        }
+        .pre-ai { background-color: #95a5a6; }
+        .crunch { background-color: #e74c3c; }
+        .ai-powered { background-color: #27ae60; }
+        .gain-positive { color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monthly Commits Per Day Analysis</h1>
+        
+        <div class="legend">
+            <span class="legend-item">
+                <span class="legend-color pre-ai"></span>Pre-AI
+            </span>
+            <span class="legend-item">
+                <span class="legend-color crunch"></span>Crunch Mode
+            </span>
+            <span class="legend-item">
+                <span class="legend-color ai-powered"></span>AI-Powered
+            </span>
+        </div>
+        
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="commitsChart"></canvas>
+            </div>
+            
+            <div class="stats" id="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        // Complete weekly data
+        const weeklyData = [
+            { week: "2024-01-01", commitsPerDay: 0.2 },
+            { week: "2024-01-08", commitsPerDay: 0.6 },
+            { week: "2024-01-15", commitsPerDay: 4.2 },
+            { week: "2024-01-22", commitsPerDay: 3.4 },
+            { week: "2024-01-29", commitsPerDay: 1 },
+            { week: "2024-02-05", commitsPerDay: 2.6 },
+            { week: "2024-02-12", commitsPerDay: 5 },
+            { week: "2024-02-19", commitsPerDay: 4.6 },
+            { week: "2024-02-26", commitsPerDay: 13.25 },
+            { week: "2024-03-04", commitsPerDay: 2.8 },
+            { week: "2024-03-11", commitsPerDay: 2.6 },
+            { week: "2024-03-18", commitsPerDay: 5.6 },
+            { week: "2024-03-25", commitsPerDay: 2.4 },
+            { week: "2024-04-01", commitsPerDay: 4.6 },
+            { week: "2024-04-08", commitsPerDay: 18.4 },
+            { week: "2024-04-15", commitsPerDay: 11.4 },
+            { week: "2024-04-22", commitsPerDay: 13 },
+            { week: "2024-04-29", commitsPerDay: 50 },
+            { week: "2024-05-06", commitsPerDay: 39.2 },
+            { week: "2024-05-13", commitsPerDay: 18.6 },
+            { week: "2024-05-20", commitsPerDay: 5.4 },
+            { week: "2024-05-27", commitsPerDay: 2.4 },
+            { week: "2024-06-03", commitsPerDay: 1.2 },
+            { week: "2024-06-10", commitsPerDay: 14 },
+            { week: "2024-06-17", commitsPerDay: 14.6 },
+            { week: "2024-06-24", commitsPerDay: 7.2 },
+            { week: "2024-07-01", commitsPerDay: 0.75 },
+            { week: "2024-07-08", commitsPerDay: 4.4 },
+            { week: "2024-07-15", commitsPerDay: 13.25 },
+            { week: "2024-08-05", commitsPerDay: 6.4 },
+            { week: "2024-08-12", commitsPerDay: 5.8 },
+            { week: "2024-08-19", commitsPerDay: 4.6 },
+            { week: "2024-08-26", commitsPerDay: 9.8 },
+            { week: "2024-09-02", commitsPerDay: 7.8 },
+            { week: "2024-09-09", commitsPerDay: 6.4 },
+            { week: "2024-09-16", commitsPerDay: 10.8 },
+            { week: "2024-09-23", commitsPerDay: 6.6 },
+            { week: "2024-09-30", commitsPerDay: 3.6 },
+            { week: "2024-10-07", commitsPerDay: 3.5 },
+            { week: "2024-10-14", commitsPerDay: 6.6 },
+            { week: "2024-10-21", commitsPerDay: 8.2 },
+            { week: "2024-10-28", commitsPerDay: 6.75 },
+            { week: "2024-11-04", commitsPerDay: 2.4 },
+            { week: "2024-11-11", commitsPerDay: 29 },
+            { week: "2024-11-18", commitsPerDay: 6.4 },
+            { week: "2024-11-25", commitsPerDay: 6.25 },
+            { week: "2024-12-02", commitsPerDay: 5.4 },
+            { week: "2024-12-09", commitsPerDay: 3.4 },
+            { week: "2024-12-16", commitsPerDay: 5.8 },
+            { week: "2025-01-06", commitsPerDay: 12.2 },
+            { week: "2025-01-13", commitsPerDay: 9 },
+            { week: "2025-01-20", commitsPerDay: 21.4 },
+            { week: "2025-01-27", commitsPerDay: 14.2 },
+            { week: "2025-02-03", commitsPerDay: 5 },
+            { week: "2025-02-10", commitsPerDay: 5 },
+            { week: "2025-02-17", commitsPerDay: 2.75 },
+            { week: "2025-02-24", commitsPerDay: 12.2 },
+            { week: "2025-03-03", commitsPerDay: 14.8 },
+            { week: "2025-03-10", commitsPerDay: 7.6 },
+            { week: "2025-03-17", commitsPerDay: 19.2 },
+            { week: "2025-03-24", commitsPerDay: 12 },
+            { week: "2025-03-31", commitsPerDay: 8.8 },
+            { week: "2025-04-07", commitsPerDay: 2.8 },
+            { week: "2025-04-14", commitsPerDay: 6 },
+            { week: "2025-04-21", commitsPerDay: 1.6 },
+            { week: "2025-04-28", commitsPerDay: 13.5 },
+            { week: "2025-05-05", commitsPerDay: 1.2 },
+            { week: "2025-05-12", commitsPerDay: 3.6 },
+            { week: "2025-05-19", commitsPerDay: 13.2 },
+            { week: "2025-05-26", commitsPerDay: 21.4 },
+            { week: "2025-06-02", commitsPerDay: 11.4 },
+            { week: "2025-06-09", commitsPerDay: 8.4 },
+            { week: "2025-06-16", commitsPerDay: 18 },
+            { week: "2025-06-23", commitsPerDay: 27.4 },
+            { week: "2025-06-30", commitsPerDay: 23 },
+            { week: "2025-07-21", commitsPerDay: 41.4 },
+            { week: "2025-07-28", commitsPerDay: 19.8 },
+            { week: "2025-08-04", commitsPerDay: 27.4 },
+            { week: "2025-08-11", commitsPerDay: 23.2 },
+            { week: "2025-08-18", commitsPerDay: 9 }
+        ];
+
+        // Aggregate by month
+        const monthlyAggregation = {};
+        
+        weeklyData.forEach(item => {
+            const date = new Date(item.week);
+            const monthKey = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+            
+            if (!monthlyAggregation[monthKey]) {
+                monthlyAggregation[monthKey] = {
+                    values: [],
+                    sum: 0,
+                    count: 0
+                };
+            }
+            
+            monthlyAggregation[monthKey].values.push(item.commitsPerDay);
+            monthlyAggregation[monthKey].sum += item.commitsPerDay;
+            monthlyAggregation[monthKey].count += 1;
+        });
+
+        // Create monthly data array
+        const monthlyData = Object.keys(monthlyAggregation).sort().map(month => ({
+            month: month,
+            avgCommitsPerDay: monthlyAggregation[month].sum / monthlyAggregation[month].count,
+            weekCount: monthlyAggregation[month].count
+        }));
+
+        // Calculate June 2025 split (AI introduced June 20)
+        const junePreAI = (10.4 * 5 + 8.4 * 5 + 12.4 * 4) / 14; // 14 pre-AI days
+        const junePostAI = (12.4 * 1 + 25 * 5 + 22.2 * 5) / 11; // 11 post-AI days
+
+        // Important dates
+        const crunchStart = new Date('2024-04-08');
+        const crunchEnd = new Date('2024-05-19');
+        const aiIntroDate = new Date('2025-06-20');
+
+        // Create labels - only show every 3rd month
+        const labels = monthlyData.map((item, index) => {
+            const [year, month] = item.month.split('-');
+            const date = new Date(year, parseInt(month) - 1);
+            // Show label for January, April, July, October
+            if (parseInt(month) % 3 === 1) {
+                return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+            }
+            return ''; // Empty label for other months
+        });
+
+        // Determine colors
+        const colors = monthlyData.map(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            
+            if (monthDate >= aiIntroDate) {
+                return '#27ae60'; // Green for AI-powered
+            } else if (item.month === '2024-04' || item.month === '2024-05' || item.month === '2025-01') {
+                return '#e74c3c'; // Red for crunch periods
+            } else {
+                return '#95a5a6'; // Gray for pre-AI
+            }
+        });
+
+        // Calculate statistics
+        const preAIData = monthlyData.filter(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            return monthDate < aiIntroDate && !['2024-04', '2024-05', '2025-01'].includes(item.month); // Exclude crunch
+        });
+        
+        const postAIData = monthlyData.filter(item => {
+            return ['2025-07', '2025-08'].includes(item.month);
+        });
+        
+        // Add June portions to calculations
+        const avgPreAI = (preAIData.reduce((sum, item) => sum + item.avgCommitsPerDay, 0) + junePreAI) / (preAIData.length + 1);
+        const avgPostAI = (postAIData.reduce((sum, item) => sum + item.avgCommitsPerDay, 0) + junePostAI) / (postAIData.length + 1);
+        
+        // Custom plugin for June split - only draws the green bar on top
+        const customPlugin = {
+            id: 'customBars',
+            afterDatasetsDraw: function(chart) {
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const juneIndex = monthlyData.findIndex(item => item.month === '2025-06');
+                
+                if (juneIndex !== -1) {
+                    const bar = meta.data[juneIndex];
+                    const barWidth = bar.width;
+                    const barX = bar.x - barWidth / 2;
+                    const barBottom = bar.base;
+                    const borderRadius = 4;
+                    
+                    // Get animation progress from the June bar itself
+                    let animationProgress = 1;
+                    if (chart.animating) {
+                        // The bar's current height vs its final height gives us the progress
+                        const currentHeight = bar.height || 0;
+                        const finalHeight = barBottom - chart.scales.y.getPixelForValue(junePreAI);
+                        animationProgress = finalHeight > 0 ? currentHeight / finalHeight : 0;
+                    }
+                    
+                    // Calculate position for post-AI green bar
+                    const postAIY = chart.scales.y.getPixelForValue(junePostAI);
+                    const postAIFullHeight = barBottom - postAIY;
+                    const postAIHeight = postAIFullHeight * animationProgress;
+                    const animatedPostAIY = barBottom - postAIHeight;
+                    
+                    if (postAIHeight > 0) {
+                        ctx.save();
+                        
+                        // Draw post-AI portion (right 1/3) on top of the gray bar
+                        ctx.fillStyle = '#27ae60';
+                        ctx.fillRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        // Post-AI rounded top (only if tall enough)
+                        if (postAIHeight > borderRadius) {
+                            ctx.beginPath();
+                            ctx.moveTo(barX + barWidth * 2/3, animatedPostAIY + borderRadius);
+                            ctx.quadraticCurveTo(barX + barWidth * 2/3, animatedPostAIY, barX + barWidth * 2/3 + borderRadius, animatedPostAIY);
+                            ctx.lineTo(barX + barWidth - borderRadius, animatedPostAIY);
+                            ctx.quadraticCurveTo(barX + barWidth, animatedPostAIY, barX + barWidth, animatedPostAIY + borderRadius);
+                            ctx.closePath();
+                            ctx.fill();
+                        }
+                        
+                        // Post-AI border
+                        ctx.strokeStyle = '#229954';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        ctx.restore();
+                    }
+                }
+            }
+        };
+
+        // Create chart
+        const ctx = document.getElementById('commitsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average Commits per Day',
+                    data: monthlyData.map(item => {
+                        // For June, return the pre-AI value so the gray bar animates correctly
+                        if (item.month === '2025-06') {
+                            return junePreAI;
+                        }
+                        return item.avgCommitsPerDay;
+                    }),
+                    backgroundColor: colors,
+                    borderColor: colors.map(color => {
+                        if (color === '#e74c3c') return '#c0392b';
+                        if (color === '#27ae60') return '#229954';
+                        return '#7f8c8d';
+                    }),
+                    borderWidth: 1,
+                    borderRadius: {
+                        topLeft: 4,
+                        topRight: 4,
+                        bottomLeft: 0,
+                        bottomRight: 0
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const monthData = monthlyData[context[0].dataIndex];
+                                const [year, month] = monthData.month.split('-');
+                                const date = new Date(year, parseInt(month) - 1);
+                                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                            },
+                            label: function(context) {
+                                const monthData = monthlyData[context.dataIndex];
+                                if (monthData.month === '2025-06') {
+                                    return [
+                                        `Pre-AI (2/3): ${junePreAI.toFixed(1)} commits/day`,
+                                        `Post-AI (1/3): ${junePostAI.toFixed(1)} commits/day`,
+                                        `Overall: ${monthData.avgCommitsPerDay.toFixed(1)} commits/day`
+                                    ];
+                                }
+                                const value = monthData.avgCommitsPerDay.toFixed(1);
+                                const weeks = monthData.weekCount;
+                                return `Avg: ${value} commits/day (${weeks} weeks)`;
+                            },
+                            afterLabel: function(context) {
+                                const month = monthlyData[context.dataIndex].month;
+                                if (month === '2025-06') {
+                                    return 'AI introduced June 20';
+                                } else if (['2024-04', '2024-05', '2025-01'].includes(month)) {
+                                    return 'Crunch Period';
+                                } else if (['2025-07', '2025-08'].includes(month)) {
+                                    return 'AI-Powered';
+                                }
+                                return 'Pre-AI';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Average Commits per Day'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [customPlugin]
+        });
+
+        // Populate statistics
+        const percentChange = ((avgPostAI / avgPreAI - 1) * 100).toFixed(0);
+        
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-box">
+                <div class="stat-value">${avgPreAI.toFixed(1)}</div>
+                <div class="stat-label">Avg Commits/Day<br>(Pre-AI)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${avgPostAI.toFixed(1)}</div>
+                <div class="stat-label">Avg Commits/Day<br>(AI-Powered)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value gain-positive">+${percentChange}%</div>
+                <div class="stat-label">Productivity<br>Gain</div>
+            </div>
+        `;
+    </script>
+</body>
+</html>

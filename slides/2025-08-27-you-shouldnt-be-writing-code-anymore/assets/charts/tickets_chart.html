@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Tickets Per Day - AI Impact Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 20px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0;
+        }
+        .chart-container {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+        .stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            color: #999;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+        .legend {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: #999;
+            font-size: 0.85em;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 10px;
+            margin-right: 6px;
+            vertical-align: middle;
+            border-radius: 2px;
+            position: relative;
+            top: -1px;
+        }
+        .pre-ai { background-color: #95a5a6; }
+        .crunch { background-color: #e74c3c; }
+        .ai-powered { background-color: #27ae60; }
+        .gain-positive { color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monthly Tickets Per Day Analysis</h1>
+        
+        <div class="legend">
+            <span class="legend-item">
+                <span class="legend-color pre-ai"></span>Pre-AI
+            </span>
+            <span class="legend-item">
+                <span class="legend-color crunch"></span>Crunch Mode
+            </span>
+            <span class="legend-item">
+                <span class="legend-color ai-powered"></span>AI-Powered
+            </span>
+        </div>
+        
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="ticketsChart"></canvas>
+            </div>
+            
+            <div class="stats" id="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        // Weekly data starting from August 2024
+        const weeklyData = [
+            // August 2024
+            { week: "2024-08-05", ticketsCompletedPerDay: 0.2, month: "2024-08" },
+            { week: "2024-08-12", ticketsCompletedPerDay: 0.2, month: "2024-08" },
+            { week: "2024-08-19", ticketsCompletedPerDay: 1, month: "2024-08" },
+            { week: "2024-08-26", ticketsCompletedPerDay: 0.8, month: "2024-08" },
+            
+            // September 2024
+            { week: "2024-09-02", ticketsCompletedPerDay: 0.4, month: "2024-09" },
+            { week: "2024-09-09", ticketsCompletedPerDay: 0.4, month: "2024-09" },
+            { week: "2024-09-16", ticketsCompletedPerDay: 0.6, month: "2024-09" },
+            { week: "2024-09-23", ticketsCompletedPerDay: 1.2, month: "2024-09" },
+            { week: "2024-09-30", ticketsCompletedPerDay: 0.2, month: "2024-09" },
+            
+            // October 2024
+            { week: "2024-10-07", ticketsCompletedPerDay: 0.25, month: "2024-10" },
+            { week: "2024-10-14", ticketsCompletedPerDay: 1.2, month: "2024-10" },
+            { week: "2024-10-21", ticketsCompletedPerDay: 1, month: "2024-10" },
+            { week: "2024-10-28", ticketsCompletedPerDay: 1.25, month: "2024-10" },
+            
+            // November 2024
+            { week: "2024-11-04", ticketsCompletedPerDay: 0.6, month: "2024-11" },
+            { week: "2024-11-11", ticketsCompletedPerDay: 2.4, month: "2024-11" },
+            { week: "2024-11-18", ticketsCompletedPerDay: 1.2, month: "2024-11" },
+            { week: "2024-11-25", ticketsCompletedPerDay: 1, month: "2024-11" },
+            
+            // December 2024
+            { week: "2024-12-02", ticketsCompletedPerDay: 0.2, month: "2024-12" },
+            { week: "2024-12-09", ticketsCompletedPerDay: 0, month: "2024-12" },
+            { week: "2024-12-16", ticketsCompletedPerDay: 0.4, month: "2024-12" },
+            { week: "2024-12-23", ticketsCompletedPerDay: 0, month: "2024-12" },
+            
+            // January 2025
+            { week: "2025-01-06", ticketsCompletedPerDay: 0.4, month: "2025-01" },
+            { week: "2025-01-13", ticketsCompletedPerDay: 0.2, month: "2025-01" },
+            { week: "2025-01-20", ticketsCompletedPerDay: 2.2, month: "2025-01" },
+            { week: "2025-01-27", ticketsCompletedPerDay: 1.8, month: "2025-01" },
+            
+            // February 2025
+            { week: "2025-02-03", ticketsCompletedPerDay: 2, month: "2025-02" },
+            { week: "2025-02-10", ticketsCompletedPerDay: 1.8, month: "2025-02" },
+            { week: "2025-02-17", ticketsCompletedPerDay: 0.5, month: "2025-02" },
+            { week: "2025-02-24", ticketsCompletedPerDay: 1, month: "2025-02" },
+            
+            // March 2025
+            { week: "2025-03-03", ticketsCompletedPerDay: 1.8, month: "2025-03" },
+            { week: "2025-03-10", ticketsCompletedPerDay: 1.2, month: "2025-03" },
+            { week: "2025-03-17", ticketsCompletedPerDay: 0.6, month: "2025-03" },
+            { week: "2025-03-24", ticketsCompletedPerDay: 0.2, month: "2025-03" },
+            { week: "2025-03-31", ticketsCompletedPerDay: 0.6, month: "2025-03" },
+            
+            // April 2025
+            { week: "2025-04-07", ticketsCompletedPerDay: 0.6, month: "2025-04" },
+            { week: "2025-04-14", ticketsCompletedPerDay: 1.67, month: "2025-04" },
+            { week: "2025-04-21", ticketsCompletedPerDay: 0.6, month: "2025-04" },
+            { week: "2025-04-28", ticketsCompletedPerDay: 0.5, month: "2025-04" },
+            
+            // May 2025
+            { week: "2025-05-05", ticketsCompletedPerDay: 0, month: "2025-05" },
+            { week: "2025-05-12", ticketsCompletedPerDay: 0.2, month: "2025-05" },
+            { week: "2025-05-19", ticketsCompletedPerDay: 0.4, month: "2025-05" },
+            { week: "2025-05-26", ticketsCompletedPerDay: 2, month: "2025-05" },
+            
+            // June 2025
+            { week: "2025-06-02", ticketsCompletedPerDay: 1.2, month: "2025-06" },
+            { week: "2025-06-09", ticketsCompletedPerDay: 0.8, month: "2025-06" },
+            { week: "2025-06-16", ticketsCompletedPerDay: 1.6, month: "2025-06" },
+            { week: "2025-06-23", ticketsCompletedPerDay: 1.2, month: "2025-06" },
+            { week: "2025-06-30", ticketsCompletedPerDay: 2.2, month: "2025-06" },
+            
+            // July 2025
+            { week: "2025-07-07", ticketsCompletedPerDay: 0, month: "2025-07" },
+            { week: "2025-07-14", ticketsCompletedPerDay: 0, month: "2025-07" },
+            { week: "2025-07-21", ticketsCompletedPerDay: 8, month: "2025-07" },
+            { week: "2025-07-28", ticketsCompletedPerDay: 3.4, month: "2025-07" },
+            
+            // August 2025
+            { week: "2025-08-04", ticketsCompletedPerDay: 2.4, month: "2025-08" },
+            { week: "2025-08-11", ticketsCompletedPerDay: 3.6, month: "2025-08" },
+            { week: "2025-08-18", ticketsCompletedPerDay: 1.6, month: "2025-08" },
+            { week: "2025-08-25", ticketsCompletedPerDay: 0, month: "2025-08" }
+        ];
+
+        // Aggregate by month
+        const monthlyAggregation = {};
+        weeklyData.forEach(item => {
+            if (!monthlyAggregation[item.month]) {
+                monthlyAggregation[item.month] = {
+                    values: [],
+                    sum: 0,
+                    count: 0
+                };
+            }
+            monthlyAggregation[item.month].values.push(item.ticketsCompletedPerDay);
+            monthlyAggregation[item.month].sum += item.ticketsCompletedPerDay;
+            monthlyAggregation[item.month].count += 1;
+        });
+
+        // Create monthly data array
+        const monthlyData = Object.keys(monthlyAggregation).sort().map(month => ({
+            month: month,
+            avgTicketsPerDay: monthlyAggregation[month].sum / monthlyAggregation[month].count,
+            weekCount: monthlyAggregation[month].count
+        }));
+
+        // Define crunch periods
+        const crunchPeriods = [
+            { start: new Date('2024-04-08'), end: new Date('2024-05-19') },
+            { start: new Date('2025-01-19'), end: new Date('2025-01-27') }
+        ];
+
+        // Important dates
+        const aiIntroDate = new Date('2025-06-20');
+
+        // Check if a month is in crunch period
+        const isMonthInCrunchPeriod = (monthKey) => {
+            const [year, month] = monthKey.split('-');
+            const monthStart = new Date(year, parseInt(month) - 1, 1);
+            const monthEnd = new Date(year, parseInt(month), 0);
+            
+            return crunchPeriods.some(period => 
+                (monthStart <= period.end && monthEnd >= period.start)
+            );
+        };
+
+        // Create labels - show every other month
+        const labels = monthlyData.map((item, index) => {
+            if (index % 2 === 0) {
+                const [year, month] = item.month.split('-');
+                const date = new Date(year, parseInt(month) - 1);
+                return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+            }
+            return '';
+        });
+
+        // Determine colors based on AI introduction date and crunch periods
+        const colors = monthlyData.map(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            
+            if (monthDate >= aiIntroDate) {
+                return '#27ae60'; // Green for AI-powered
+            } else if (isMonthInCrunchPeriod(item.month)) {
+                return '#e74c3c'; // Red for crunch periods
+            } else {
+                return '#95a5a6'; // Gray for pre-AI
+            }
+        });
+
+        // Calculate June 2025 split (AI introduced June 20)
+        // Pre-AI portion: weeks before June 20
+        // Post-AI portion: weeks after June 20
+        const juneWeeks = weeklyData.filter(w => w.month === "2025-06");
+        const junePreAIWeeks = juneWeeks.filter(w => new Date(w.week) < aiIntroDate);
+        const junePostAIWeeks = juneWeeks.filter(w => new Date(w.week) >= aiIntroDate);
+        
+        const junePreAI = junePreAIWeeks.length > 0 ? 
+            junePreAIWeeks.reduce((sum, w) => sum + w.ticketsCompletedPerDay, 0) / junePreAIWeeks.length : 0;
+        const junePostAI = junePostAIWeeks.length > 0 ? 
+            junePostAIWeeks.reduce((sum, w) => sum + w.ticketsCompletedPerDay, 0) / junePostAIWeeks.length : 0;
+
+        // Calculate statistics (excluding crunch periods for pre-AI baseline)
+        const preAIMonths = monthlyData.filter(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            return monthDate < aiIntroDate && !isMonthInCrunchPeriod(item.month);
+        });
+        
+        const postAIMonths = monthlyData.filter(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            return monthDate >= aiIntroDate;
+        });
+        
+        // Add June split data to calculations
+        const avgPreAI = preAIMonths.length > 0 ? 
+            (preAIMonths.reduce((sum, item) => sum + item.avgTicketsPerDay, 0) + junePreAI) / (preAIMonths.length + 1) : 0;
+        const avgPostAI = postAIMonths.length > 0 ? 
+            (postAIMonths.reduce((sum, item) => sum + item.avgTicketsPerDay, 0) + junePostAI) / (postAIMonths.length + 1) : 0;
+
+        // Custom plugin for June split
+        const customPlugin = {
+            id: 'customBars',
+            afterDatasetsDraw: function(chart) {
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const juneIndex = monthlyData.findIndex(item => item.month === '2025-06');
+                
+                if (juneIndex !== -1 && junePostAI > junePreAI) {
+                    const bar = meta.data[juneIndex];
+                    const barWidth = bar.width;
+                    const barX = bar.x - barWidth / 2;
+                    const barBottom = bar.base;
+                    const borderRadius = 4;
+                    
+                    // Get animation progress
+                    let animationProgress = 1;
+                    if (chart.animating) {
+                        const currentHeight = bar.height || 0;
+                        const finalHeight = barBottom - chart.scales.y.getPixelForValue(junePreAI);
+                        animationProgress = finalHeight > 0 ? currentHeight / finalHeight : 0;
+                    }
+                    
+                    // Calculate position for post-AI green bar
+                    const postAIY = chart.scales.y.getPixelForValue(junePostAI);
+                    const postAIFullHeight = barBottom - postAIY;
+                    const postAIHeight = postAIFullHeight * animationProgress;
+                    const animatedPostAIY = barBottom - postAIHeight;
+                    
+                    if (postAIHeight > 0) {
+                        ctx.save();
+                        
+                        // Draw post-AI portion (right 1/3) on top of the gray bar
+                        ctx.fillStyle = '#27ae60';
+                        ctx.fillRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        // Post-AI rounded top (only if tall enough)
+                        if (postAIHeight > borderRadius) {
+                            ctx.beginPath();
+                            ctx.moveTo(barX + barWidth * 2/3, animatedPostAIY + borderRadius);
+                            ctx.quadraticCurveTo(barX + barWidth * 2/3, animatedPostAIY, barX + barWidth * 2/3 + borderRadius, animatedPostAIY);
+                            ctx.lineTo(barX + barWidth - borderRadius, animatedPostAIY);
+                            ctx.quadraticCurveTo(barX + barWidth, animatedPostAIY, barX + barWidth, animatedPostAIY + borderRadius);
+                            ctx.closePath();
+                            ctx.fill();
+                        }
+                        
+                        ctx.restore();
+                    }
+                }
+            }
+        };
+
+        // Create chart
+        const ctx = document.getElementById('ticketsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average Tickets per Day',
+                    data: monthlyData.map(item => {
+                        // For June, return the pre-AI value so the gray bar animates correctly
+                        if (item.month === '2025-06') {
+                            return junePreAI;
+                        }
+                        return item.avgTicketsPerDay;
+                    }),
+                    backgroundColor: colors,
+                    borderColor: colors.map(color => {
+                        if (color === '#e74c3c') return '#c0392b';
+                        if (color === '#27ae60') return '#229954';
+                        return '#7f8c8d';
+                    }),
+                    borderWidth: 1,
+                    borderRadius: {
+                        topLeft: 4,
+                        topRight: 4,
+                        bottomLeft: 0,
+                        bottomRight: 0
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const monthData = monthlyData[context[0].dataIndex];
+                                const [year, month] = monthData.month.split('-');
+                                const date = new Date(year, parseInt(month) - 1);
+                                return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                            },
+                            label: function(context) {
+                                const monthData = monthlyData[context.dataIndex];
+                                if (monthData.month === '2025-06') {
+                                    return [
+                                        `Pre-AI portion: ${junePreAI.toFixed(1)} tickets/day`,
+                                        `Post-AI portion: ${junePostAI.toFixed(1)} tickets/day`,
+                                        `Overall: ${monthData.avgTicketsPerDay.toFixed(1)} tickets/day`
+                                    ];
+                                }
+                                const value = monthData.avgTicketsPerDay.toFixed(1);
+                                const weeks = monthData.weekCount;
+                                return `Avg: ${value} tickets/day (${weeks} weeks)`;
+                            },
+                            afterLabel: function(context) {
+                                const month = monthlyData[context.dataIndex].month;
+                                if (month === '2025-06') {
+                                    return 'AI introduced June 20';
+                                } else if (isMonthInCrunchPeriod(month)) {
+                                    return 'Crunch Period';
+                                } else {
+                                    const [year, monthNum] = month.split('-');
+                                    const monthDate = new Date(year, parseInt(monthNum) - 1, 15);
+                                    return monthDate >= aiIntroDate ? 'AI-Powered' : 'Pre-AI';
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Average Tickets per Day'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [customPlugin]
+        });
+
+        // Populate statistics
+        const percentChange = avgPostAI > 0 && avgPreAI > 0 ? ((avgPostAI / avgPreAI - 1) * 100).toFixed(0) : 'N/A';
+        
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-box">
+                <div class="stat-value">${avgPreAI.toFixed(1)}</div>
+                <div class="stat-label">Avg Tickets/Day<br>(Pre-AI)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${avgPostAI.toFixed(1)}</div>
+                <div class="stat-label">Avg Tickets/Day<br>(AI-Powered)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value ${percentChange !== 'N/A' && parseFloat(percentChange) > 0 ? 'gain-positive' : ''}">${percentChange !== 'N/A' ? (parseFloat(percentChange) > 0 ? '+' : '') + percentChange + '%' : percentChange}</div>
+                <div class="stat-label">Productivity<br>Evolution</div>
+            </div>
+        `;
+    </script>
+</body>
+</html>
