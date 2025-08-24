@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Comments Per Pull Request - AI Impact Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 20px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .legend {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: #999;
+            font-size: 0.85em;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 10px;
+            margin-right: 6px;
+            vertical-align: middle;
+            border-radius: 2px;
+            position: relative;
+            top: -1px;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0;
+        }
+        .chart-container {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+        .stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            color: #999;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+        .pre-ai { background-color: #95a5a6; }
+        .crunch { background-color: #e74c3c; }
+        .ai-powered { background-color: #27ae60; }
+        .gain-positive { color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Average Comments Per Pull Request</h1>
+        
+        <div class="legend">
+            <span class="legend-item">
+                <span class="legend-color pre-ai"></span>Pre-AI
+            </span>
+            <span class="legend-item">
+                <span class="legend-color crunch"></span>Crunch Mode
+            </span>
+            <span class="legend-item">
+                <span class="legend-color ai-powered"></span>AI-Powered
+            </span>
+        </div>
+        
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="commentsChart"></canvas>
+            </div>
+            
+            <div class="stats" id="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        // Complete weekly comments data
+        const weeklyData = [
+            { week: "2024-01-01", avgComments: 0, totalPRs: 0 },
+            { week: "2024-01-08", avgComments: 3, totalPRs: 1 },
+            { week: "2024-01-15", avgComments: 3, totalPRs: 3 },
+            { week: "2024-01-22", avgComments: 3, totalPRs: 1 },
+            { week: "2024-01-29", avgComments: 0, totalPRs: 0 },
+            { week: "2024-02-05", avgComments: 3.5, totalPRs: 2 },
+            { week: "2024-02-12", avgComments: 1.57, totalPRs: 7 },
+            { week: "2024-02-19", avgComments: 2.57, totalPRs: 7 },
+            { week: "2024-02-26", avgComments: 2.35, totalPRs: 20 },
+            { week: "2024-03-04", avgComments: 2.5, totalPRs: 6 },
+            { week: "2024-03-11", avgComments: 2, totalPRs: 5 },
+            { week: "2024-03-18", avgComments: 2, totalPRs: 3 },
+            { week: "2024-03-25", avgComments: 1.5, totalPRs: 4 },
+            { week: "2024-03-31", avgComments: 3, totalPRs: 1 },
+            { week: "2024-04-07", avgComments: 1.9, totalPRs: 10 },
+            { week: "2024-04-14", avgComments: 2.31, totalPRs: 13 },
+            { week: "2024-04-21", avgComments: 2, totalPRs: 16 },
+            { week: "2024-04-28", avgComments: 1.5, totalPRs: 8 },
+            { week: "2024-05-05", avgComments: 1.63, totalPRs: 32 },
+            { week: "2024-05-12", avgComments: 1.88, totalPRs: 26 },
+            { week: "2024-05-19", avgComments: 1.56, totalPRs: 9 },
+            { week: "2024-05-26", avgComments: 2.2, totalPRs: 5 },
+            { week: "2024-06-02", avgComments: 2, totalPRs: 2 },
+            { week: "2024-06-09", avgComments: 1.83, totalPRs: 12 },
+            { week: "2024-06-16", avgComments: 1.67, totalPRs: 12 },
+            { week: "2024-06-23", avgComments: 2, totalPRs: 14 },
+            { week: "2024-06-30", avgComments: 2, totalPRs: 1 },
+            { week: "2024-07-07", avgComments: 1.57, totalPRs: 7 },
+            { week: "2024-07-14", avgComments: 1.3, totalPRs: 10 },
+            { week: "2024-07-21", avgComments: 1, totalPRs: 10 },
+            { week: "2024-07-28", avgComments: 0, totalPRs: 0 },
+            { week: "2024-08-04", avgComments: 1.11, totalPRs: 9 },
+            { week: "2024-08-11", avgComments: 1.71, totalPRs: 7 },
+            { week: "2024-08-18", avgComments: 0.58, totalPRs: 12 },
+            { week: "2024-08-25", avgComments: 1.22, totalPRs: 27 },
+            { week: "2024-09-01", avgComments: 1.14, totalPRs: 14 },
+            { week: "2024-09-08", avgComments: 0.6, totalPRs: 10 },
+            { week: "2024-09-15", avgComments: 1.33, totalPRs: 9 },
+            { week: "2024-09-22", avgComments: 1, totalPRs: 17 },
+            { week: "2024-09-29", avgComments: 1, totalPRs: 7 },
+            { week: "2024-10-06", avgComments: 3, totalPRs: 1 },
+            { week: "2024-10-13", avgComments: 1.67, totalPRs: 12 },
+            { week: "2024-10-20", avgComments: 1.73, totalPRs: 11 },
+            { week: "2024-10-28", avgComments: 1.25, totalPRs: 8 },
+            { week: "2024-11-04", avgComments: 1.8, totalPRs: 5 },
+            { week: "2024-11-11", avgComments: 1.75, totalPRs: 24 },
+            { week: "2024-11-18", avgComments: 1.64, totalPRs: 11 },
+            { week: "2024-11-25", avgComments: 1.33, totalPRs: 6 },
+            { week: "2024-12-02", avgComments: 1.4, totalPRs: 10 },
+            { week: "2024-12-09", avgComments: 1, totalPRs: 2 },
+            { week: "2024-12-16", avgComments: 2.8, totalPRs: 5 },
+            { week: "2024-12-23", avgComments: 1.67, totalPRs: 3 },
+            { week: "2024-12-30", avgComments: 0, totalPRs: 0 },
+            { week: "2025-01-06", avgComments: 2.67, totalPRs: 3 },
+            { week: "2025-01-13", avgComments: 2.25, totalPRs: 4 },
+            { week: "2025-01-20", avgComments: 1.49, totalPRs: 35 },
+            { week: "2025-01-27", avgComments: 2, totalPRs: 12 },
+            { week: "2025-02-03", avgComments: 1.8, totalPRs: 10 },
+            { week: "2025-02-10", avgComments: 2.1, totalPRs: 10 },
+            { week: "2025-02-17", avgComments: 2.33, totalPRs: 3 },
+            { week: "2025-02-24", avgComments: 1.71, totalPRs: 14 },
+            { week: "2025-03-03", avgComments: 1.39, totalPRs: 18 },
+            { week: "2025-03-10", avgComments: 1.11, totalPRs: 19 },
+            { week: "2025-03-17", avgComments: 1.22, totalPRs: 9 },
+            { week: "2025-03-24", avgComments: 1.14, totalPRs: 7 },
+            { week: "2025-03-30", avgComments: 1.7, totalPRs: 10 },
+            { week: "2025-04-06", avgComments: 1.14, totalPRs: 7 },
+            { week: "2025-04-13", avgComments: 1.88, totalPRs: 8 },
+            { week: "2025-04-20", avgComments: 1.33, totalPRs: 3 },
+            { week: "2025-04-27", avgComments: 1.43, totalPRs: 7 },
+            { week: "2025-05-04", avgComments: 1, totalPRs: 9 },
+            { week: "2025-05-11", avgComments: 1.23, totalPRs: 13 },
+            { week: "2025-05-18", avgComments: 1.2, totalPRs: 10 },
+            { week: "2025-05-25", avgComments: 1.16, totalPRs: 25 },
+            { week: "2025-06-01", avgComments: 1.05, totalPRs: 20 },
+            { week: "2025-06-08", avgComments: 0.85, totalPRs: 13 },
+            { week: "2025-06-15", avgComments: 1.17, totalPRs: 12 },
+            { week: "2025-06-22", avgComments: 0.75, totalPRs: 12 },
+            { week: "2025-06-29", avgComments: 1.84, totalPRs: 25 },
+            { week: "2025-07-06", avgComments: 4, totalPRs: 1 },
+            { week: "2025-07-13", avgComments: 0, totalPRs: 0 },
+            { week: "2025-07-20", avgComments: 3.44, totalPRs: 52 },
+            { week: "2025-07-27", avgComments: 3.42, totalPRs: 26 },
+            { week: "2025-08-03", avgComments: 4.28, totalPRs: 25 },
+            { week: "2025-08-10", avgComments: 4.92, totalPRs: 24 },
+            { week: "2025-08-17", avgComments: 3.85, totalPRs: 13 }
+        ];
+
+        // Filter out weeks with no PRs for more accurate averages
+        const filteredData = weeklyData.filter(item => item.totalPRs > 0);
+
+        // Aggregate by month
+        const monthlyAggregation = {};
+        
+        filteredData.forEach(item => {
+            const date = new Date(item.week);
+            const monthKey = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+            
+            if (!monthlyAggregation[monthKey]) {
+                monthlyAggregation[monthKey] = {
+                    totalComments: 0,
+                    totalPRs: 0,
+                    weekCount: 0
+                };
+            }
+            
+            monthlyAggregation[monthKey].totalComments += item.avgComments * item.totalPRs;
+            monthlyAggregation[monthKey].totalPRs += item.totalPRs;
+            monthlyAggregation[monthKey].weekCount += 1;
+        });
+
+        // Create monthly data array
+        const monthlyData = Object.keys(monthlyAggregation).sort().map(month => ({
+            month: month,
+            avgCommentsPerPR: monthlyAggregation[month].totalComments / monthlyAggregation[month].totalPRs,
+            totalPRs: monthlyAggregation[month].totalPRs,
+            weekCount: monthlyAggregation[month].weekCount
+        }));
+
+        // Calculate June 2025 split (AI introduced June 20)
+        const juneWeeks = filteredData.filter(item => item.week.startsWith('2025-06'));
+        
+        // Pre-AI weeks (before June 20)
+        const preAIWeeks = juneWeeks.filter(item => {
+            const weekDate = new Date(item.week);
+            return weekDate < new Date('2025-06-20');
+        });
+        
+        // Post-AI weeks (after June 20)
+        const postAIWeeks = juneWeeks.filter(item => {
+            const weekDate = new Date(item.week);
+            return weekDate >= new Date('2025-06-22');
+        });
+
+        // Calculate weighted averages
+        const preAITotalComments = preAIWeeks.reduce((sum, item) => sum + item.avgComments * item.totalPRs, 0);
+        const preAITotalPRs = preAIWeeks.reduce((sum, item) => sum + item.totalPRs, 0);
+        const junePreAI = preAITotalComments / preAITotalPRs;
+
+        const postAITotalComments = postAIWeeks.reduce((sum, item) => sum + item.avgComments * item.totalPRs, 0);
+        const postAITotalPRs = postAIWeeks.reduce((sum, item) => sum + item.totalPRs, 0);
+        const junePostAI = postAITotalComments / postAITotalPRs;
+
+        // Important dates
+        const crunchStart = new Date('2024-04-08');
+        const crunchEnd = new Date('2024-05-19');
+        const aiIntroDate = new Date('2025-06-20');
+
+        // Create labels - only show every 3rd month
+        const labels = monthlyData.map((item, index) => {
+            const [year, month] = item.month.split('-');
+            const date = new Date(year, parseInt(month) - 1);
+            // Show label for January, April, July, October
+            if (parseInt(month) % 3 === 1) {
+                return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+            }
+            return ''; // Empty label for other months
+        });
+
+        // Determine colors
+        const colors = monthlyData.map(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            
+            if (monthDate >= aiIntroDate) {
+                return '#27ae60'; // Green for AI-powered
+            } else if (item.month === '2024-04' || item.month === '2024-05' || item.month === '2025-01') {
+                return '#e74c3c'; // Red for crunch periods
+            } else {
+                return '#95a5a6'; // Gray for pre-AI
+            }
+        });
+
+        // Calculate statistics
+        const preAIData = monthlyData.filter(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            return monthDate < aiIntroDate && !['2024-04', '2024-05', '2025-01'].includes(item.month);
+        });
+        
+        const postAIData = monthlyData.filter(item => {
+            return ['2025-07', '2025-08'].includes(item.month);
+        });
+        
+        // Add June portions to calculations
+        const avgPreAI = (preAIData.reduce((sum, item) => sum + item.avgCommentsPerPR, 0) + junePreAI) / (preAIData.length + 1);
+        const avgPostAI = (postAIData.reduce((sum, item) => sum + item.avgCommentsPerPR, 0) + junePostAI) / (postAIData.length + 1);
+        
+        // Custom plugin for June split - only draws the green bar on top
+        const customPlugin = {
+            id: 'customBars',
+            afterDatasetsDraw: function(chart) {
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const juneIndex = monthlyData.findIndex(item => item.month === '2025-06');
+                
+                if (juneIndex !== -1) {
+                    const bar = meta.data[juneIndex];
+                    const barWidth = bar.width;
+                    const barX = bar.x - barWidth / 2;
+                    const barBottom = bar.base;
+                    const borderRadius = 4;
+                    
+                    // Get animation progress from the June bar itself
+                    let animationProgress = 1;
+                    if (chart.animating) {
+                        // The bar's current height vs its final height gives us the progress
+                        const currentHeight = bar.height || 0;
+                        const finalHeight = barBottom - chart.scales.y.getPixelForValue(junePreAI);
+                        animationProgress = finalHeight > 0 ? currentHeight / finalHeight : 0;
+                    }
+                    
+                    // Calculate position for post-AI green bar
+                    const postAIY = chart.scales.y.getPixelForValue(junePostAI);
+                    const postAIFullHeight = barBottom - postAIY;
+                    const postAIHeight = postAIFullHeight * animationProgress;
+                    const animatedPostAIY = barBottom - postAIHeight;
+                    
+                    if (postAIHeight > 0) {
+                        ctx.save();
+                        
+                        // Draw post-AI portion (right 1/3) on top of the gray bar
+                        ctx.fillStyle = '#27ae60';
+                        ctx.fillRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        // Post-AI rounded top (only if tall enough)
+                        if (postAIHeight > borderRadius) {
+                            ctx.beginPath();
+                            ctx.moveTo(barX + barWidth * 2/3, animatedPostAIY + borderRadius);
+                            ctx.quadraticCurveTo(barX + barWidth * 2/3, animatedPostAIY, barX + barWidth * 2/3 + borderRadius, animatedPostAIY);
+                            ctx.lineTo(barX + barWidth - borderRadius, animatedPostAIY);
+                            ctx.quadraticCurveTo(barX + barWidth, animatedPostAIY, barX + barWidth, animatedPostAIY + borderRadius);
+                            ctx.closePath();
+                            ctx.fill();
+                        }
+                        
+                        // Post-AI border
+                        ctx.strokeStyle = '#229954';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        ctx.restore();
+                    }
+                }
+            }
+        };
+
+        // Create chart
+        const ctx = document.getElementById('commentsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average Comments per PR',
+                    data: monthlyData.map(item => {
+                        // For June, return the pre-AI value so the gray bar animates correctly
+                        if (item.month === '2025-06') {
+                            return junePreAI;
+                        }
+                        return item.avgCommentsPerPR;
+                    }),
+                    backgroundColor: colors,
+                    borderColor: colors.map(color => {
+                        if (color === '#e74c3c') return '#c0392b';
+                        if (color === '#27ae60') return '#229954';
+                        return '#7f8c8d';
+                    }),
+                    borderWidth: 1,
+                    borderRadius: {
+                        topLeft: 4,
+                        topRight: 4,
+                        bottomLeft: 0,
+                        bottomRight: 0
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const monthData = monthlyData[context[0].dataIndex];
+                                const [year, month] = monthData.month.split('-');
+                                const date = new Date(year, parseInt(month) - 1);
+                                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                            },
+                            label: function(context) {
+                                const monthData = monthlyData[context.dataIndex];
+                                if (monthData.month === '2025-06') {
+                                    return [
+                                        `Pre-AI (2/3): ${junePreAI.toFixed(2)} comments/PR`,
+                                        `Post-AI (1/3): ${junePostAI.toFixed(2)} comments/PR`,
+                                        `Overall: ${monthData.avgCommentsPerPR.toFixed(2)} comments/PR`
+                                    ];
+                                }
+                                const value = monthData.avgCommentsPerPR.toFixed(2);
+                                const prs = monthData.totalPRs;
+                                return `Avg: ${value} comments/PR (${prs} PRs)`;
+                            },
+                            afterLabel: function(context) {
+                                const month = monthlyData[context.dataIndex].month;
+                                if (month === '2025-06') {
+                                    return 'AI introduced June 20';
+                                } else if (['2024-04', '2024-05', '2025-01'].includes(month)) {
+                                    return 'Crunch Period';
+                                } else if (['2025-07', '2025-08'].includes(month)) {
+                                    return 'AI-Powered';
+                                }
+                                return 'Pre-AI';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Average Comments per PR'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [customPlugin]
+        });
+
+        // Populate statistics
+        const percentChange = ((avgPostAI / avgPreAI - 1) * 100).toFixed(0);
+        
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-box">
+                <div class="stat-value">${avgPreAI.toFixed(2)}</div>
+                <div class="stat-label">Avg Comments/PR<br>(Pre-AI)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${avgPostAI.toFixed(2)}</div>
+                <div class="stat-label">Avg Comments/PR<br>(AI-Powered)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value gain-positive">+${percentChange}%</div>
+                <div class="stat-label">Comment<br>Increase</div>
+            </div>
+        `;
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "2025-08-27-you-shouldnt-be-writing-code-anymore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@slidev/cli": "^52.1.0",
+    "@slidev/theme-default": "^0.25.0",
+    "slidev-theme-the-unnamed": "^0.0.22"
+  }
+}
