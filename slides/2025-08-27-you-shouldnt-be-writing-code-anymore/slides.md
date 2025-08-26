@@ -271,6 +271,35 @@ layout: section
 
 # Claude Code Tips and Tricks
 
+---
+
+# Claude Code Cost
+
+* Claude Code: usage-based or via a monthly subscription.
+* Plans at $20, $100 and $200/mo for a usage of 1x, 5x and 20x respectively.
+
+<blockquote style="margin-top: 16px; margin-bottom: 16px; line-height: 1.5;">The number of messages you can send varies based on message length, conversation length, and file attachments, while Claude Code usage varies based on project complexity, codebase size, and auto-accept settings. Using more compute-intensive models will cause you to hit your usage limits sooner.</blockquote>
+
+* Tokens are an abstract entity, really hard to anticipate. 
+* The best tip is to try with a plan, and upgrade if needed. 
+* Usage-based is much more expensive than the plan-based subscription.
+
+---
+
+# Plan Usage
+
+* Anthropic doesn't provide a dashboard to follow the subscription usage.
+
+* But you can still get it through `ccusage`: 
+
+``` sh
+npx ccusage@latest
+```
+
+<Transform :scale="1">
+  <img src="./assets/price.png" />
+</Transform>
+
 --- 
 
 # Thinking Depths
@@ -366,6 +395,60 @@ layout: two-cols-header
 
 ---
 
+# Day-to-day Commands
+
+## Claude Favorite Tooling
+
+* `gh` for GitHub API interactions (https://cli.github.com)
+* `rg` to efficiently search into your code base (https://github.com/BurntSushi/ripgrep)
+
+## Allowed Commands
+
+* Commit the allowed or denied commands right into your `.claude/settings.json`:
+
+``` json
+{
+    "permissions": {
+        "deny": ["Read(.env.*)"],
+        "allow": [
+            "Bash(find:*)",
+            "Bash(git rev-parse:*)"
+        ]
+    }
+}
+```
+
+---
+
+# Hooks
+
+* `PreToolUse`, `PostToolUse`, `Notification`, `UserPromptSubmit`, etc.
+
+<div style="height: 24px;"></div>
+
+``` json
+{
+    "hooks": {
+        "PostToolUse": [{
+            "matcher": "Edit|MultiEdit|Write",
+            "hooks": [{
+                "type": "command",
+                "command": "
+                    jq -r '.tool_input.file_path' | 
+                    { read file_path; pnpm prettier --write \"$file_path\" 2>/dev/null || true; }
+                "
+            }]
+        }]
+    }
+}
+```
+
+<div style="height: 24px;"></div>
+
+* See: https://docs.anthropic.com/en/docs/claude-code/hooks#pretooluse
+
+---
+
 # Model Context Protocol
 
 <v-click>
@@ -399,9 +482,11 @@ MCP configuration is stored in `/.mcp.json`
 
 ``` json
 {
-    "linear": {
-        "command": "npx",
-        "args": ["-y", "mcp-remote", "https://mcp.linear.app/sse"]
+    "mcpServers": {
+        "linear": {
+            "command": "npx",
+            "args": ["-y", "mcp-remote", "https://mcp.linear.app/sse"]
+        }
     }
 }
 ```
@@ -422,13 +507,15 @@ MCP configuration is stored in `/.mcp.json`
 
 ``` json
 {
-    "postgres": {
-        "command": "npx",
-        "args": [
-              "-y",
-              "@modelcontextprotocol/server-postgres",
-              "postgresql://user:password@localhost:5432/db"
-        ]
+    "mcpServers": {
+        "postgres": {
+            "command": "npx",
+            "args": [
+                  "-y",
+                  "@modelcontextprotocol/server-postgres",
+                  "postgresql://user:password@localhost:5432/db"
+            ]
+        }
     }
 }
 ```
@@ -446,11 +533,33 @@ MCP configuration is stored in `/.mcp.json`
 
 ``` json
 {
-    "context7": {
-        "type": "http",
-        "url": "https://mcp.context7.com/mcp"
+    "mcpServers": {
+        "context7": {
+            "type": "http",
+            "url": "https://mcp.context7.com/mcp"
+        }
     }
 }
+```
+
+---
+
+# Playwright MCP
+
+* Playwright is an E2E testing framework (an equivalent to Cypress)
+* Gives the ability to Claude Code to open a browser
+* Useful for front-end troubleshooting or CSS tweaking (as ugly as what we can produce!)
+
+``` json
+{
+    "mcpServers": {
+        "playwright": {
+            "command": "npx",
+            "args": ["@playwright/mcp@latest"]
+        }
+    }
+}
+
 ```
 
 --- 
