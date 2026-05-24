@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Giscus from '../components/Giscus.astro';
+import type { Post } from '../lib/posts';
+import { parsePostId } from '../lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { date } = parsePostId(post.id);
+const formattedDate = date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+<BaseLayout
+  title={post.data.title}
+  description={post.data.excerpt}
+  image={post.data.illustration}
+  canonical={post.data.canonical}
+>
+  <article class="post">
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="metas">Published on {formattedDate}</p>
+    </header>
+
+    {post.data.illustration && (
+      <div class="picture">
+        <img src={post.data.illustration} alt={post.data.illustration_title ?? post.data.title} />
+        {post.data.illustration_title && (
+          <p class="caption">
+            {post.data.illustration_link ? (
+              <a href={post.data.illustration_link}>{post.data.illustration_title}</a>
+            ) : (
+              post.data.illustration_title
+            )}
+          </p>
+        )}
+      </div>
+    )}
+
+    <section class="content">
+      <slot />
+    </section>
+
+    <div class="comments">
+      <Giscus />
+    </div>
+  </article>
+</BaseLayout>

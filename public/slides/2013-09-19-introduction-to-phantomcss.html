@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Introduction to PhantomCSS</title>
+        <meta name="description" content="Introduction to PhantomCSS, or how to prevent from CSS regressions automatically." />
+        <meta name="author" content="Jonathan Petitcolas">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            .reveal blockquote { margin: 50px auto; }
+            .reveal section.big-code pre code { max-height: inherit; }
+            .reveal section.big-code  { height: 100%; }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Introduction to PhantomCSS</h1>
+                    <p>
+                        <small>
+                            Created by <a href="http://www.jonathan-petitcolas.com">Jonathan Petitcolas</a> /
+                            <a href="http://twitter.com/Sethpolma">@Sethpolma</a>
+                        </small>
+                    </p>
+                </section>
+                <section>
+                    <h2>Server side</h2>
+                    <figure>
+                        <a href="http://phpunit.de/manual/current/en/index.html">
+                            <img src="img/phpunit.png" alt="PHPUnit" title="PHPUnit"  style="background: #fff; padding: 50px 0 0 50px;"/>
+                        </a>
+                        <figcaption>PHPUnit, JUnit and all other XUnit stuff</figcaption>
+                    </figure>
+                </section>
+                <section>
+                    <h2>Javascript</h2>
+                    <figure>
+                        <a href="http://docs.seleniumhq.org/">
+                            <img src="img/selenium.png" alt="Selenium" title="Selenium"  style="background: #fff; padding: 50px 0 0 50px;"/>
+                        </a>
+                        <figcaption>Selenium, Mocha, and some others</figcaption>
+                    </figure>
+                </section>
+                <section>
+                    <h2>CSS</h2>
+                    <p>Only manual testing...</p>
+                    <div class="fragment">
+                        <p>
+                            <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">
+                                <img src="img/superman-ghost.png" alt="SuperGhost" title="SuperGhost" /><br />
+                            </a>
+                            But, that was before!
+                        </p>
+                        <p><small>This is <strong>NOT</strong> PhantomCSS logo, just <a href="http://www.deviantart.com/art/Pacman-Ghost-Superman-262839376">DeviantART</a>! :(</small></p>
+                    </div>
+                </section>
+                <section>
+                    <h3>PhantomCSS</h3>
+                    <blockquote>
+                        A <strong>CasperJS</strong> module for automating visual regression testing with <strong>PhantomJS</strong> and <strong>Resemble.js</strong>. For testing Web apps, live style guides and responsive layouts.
+                    </blockquote>
+                    <p><a href="https://github.com/Huddle/PhantomCSS">https://github.com/Huddle/PhantomCSS</a></p>
+                </section>
+                <section>
+                    <h3>CasperJS</h3>
+                    <blockquote>
+                        CasperJS is a navigation scripting &amp; testing utility for PhantomJS and SlimerJS written in Javascript
+                    </blockquote>
+                    <p><a href="http://casperjs.org/">http://casperjs.org/</a></p>
+                </section>
+				<section>
+                    <h3>SlimerJS</h3>
+                    <blockquote>
+                        SlimerJS allows you to interact with a web page through an external JS script.
+                    </blockquote>
+                    <p><a href="http://slimerjs.org/">http://slimerjs.org/</a></p>
+                </section>
+                <section>
+                    <h3>PhantomJS</h3>
+                    <blockquote>
+                        PhantomJS is a headless WebKit scriptable with a JavaScript API. It has fast and native support for various web standards: DOM handling, CSS selector, JSON, Canvas, and SVG.
+                    </blockquote>
+                    <p><a href="http://phantomjs.org/">http://phantomjs.org/</a></p>
+                </section>
+                <section>
+                    <h3>Resemble.js</h3>
+                    <blockquote>
+                        Resemble.js analyses and compares images with HTML5 canvas and JavaScript.
+                    </blockquote>
+                    <p><a href="http://huddle.github.io/Resemble.js/">http://huddle.github.io/Resemble.js/</a></p>
+                </section>
+                <section>
+                    <h2>Installing PhantomCSS</h2>
+                    <pre># Installing PhantomJS
+sudo npm install -g phantomjs
+
+# Retrieving PhantomCSS sources
+git clone git@github.com:Huddle/PhantomCSS.git
+
+# Launching default test suite
+phantomjs demo/testsuite.js</pre>
+                </section>
+                <section>
+                    <h2>Pratical case: back to the past!</h2>
+                    <img src="img/doc.jpg" alt="Back to the future" title="Back to the future" />
+                </section>
+                <section>
+                    <img src="img/coming-soon-oldies.png" alt="Coming soon page" title="Coming soon page" style="position: relative; z-index: 1;"/>
+                    <div class="fragment">
+                        <p>With some awesome animated GIF!</p>
+                        <img src="img/hammer.gif" alt="Hammer" title="Hammer" style="border: 0; position: absolute; margin-top: -450px; margin-left: -40px; z-index: 10; box-shadow: none;" />
+                    </div>
+                </section>
+                <section class="big-code">
+                    <pre><code class="html" style="font-size: 0.8em;">&lt;TABLE width=100% height=100%&gt;
+    &lt;TR&gt;
+      &lt;TD width=100% height=100% align=center valign=center&gt;
+        &lt;TABLE&gt;
+          &lt;TR align=center&gt;
+            &lt;TD align=center&gt;&lt;IMG src=img/hammer.gif&gt;&lt;/IMG&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR align=center valign=center&gt;
+            &lt;TD&gt;&lt;FONT size=7 color=red&gt;Coming soon&lt;/FONT&gt;&lt;/p&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR&gt;
+            &lt;TD align=center&gt;&lt;FONT size=5&gt;Our website is currently under construction.&lt;/FONT&gt;&lt;/TD&gt;
+          &lt;/TR&gt;
+          &lt;TR&gt;
+            &lt;TD align=center&gt;&lt;BR&gt;&lt;BR&gt;
+              &lt;FONT size=4&gt;
+                &lt;script type=text/javascript&gt;
+                  var date = (new Date()).toString()
+                  document.write(date.split(' ').splice(1,4).join(' '));
+                &lt;/script&gt;
+              &lt;/FONT&gt;
+            &lt;/TD&gt;
+          &lt;/TR&gt;
+        &lt;/TABLE&gt;
+      &lt;/TD&gt;
+    &lt;/TR&gt;
+    &lt;TR cellpadding=50&gt;
+      &lt;TD align=center&gt;
+        &lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
+        &lt;FONT size=2 color=#666&gt;
+          Website proudly created by &lt;A href=#&gt;FrontWeaver MX Gurus&lt;/A&gt;
+          - &copy; 1991 All rights reserved
+        &lt;/FONT&gt;
+      &lt;/TD&gt;
+    &lt;/TR&gt;
+  &lt;/TABLE&gt;</code></pre>
+                </section>
+                <section>
+                    <h3>Bootstrapping PhantomCSS</h3>
+                    <pre><code class="js">phantom.casperPath = './CasperJs';
+phantom.injectJs(phantom.casperPath + '/bin/bootstrap.js');
+
+var casper = require('casper').create({
+    viewportSize: {
+        width: 800,
+        height: 600
+    }
+});
+
+var phantomcss = require('./phantomcss.js');
+var url = 'http://phantomcss/index.html';
+
+phantomcss.init({
+    screenshotRoot: './screenshots',
+    failedComparisonsRoot: './failures'
+});</code></pre>
+                </section>
+                <section>
+                    <h3>Writing our first PhantomCSS test</h3>
+                    <pre><code class="js">casper
+    .start(url)
+    .then(function() {
+        phantomcss.screenshot('.coming_soon', 'coming-soon-page');
+    })
+    .then(function() {
+        phantomcss.compareAll();
+    })
+    .run(function() {
+        phantom.exit(phantomcss.getExitStatus());
+    });</code></pre>
+                </section>
+                <section>
+                    <h3>First launch</h3>
+                    <pre class="fragment"><code>jpetitcolas@jp-dev ~/dev/phantomcss $ phantomjs tests/css/coming-soon.js
+
+Must be your first time?
+Some screenshots have been generated in the directory ./screenshots
+This is your 'baseline', check the images manually. If they're wrong, delete the images.
+The next time you run these tests, new screenshots will be taken.
+These screenshots will be compared to the original.
+If they are different, PhantomCSS will report a failure.</code></pre>
+                    <img class="fragment" src="img/coming-soon-phantom-01.png" alt="Base screenshot for coming soon page" title="Base screenshot for coming soon page" />
+                </section>
+                <section>
+                    <img src="img/doc-must-go-back.jpg" alt="We have to go back!" title="We have to go back!" />
+                </section>
+                <section>
+                    <h3>Refactoring code</h3>
+                    <pre><code class="html">&lt;div class="coming_soon"&gt;
+  &lt;img src="img/hammer.gif" alt="Under construction..." title="Under construction..." /&gt;
+  &lt;h3&gt;Coming soon&lt;/h3&gt;
+  &lt;p&gt;Our website is currently under construction.&lt;/p&gt;
+  &lt;p class="date" id="date"&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;footer&gt;
+  &lt;p
+    &gt;Website proudly created by &lt;a href="#"&gt;FrontWeaver MX Gurus&lt;/a&gt;
+    - &copy; 1991 All rights reserved
+  &lt;/p&gt;
+&lt;/footer&gt;
+&lt;script&gt;
+  var date = new Date().toString().split(' ').splice(1,4).join(' ');
+  document.getElementById("date").innerText = date;
+&lt;/script&gt;</code></pre>
+                </section>
+                <section>
+                    <h3>Be pragmatic!</h3>
+                    <pre><code>jpetitcolas@jp-dev ~/dev/phantomcss $ phantomjs tests/css/coming-soon.js</code></pre>
+                    <img class="fragment" src="img/coming-soon-phantom-01_fail.png" alt="Failing screenshot after refactoring" title="Failing screenshot after refactoring" />
+                </section>
+                <section>
+                    <h3>Avoid dynamic data</h3>
+                    <img src="img/coming-soon-phantom-02_fail.png" alt="Failing screenshot because of date" title="Failing screenshot because of date" />
+                </section>
+                <section>
+                    <h3>Mocking Javascript is easy!</h3>
+                    <pre><code class="js">casper
+    .start(url)
+    .then(function() {
+        var Date = function () {
+            return {
+                toString: function() {
+                    return 'Sun Sep 15 2013 10:28:50 GMT+0200 (Romance Daylight Time)';
+                }
+            }
+        }
+
+        phantomcss.screenshot('.coming_soon', 'coming-soon-page');
+    })</code></pre>
+                </section>
+                <section>
+                    <h3>Best practices</h3>
+                    <ul>
+                        <li class="fragment">Name your screenshots</li>
+                        <li class="fragment">KISS CSS</li>
+                        <li class="fragment">Test only what you need to</li>
+                        <li class="fragment">Forget fullpage screenshots</li>
+                        <li class="fragment">Commit only base pictures</li>
+                        <li class="fragment">Use same browsers/OS</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Any questions?</h3>
+                    <img src="img/doc-questions.jpg" alt="Questions?" title="Questions?" />
+                </section>
+                <section>
+                    <h1>THE END</h1>
+                    <h3><a style="color: #fff;" href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a></h3>
+					<h5><a style="color: #fff;" href="https://github.com/jpetitcolas/talk-phantomcss">https://github.com/jpetitcolas/talk-phantomcss</a></h5>
+                </section>
+            </div>
+        </div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                width: 1280,
+                height: 900,
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+        </script>
+    </body>
+</html>

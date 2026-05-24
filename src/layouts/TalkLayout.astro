@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Giscus from '../components/Giscus.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  talk: CollectionEntry<'talks'>;
+}
+
+const { talk } = Astro.props;
+const formattedDate = talk.data.date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+<BaseLayout title={talk.data.title}>
+  <article class="post talk">
+    <header>
+      <h1>{talk.data.title}</h1>
+      <p class="metas">{formattedDate} – {talk.data.event} – {talk.data.location}</p>
+    </header>
+    <section class="content">
+      <slot />
+    </section>
+    <div class="comments">
+      <Giscus />
+    </div>
+  </article>
+</BaseLayout>

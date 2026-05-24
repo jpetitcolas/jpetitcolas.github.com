@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSortedPosts, parsePostId } from '../lib/posts';
+
+const posts = await getSortedPosts();
+---
+<BaseLayout
+  title="Jonathan Petitcolas - Full-Stack Web Developer, Open-Source Contributor, Seasoned Speaker"
+  description="Personal blog of Jonathan Petitcolas — full-stack web developer, open-source contributor, and speaker."
+>
+  <div class="posts-list">
+    {posts.map((post) => {
+      const { url, date } = parsePostId(post.id);
+      const formattedDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+      });
+      return (
+        <div class="post-wrapper">
+          <div class="post">
+            <header>
+              <h2>
+                <a href={url}>{post.data.title}</a>
+              </h2>
+            </header>
+            {post.data.illustration_thumbnail && (
+              <div class="picture">
+                <a href={url}>
+                  <img src={post.data.illustration_thumbnail} alt={post.data.title} loading="lazy" />
+                </a>
+              </div>
+            )}
+            <div class="excerpt">
+              <p>{post.data.excerpt}</p>
+              <a class="next" href={url}>Continue Reading →</a>
+            </div>
+            <footer>
+              <a class="date" href={url}>{formattedDate}</a>
+            </footer>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <script>
+    import Masonry from 'masonry-layout';
+    import imagesLoaded from 'imagesloaded';
+
+    const masonry = new Masonry('.posts-list', {
+      itemSelector: '.post-wrapper',
+      percentPosition: true,
+    });
+    imagesLoaded('.posts-list .picture', () => {
+      masonry.layout();
+    });
+  </script>
+</BaseLayout>

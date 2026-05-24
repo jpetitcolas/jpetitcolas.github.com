@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSortedPosts, parsePostId } from '../lib/posts';
+
+const posts = await getSortedPosts();
+const byYear = new Map<string, { title: string; url: string; date: Date }[]>();
+
+for (const post of posts) {
+  const { year, url, date } = parsePostId(post.id);
+  if (!byYear.has(year)) byYear.set(year, []);
+  byYear.get(year)!.push({ title: post.data.title, url, date });
+}
+---
+<BaseLayout title="Archives of the blog">
+  <article class="post">
+    <header>
+      <h1>Archives</h1>
+    </header>
+    <section class="content" id="archives">
+      {[...byYear.entries()].map(([year, entries]) => (
+        <section>
+          <h2>{year}</h2>
+          <ul class="posts">
+            {entries.map((entry) => (
+              <li>
+                <span style="color:#888; font-size:0.85em;">
+                  {entry.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}
+                </span>
+                {' » '}
+                <a href={entry.url}>{entry.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </section>
+  </article>
+</BaseLayout>

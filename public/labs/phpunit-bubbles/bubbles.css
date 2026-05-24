@@ -1,0 +1,65 @@
+    #bubbles {
+    text-align: center;
+}
+
+.bubbles circle {
+    cursor: pointer;
+    stroke: #aaa;
+    stroke-width: 1px;
+    fill-opacity: .5;
+}
+
+.bubbles circle.success {
+    fill: green;
+}
+
+.bubbles circle.errored {
+    fill: red;
+}
+
+.bubbles circle.failed {
+    fill: orange;
+}
+
+.tooltip {
+    position: absolute;
+    background: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    box-shadow: 1px 1px 3px;
+    text-align: left;
+}
+
+.tooltip h3 {
+    font-size: 16px;
+}
+
+.tooltip h5 {
+    font-size: 14px;
+}
+
+.tooltip .error, .tooltip .failure {
+    border-left: 3px solid red;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.tooltip .failure {
+    border-color: orange;
+}
+
+.tooltip pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 500px;
+}

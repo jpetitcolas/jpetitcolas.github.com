@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>20 Angular.js Tips and Tricks</title>
+		<meta name="description" content="A collection of 20 useful tips and tricks about Angular.js (1.4 version)">
+		<meta name="author" content="Jonathan Petitcolas">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<link rel="stylesheet" href="./reveal.js-3.2.0/css/reveal.css">
+		<link rel="stylesheet" href="./reveal.js-3.2.0/css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="./reveal.js-3.2.0/lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js-3.2.0/css/print/pdf.css' : './reveal.js-3.2.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<!--[if lt IE 9]>
+		<script src="./reveal.js-3.2.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>How-to become an Angular.js Guru?</h1>
+					<h3>Angular.js tricks to impress your colleagues and family</h3>
+					<p>
+						<small>Created by <a href="http://www.jonathan-petitcolas.com">Jonathan Petitcolas</a> (<a href="http://twitter.com/Sethpolma">@Sethpolma</a>)</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Jonathan Petitcolas</h2>
+						<p>Twitter: <a href="https://www.twitter.com/Sethpolma">@Sethpolma</a></p>
+						<p>Blog: <a href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a></p>
+					</section>
+					<section>
+						<p style="text-align: center;">
+							<a href="http://www.marmelab.com">
+								<img src="../img/posts/marmelab-logo.png" title="marmelab" title="marmelab" style="border: 0; background: none; box-shadow: none;"/>
+							</a>
+						</p>
+						<p><a href="http://marmelab.com/en/">marmelab</a> developer:<br />Node.js, Angular, React, [any exciting technology]</p>
+					</section>
+					<section>
+						<h3>2 years of Angular.js</h3>
+						<p style="text-align: center;">
+							<img src="./angular-tips-tricks/angular_dev_cycle.png" alt="Angular Dev Cycle" title="Angular Dev Cycle" /><br />
+							<small>Source: <a href="https://daveceddia.com/">https://daveceddia.com/</a></small>
+						</p>
+					</section>
+					<section>
+                        <h3>Regular contributor on ng-admin</h3>
+						<p style="text-align: center;">
+							<a href="https://github.com/marmelab/ng-admin">
+								<img src="img/webpack/ng-admin.png" alt="ng-admin" title="ng-admin" />
+							</a>
+						</p>
+					</section>
+					<section>
+                        <h3>Angular Guru</h3>
+						<p style="text-align: center;">
+							<img src="img/angular-guru.png" alt="Angular Guru" title="Angular Guru" />
+						</p>
+					</section>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+                        <h2>Logging</h2>
+                    </section>
+                    <section>
+                        <h3>Easy way: console.log</h3>
+                        <pre><code class="hljs" data-trim contenteditable>
+console.debug(`Fetching API data for user #${user.id}`);
+
+Restangular.one('user', 1337)
+    .then(
+        () => { /* ... */ },
+        err => {
+            console.error(err);
+        }
+    );</code></pre></section>
+                    <section>
+                        <h3>Better way: $log</h3>
+                        <pre><code class="hljs" data-trim contenteditable>
+$log.debug(`Fetching API data for user #${user.id}`);
+
+Restangular.one('user', 1337)
+    .then(
+        () => { /* ... */ },
+        err => {
+            $log.error(err);
+        }
+    )
+);</code></pre></section>
+
+<section>
+    <h3>Better testing</h3>
+    <pre><code class="hljs" data-trim contenteditable>
+it('should log API error if user API errs', () => {
+    $log.error = jasmine.createSpy();
+    Restangular.one = jasmine.createSpy().and
+        .returns($q.reject('An error occured'));
+
+    // call the service
+
+    expect($log.error).toHaveBeenCalledWith('An error occured');
+});</code></pre></section>
+
+<section>
+    <h3>Log Decoration</h3>
+    <pre><code class="hljs" data-trim contenteditable>app.config(['$provide', $provide => {
+    const say = msg => {
+        if (!window.speechSynthesis) return;
+
+        const preparedMessage = new SpeechSynthesisUtterance(msg);
+        window.speechSynthesis.speak(preparedMessage);
+    };
+
+    $provide.decorator('$log', ['$delegate', $delegate => ({
+        error: message => {
+            say(message);
+            $delegate.error(message);
+        }
+    })]);
+}]);</code></pre>
+	<p class="fragment"><a href="https://jsfiddle.net/8vjyasne/1/">Live Demo</a></p>
+</section>
+
+<section>
+    <h3>More fine-grained configuration</h3>
+    <pre><code class="hljs" data-trim contenteditable>app.config($logProvider => {
+  $logProvider.debugEnabled(false);
+});</code></pre>
+
+    <p class="fragment">More options implementable using decorators</p>
+</section>
+</section>
+
+
+<section>
+    <section>
+        <h2>Better Module Organisation</h2>
+        <p>
+            <img
+                style="padding: 0.5rem; background: #161719;"
+                src="./angular-tips-tricks/treefolder.png"
+                alt="Tree Folder of more DDD Angular app"
+                title="Tree Folder of more DDD Angular app" />
+        </p>
+    </section>
+    <section><pre><code class="hljs" data-trim contenteditable>// faq/clQuestionsTabs.js
+require('./clQuestionsTabs.scss');
+
+const questionsList = () => ({
+    restrict: 'E',
+    template: require('./clQuestionsTabs.html'),
+    replace: true,
+    scope: { questions: '=' },
+    link: $scope => { /* ... */ },
+});
+
+questionsList.$inject = [];
+
+export default questionsList;</code></pre></section>
+
+    <section><pre><code class="hljs" data-trim contenteditable>// faq/index.js
+const module = angular.module('clHelpFaq', [
+    require('angular-ui-router'),
+]);
+
+module
+  .config(require('./routing'))
+  .constant('FAQ_KEYWORDS', require('../constants/keywords'))
+  .service('clQuestionsFilterer', require('./clQuestionsFilterer'))
+  .directive('clAccordion', require('./clAccordion'))
+  .directive('clQuestionsTabs', require('./clQuestionsTabs'));
+
+export default module.name;</code></pre></section>
+
+    <section><pre><code class="hljs" data-trim contenteditable>const helpApp = angular.module('helpApp', [
+    require('angular-ui-router'),
+    // ...
+
+    require('./contact'),
+    require('./faq'),
+]);</code></pre></section>
+</section>
+
+<section>
+    <section>
+        <h2>Modernize your framesets!</h2>
+    </section>
+    <section>
+        <p>
+            <img
+                style="border: 0;"
+                src="./angular-tips-tricks/uirouter.png"
+                alt="Concrete sample of ui-views implementation"
+                title="Concrete sample of ui-views implementation" />
+        </p>
+    </section>
+    <section>
+        <pre><code class="hljs" data-trim contenteditable>&lt;!-- layout.html --&gt;
+&lt;div&gt;
+  &lt;cl-navigation-bar&gt;&lt;/cl-navigation-bar&gt;
+  &lt;div class="wrapper"&gt;
+    &lt;div class="content" ui-view&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<pre><code class="hljs" data-trim contenteditable>const routing = $stateProvider => {
+    $stateProvider.state('app', {
+        abstract: true,
+        url: '',
+        template: require('./layout.html'),
+    });
+};
+
+routing.$inject = ['$stateProvider'];
+
+export default routing;</code></pre></section>
+
+<section>
+    <pre><code class="hljs" data-trim contenteditable>&lt;!-- list.html --&gt;
+&lt;div&gt;
+    &lt;cl-list-filters&gt;&lt;/cl-list-filters&gt;
+    &lt;div ui-view&gt;&lt;/div&gt;
+&lt;div&gt;</code></pre>
+<pre><code class="hljs" data-trim contenteditable>const routing = $stateProvider => {
+$stateProvider.state('app.list', {
+    abstract: true,
+    url: '/list',
+    template: require('./list.html'),
+});
+
+routing.$inject = ['$stateProvider'];
+
+export default routing;</code></pre></section>
+
+<section>
+    <pre><code class="hljs" data-trim contenteditable>&lt;!-- table.html --&gt;
+&lt;table&gt;
+  &lt;!-- [...] --&gt;
+&lt;/table&gt;</code></pre>
+<pre><code class="hljs" data-trim contenteditable>const routing = $stateProvider => {
+$stateProvider.state('app.list.table', {
+    url: '/list/table',
+    template: require('./table.html'),
+});
+
+routing.$inject = ['$stateProvider'];
+
+export default routing;</code></pre></section>
+</section>
+
+<section>
+    <h2>`resolve` your async calls</h2>
+    <pre><code class="hljs" data-trim contenteditable>const routing = $stateProvider => {
+    $stateProvider.state('app.users', {
+        url: '/users',
+        template: require('./users.html'),
+        controller: require('./UserCtrl'),
+        resolve: {
+            users: ['UserService', () => UserService.getAll()]
+        }
+    });
+};</code></pre>
+
+<pre class="fragment"><code class="hljs" data-trim contenteditable>const controller = ($scope, users) => {
+    $scope.users = users;
+};
+
+controller.$inject = ['$scope', 'users'];
+
+export default controller;</code></pre>
+</section>
+
+<section>
+    <section>
+        <h2>Self-including directive</h2>
+        <pre><code class="hljs" data-trim contenteditable>const loader = $document => ({
+  show: message => {
+    const $scope = $rootScope.$new();
+    $scope.message = message;
+
+    const body = $document.find('body').eq(0);
+    const usage = $compile(`&lt;loader message="message"&gt;&lt;/loader&gt;`);
+
+    const directive = $compile(usage)($scope);
+    body.append(directive);
+  });
+
+  hide: () => {
+    $document.find('cl-loader').remove();
+  },
+});</code></pre>
+    </section>
+    <section>
+        <pre><code class="hljs" data-trim contenteditable>const controller = (loader, UserService) => {
+  loader.show('Loading users...');
+  UserService.getAll()
+    .then(users => { /* ... */ })
+    .catch(err => { /* ... */ })
+    .finally(() => {
+        loader.hide();
+    })
+};</code></pre>
+    </section>
+</section>
+<section>
+    <section>
+        <h2>Automatic Loader</h2>
+		<pre><code class="hljs" data-trim contenteditable>app.run(($rootScope, clLoader) => {
+  $rootScope.$on('$stateChangeStart', () => {
+    clLoader.show('Loading page...');
+  });
+
+  $rootScope.$on('$stateChangeSuccess', () => {
+    clLoader.hide();
+  });
+
+  $rootScope.$on('$stateChangeError', (event, toState) => {
+    console.error(`Error while changing to ${toState.name} state`);
+    clLoader.hide();
+  });
+});</code></pre>
+    </section>
+</section>
+
+    <section>
+        <h2>Magic $timeout</h2>
+        <pre><code class="hljs" data-trim contenteditable>link: ($scope, element) => {
+    // width = 0
+    const width = element.find('.my-div').width();
+}</code></pre>
+
+<pre><code class="hljs" data-trim contenteditable>link: ($scope, element) => {
+    $timeout(() => {
+        // width != 0
+        const width = element.find('.my-div').width();
+    })
+}</code></pre>
+    </section>
+
+    <section>
+        <h2>Invoke services from config</h2>
+        <pre><code class="hljs" data-trim contenteditable>app.config($http => {
+    const token = angular.injector(['ng', 'ngCookies'])
+        .get('$cookies')
+        .get('token');`
+
+    $http.defaults.headers.common['X-Auth-Token'] = token;
+});</code></pre>
+    </section>
+
+	<section>
+	    <section>
+	        <h2>Performances</h2>
+	    </section>
+	    <section>
+	        <h2>Track By</h2>
+	        <pre><code class="hljs" data-trim contenteditable>&lt;ul&gt;
+	&lt;li
+	    ng-repeat="member in members"
+	    class="member"&gt;
+	        {{ member.firstName }} {{ member.lastName }}
+	    &lt;/li&gt;
+	&lt;/ul&gt;</code></pre>
+
+	<pre><code class="hljs" data-trim contenteditable>&lt;ul&gt;
+	&lt;li
+	    ng-repeat="member in members track by member.id"
+	    class="member"&gt;
+	        {{ member.firstName }} {{ member.lastName }}
+	    &lt;/li&gt;
+	&lt;/ul&gt;</code></pre>
+	    <p><a href="http://jsfiddle.net/SeKk7/">JSFiddle</a> by <a href="http://www.codelord.net/2014/04/15/improving-ng-repeat-performance-with-track-by/">CodeLord</a></p>
+	    </section>
+	    <section>
+	        <h2>Disable Debug Mode</h2>
+	        <pre><code class="hljs" data-trim contenteditable>config(['$compileProvider', $compileProvider => {
+  $compileProvider.debugInfoEnabled(false);
+}]);</code></pre>
+	    </section>
+	</section>
+
+<section>
+    <section>
+        <h2>$digest Bomb</h2>
+        <pre><code class="hljs" data-trim contenteditable>(() => {
+  const $rootScope = angular.injector(['ng']).get('$rootScope');
+  $digest = () => {
+    $rootScope.$$postDigest($digest);
+    $rootScope.$digest();
+  }
+  $digest();
+})();</code></pre>
+        <p>Kudos to <a href="https://twitter.com/RobinBressan">@RobinBressan</a>!</p>
+    </section>
+</section>
+</section>
+
+
+	<section>
+		<h2>Any questions?</h2>
+	</section>
+
+	<section style="text-align: center;">
+		<h1>THE END</h1>
+		<p>
+			<a href="https://www.twitter.com/Sethpolma">@Sethpolma</a>
+			&bull;
+			<a href="http://www.jonathan-petitcolas.com">www.jonathan-petitcolas.com</a>
+		</p>
+	</section>
+	</div>
+</div>
+
+		<script src="./reveal.js-3.2.0/lib/js/head.min.js"></script>
+		<script src="./reveal.js-3.2.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: './reveal.js-3.2.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: './reveal.js-3.2.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: './reveal.js-3.2.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+            var iframe = document.getElementById('zombo-frame');
+            Reveal.addEventListener('slidechanged', function (event) {
+                iframe.setAttribute('src', '');
+                if (event.currentSlide.getAttribute('data-name') === 'zombo') {
+                    iframe.setAttribute('src', 'https://web.archive.org/web/20160121072958/http://www.zombo.com/');
+                }
+            });
+		</script>
+
+	</body>
+</html>

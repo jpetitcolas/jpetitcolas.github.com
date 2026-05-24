@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Apéro Web Nancy</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1>Scary CSS filters</h1>
+        <p>This is the support page for a talk given on CSS filters. Feel free to do whatever you want of this MIT licensed code.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Filters</h3>
+                <p>
+                    grayscale(<span id="grayscale">0</span>%)<br/>
+                    <input type="range" min="0" max="100" value="0" data-filter="grayscale" data-filter-unit="%"/>
+                </p>
+                <p>
+                    blur(<span id="blur">0</span>px)<br/>
+                    <input type="range" min="0" max="100" value="0" data-filter="blur" data-filter-unit="px" />
+                </p>
+                <p>
+                    hue-rotate(<span id="hue-rotate">0</span>%)<br/>
+                    <input type="range" min="0" max="360" value="0" data-filter="hue-rotate" data-filter-unit="deg"/>
+                </p>
+                <p>
+                    contrast(<span id="contrast">0</span>%)<br/>
+                    <input type="range" min="0" max="100" value="100" data-filter="contrast" data-filter-unit="%"/>
+                </p>
+                <p>
+                    brightness(<span id="brightness">0</span>%)<br/>
+                    <input type="range" min="0" max="100" value="100" data-filter="brightness" data-filter-unit="%"/>
+                </p>
+                <p>
+                    invert(<span id="invert">0</span>%)<br/>
+                    <input type="range" min="0" max="100" value="0" data-filter="invert" data-filter-unit="%"/>
+                </p>
+                <p>
+                    saturate(<span id="saturate">100</span>)<br/>
+                    <input type="range" min="0" max="300" value="100" data-filter="saturate" data-filter-unit="%"/>
+                </p>
+            </div>
+            <div class="col-md-8">
+                <p>
+                    <img class="img-responsive" src="scary.jpg" alt="A very scary picture, by @heathercmiller" title="A very scary picture, by @heathercmiller"/>
+                </p>
+                <p class="text-center">A very scary picture, by <a href="https://twitter.com/heathercmiller">@heathercmiller</a></p>
+            </div>
+            <footer>
+                <p>Code released under MIT license on GitHub.</p>
+            </footer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+        var image = $("img");
+
+        $("input[type='range']").change(function() {;
+            var filter = $(this).data("filter");
+
+            $("#" + filter).text(this.value);
+            console.log(getFilters());
+            image.css("webkitFilter", getFilters());
+        });
+
+        function getFilters() {
+            var filters = [];
+            var ranges = $("input[type='range']");
+            for (var i = 0 ; i < ranges.length ; i++) {
+                var range = $(ranges[i]);
+
+                var filter = range.data("filter");
+                var units = range.data("filter-unit");
+
+                filters.push(filter + "(" + range.val() + units + ")");
+            }
+
+            return filters.join(" ");
+        }
+    </script>
+</body>
+</html>

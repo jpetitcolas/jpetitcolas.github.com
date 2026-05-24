@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Pull Requests Per Day - AI Impact Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 20px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .legend {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: #999;
+            font-size: 0.85em;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 16px;
+            height: 10px;
+            margin-right: 6px;
+            vertical-align: middle;
+            border-radius: 2px;
+            position: relative;
+            top: -1px;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            min-height: 0;
+        }
+        .chart-container {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+        .stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        .stat-label {
+            color: #999;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+        .pre-ai { background-color: #95a5a6; }
+        .crunch { background-color: #e74c3c; }
+        .ai-powered { background-color: #27ae60; }
+        .gain-positive { color: #27ae60; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Average Number of Pull Requests Per Day</h1>
+        
+        <div class="legend">
+            <span class="legend-item">
+                <span class="legend-color pre-ai"></span>Pre-AI
+            </span>
+            <span class="legend-item">
+                <span class="legend-color crunch"></span>Crunch Mode
+            </span>
+            <span class="legend-item">
+                <span class="legend-color ai-powered"></span>AI-Powered
+            </span>
+        </div>
+        
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="prsChart"></canvas>
+            </div>
+            
+            <div class="stats" id="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        const weeklyData = [
+            { week: "2024-01-01", prsPerDay: 0 },
+            { week: "2024-01-08", prsPerDay: 0.2 },
+            { week: "2024-01-15", prsPerDay: 0.6 },
+            { week: "2024-01-22", prsPerDay: 0.2 },
+            { week: "2024-01-29", prsPerDay: 0 },
+            { week: "2024-02-05", prsPerDay: 0.4 },
+            { week: "2024-02-12", prsPerDay: 1.4 },
+            { week: "2024-02-19", prsPerDay: 1.4 },
+            { week: "2024-02-26", prsPerDay: 5 },
+            { week: "2024-03-04", prsPerDay: 1.2 },
+            { week: "2024-03-11", prsPerDay: 1 },
+            { week: "2024-03-18", prsPerDay: 0.6 },
+            { week: "2024-03-25", prsPerDay: 0.8 },
+            { week: "2024-03-31", prsPerDay: 0.2 },
+            { week: "2024-04-07", prsPerDay: 2 },
+            { week: "2024-04-14", prsPerDay: 2.6 },
+            { week: "2024-04-21", prsPerDay: 3.2 },
+            { week: "2024-04-28", prsPerDay: 4 },
+            { week: "2024-05-05", prsPerDay: 6.4 },
+            { week: "2024-05-12", prsPerDay: 5.2 },
+            { week: "2024-05-19", prsPerDay: 1.8 },
+            { week: "2024-05-26", prsPerDay: 1 },
+            { week: "2024-06-02", prsPerDay: 0.4 },
+            { week: "2024-06-09", prsPerDay: 2.4 },
+            { week: "2024-06-16", prsPerDay: 2.4 },
+            { week: "2024-06-23", prsPerDay: 2.8 },
+            { week: "2024-06-30", prsPerDay: 0.2 },
+            { week: "2024-07-07", prsPerDay: 1.4 },
+            { week: "2024-07-14", prsPerDay: 2 },
+            { week: "2024-08-04", prsPerDay: 1.8 },
+            { week: "2024-08-11", prsPerDay: 1.4 },
+            { week: "2024-08-18", prsPerDay: 2.4 },
+            { week: "2024-08-25", prsPerDay: 5.4 },
+            { week: "2024-09-01", prsPerDay: 2.8 },
+            { week: "2024-09-08", prsPerDay: 2 },
+            { week: "2024-09-15", prsPerDay: 1.8 },
+            { week: "2024-09-22", prsPerDay: 3.4 },
+            { week: "2024-09-29", prsPerDay: 1.4 },
+            { week: "2024-10-06", prsPerDay: 0.2 },
+            { week: "2024-10-13", prsPerDay: 2.4 },
+            { week: "2024-10-20", prsPerDay: 2.2 },
+            { week: "2024-10-28", prsPerDay: 2 },
+            { week: "2024-11-04", prsPerDay: 1 },
+            { week: "2024-11-11", prsPerDay: 4.8 },
+            { week: "2024-11-18", prsPerDay: 2.2 },
+            { week: "2024-11-25", prsPerDay: 1.5 },
+            { week: "2024-12-02", prsPerDay: 2 },
+            { week: "2024-12-09", prsPerDay: 0.4 },
+            { week: "2024-12-16", prsPerDay: 1 },
+            { week: "2024-12-30", prsPerDay: 0 },
+            { week: "2025-01-06", prsPerDay: 0.6 },
+            { week: "2025-01-13", prsPerDay: 0.8 },
+            { week: "2025-01-20", prsPerDay: 7 },
+            { week: "2025-01-27", prsPerDay: 2.4 },
+            { week: "2025-02-03", prsPerDay: 2.5 },
+            { week: "2025-02-10", prsPerDay: 2 },
+            { week: "2025-02-17", prsPerDay: 0.75 },
+            { week: "2025-02-24", prsPerDay: 2.8 },
+            { week: "2025-03-03", prsPerDay: 3.6 },
+            { week: "2025-03-10", prsPerDay: 3.8 },
+            { week: "2025-03-17", prsPerDay: 1.8 },
+            { week: "2025-03-24", prsPerDay: 1.4 },
+            { week: "2025-03-30", prsPerDay: 2 },
+            { week: "2025-04-06", prsPerDay: 1.4 },
+            { week: "2025-04-13", prsPerDay: 2 },
+            { week: "2025-04-20", prsPerDay: 0.6 },
+            { week: "2025-04-27", prsPerDay: 1.4 },
+            { week: "2025-05-04", prsPerDay: 1.8 },
+            { week: "2025-05-11", prsPerDay: 2.6 },
+            { week: "2025-05-18", prsPerDay: 2 },
+            { week: "2025-05-25", prsPerDay: 5 },
+            { week: "2025-06-01", prsPerDay: 4 },
+            { week: "2025-06-08", prsPerDay: 2.6 },
+            { week: "2025-06-15", prsPerDay: 2.4 },
+            { week: "2025-06-22", prsPerDay: 2.4 },
+            { week: "2025-06-29", prsPerDay: 5 },
+            { week: "2025-07-06", prsPerDay: 1 },
+            { week: "2025-07-20", prsPerDay: 10.4 },
+            { week: "2025-07-27", prsPerDay: 5.2 },
+            { week: "2025-08-03", prsPerDay: 5 },
+            { week: "2025-08-10", prsPerDay: 4.8 },
+            { week: "2025-08-17", prsPerDay: 2.4 }
+        ];
+
+        // Aggregate by month
+        const monthlyAggregation = {};
+        
+        weeklyData.forEach(item => {
+            const date = new Date(item.week);
+            const monthKey = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+            
+            if (!monthlyAggregation[monthKey]) {
+                monthlyAggregation[monthKey] = {
+                    values: [],
+                    sum: 0,
+                    count: 0
+                };
+            }
+            
+            monthlyAggregation[monthKey].values.push(item.prsPerDay);
+            monthlyAggregation[monthKey].sum += item.prsPerDay;
+            monthlyAggregation[monthKey].count += 1;
+        });
+
+        // Create monthly data array
+        const monthlyData = Object.keys(monthlyAggregation).sort().map(month => ({
+            month: month,
+            avgPrsPerDay: monthlyAggregation[month].sum / monthlyAggregation[month].count,
+            weekCount: monthlyAggregation[month].count
+        }));
+
+        // Calculate June 2025 split (AI introduced June 20)
+        // June weeks: 6/1, 6/8, 6/15 (contains 6/20), 6/22, 6/29
+        // Weeks 6/1, 6/8, and 6/15 are fully pre-AI (15 days)
+        // Week 6/15 is mixed: Mon-Thu pre-AI (4 days), Fri post-AI (1 day)
+        // Weeks 6/22 and 6/29 are fully post-AI (10 days)
+        const junePreAI = (4 * 5 + 2.6 * 5 + 2.4 * 4) / 14; // 14 pre-AI days
+        const junePostAI = (2.4 * 1 + 2.4 * 5 + 5 * 5) / 11; // 11 post-AI days
+
+        // Important dates
+        const crunchStart = new Date('2024-04-08');
+        const crunchEnd = new Date('2024-05-19');
+        const aiIntroDate = new Date('2025-06-20');
+
+        // Create labels - only show every 3rd month
+        const labels = monthlyData.map((item, index) => {
+            const [year, month] = item.month.split('-');
+            const date = new Date(year, parseInt(month) - 1);
+            // Show label for January, April, July, October
+            if (parseInt(month) % 3 === 1) {
+                return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+            }
+            return ''; // Empty label for other months
+        });
+
+        // Determine colors
+        const colors = monthlyData.map(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            
+            if (monthDate >= aiIntroDate) {
+                return '#27ae60'; // Green for AI-powered
+            } else if (item.month === '2024-04' || item.month === '2024-05' || item.month === '2025-01') {
+                return '#e74c3c'; // Red for crunch periods
+            } else {
+                return '#95a5a6'; // Gray for pre-AI
+            }
+        });
+
+        // Calculate statistics
+        const preAIData = monthlyData.filter(item => {
+            const [year, month] = item.month.split('-');
+            const monthDate = new Date(year, parseInt(month) - 1, 15);
+            return monthDate < aiIntroDate && !['2024-04', '2024-05', '2025-01'].includes(item.month);
+        });
+        
+        const postAIData = monthlyData.filter(item => {
+            return ['2025-07', '2025-08'].includes(item.month);
+        });
+        
+        // Add June portions to calculations
+        const avgPreAI = (preAIData.reduce((sum, item) => sum + item.avgPrsPerDay, 0) + junePreAI) / (preAIData.length + 1);
+        const avgPostAI = (postAIData.reduce((sum, item) => sum + item.avgPrsPerDay, 0) + junePostAI) / (postAIData.length + 1);
+        
+        // Custom plugin for June split - only draws the green bar on top
+        const customPlugin = {
+            id: 'customBars',
+            afterDatasetsDraw: function(chart) {
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const juneIndex = monthlyData.findIndex(item => item.month === '2025-06');
+                
+                if (juneIndex !== -1) {
+                    const bar = meta.data[juneIndex];
+                    const barWidth = bar.width;
+                    const barX = bar.x - barWidth / 2;
+                    const barBottom = bar.base;
+                    const borderRadius = 4;
+                    
+                    // Get animation progress from the June bar itself
+                    let animationProgress = 1;
+                    if (chart.animating) {
+                        // The bar's current height vs its final height gives us the progress
+                        const currentHeight = bar.height || 0;
+                        const finalHeight = barBottom - chart.scales.y.getPixelForValue(junePreAI);
+                        animationProgress = finalHeight > 0 ? currentHeight / finalHeight : 0;
+                    }
+                    
+                    // Calculate position for post-AI green bar
+                    const postAIY = chart.scales.y.getPixelForValue(junePostAI);
+                    const postAIFullHeight = barBottom - postAIY;
+                    const postAIHeight = postAIFullHeight * animationProgress;
+                    const animatedPostAIY = barBottom - postAIHeight;
+                    
+                    if (postAIHeight > 0) {
+                        ctx.save();
+                        
+                        // Draw post-AI portion (right 1/3) on top of the gray bar
+                        ctx.fillStyle = '#27ae60';
+                        ctx.fillRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        // Post-AI rounded top (only if tall enough)
+                        if (postAIHeight > borderRadius) {
+                            ctx.beginPath();
+                            ctx.moveTo(barX + barWidth * 2/3, animatedPostAIY + borderRadius);
+                            ctx.quadraticCurveTo(barX + barWidth * 2/3, animatedPostAIY, barX + barWidth * 2/3 + borderRadius, animatedPostAIY);
+                            ctx.lineTo(barX + barWidth - borderRadius, animatedPostAIY);
+                            ctx.quadraticCurveTo(barX + barWidth, animatedPostAIY, barX + barWidth, animatedPostAIY + borderRadius);
+                            ctx.closePath();
+                            ctx.fill();
+                        }
+                        
+                        // Post-AI border
+                        ctx.strokeStyle = '#229954';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(barX + barWidth * 2/3, animatedPostAIY, barWidth / 3, postAIHeight);
+                        
+                        ctx.restore();
+                    }
+                }
+            }
+        };
+
+        // Create chart
+        const ctx = document.getElementById('prsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average PRs per Day',
+                    data: monthlyData.map(item => {
+                        // For June, return the pre-AI value so the gray bar animates correctly
+                        if (item.month === '2025-06') {
+                            return junePreAI;
+                        }
+                        return item.avgPrsPerDay;
+                    }),
+                    backgroundColor: colors,
+                    borderColor: colors.map(color => {
+                        if (color === '#e74c3c') return '#c0392b';
+                        if (color === '#27ae60') return '#229954';
+                        return '#7f8c8d';
+                    }),
+                    borderWidth: 1,
+                    borderRadius: {
+                        topLeft: 4,
+                        topRight: 4,
+                        bottomLeft: 0,
+                        bottomRight: 0
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const monthData = monthlyData[context[0].dataIndex];
+                                const [year, month] = monthData.month.split('-');
+                                const date = new Date(year, parseInt(month) - 1);
+                                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                            },
+                            label: function(context) {
+                                const monthData = monthlyData[context.dataIndex];
+                                if (monthData.month === '2025-06') {
+                                    return [
+                                        `Pre-AI (2/3): ${junePreAI.toFixed(1)} PRs/day`,
+                                        `Post-AI (1/3): ${junePostAI.toFixed(1)} PRs/day`,
+                                        `Overall: ${monthData.avgPrsPerDay.toFixed(1)} PRs/day`
+                                    ];
+                                }
+                                const value = monthData.avgPrsPerDay.toFixed(1);
+                                const weeks = monthData.weekCount;
+                                return `Avg: ${value} PRs/day (${weeks} weeks)`;
+                            },
+                            afterLabel: function(context) {
+                                const month = monthlyData[context.dataIndex].month;
+                                if (month === '2025-06') {
+                                    return 'AI introduced June 20';
+                                } else if (['2024-04', '2024-05', '2025-01'].includes(month)) {
+                                    return 'Crunch Period';
+                                } else if (['2025-07', '2025-08'].includes(month)) {
+                                    return 'AI-Powered';
+                                }
+                                return 'Pre-AI';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Average Pull Requests per Day'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            },
+            plugins: [customPlugin]
+        });
+
+        // Populate statistics
+        const percentChange = ((avgPostAI / avgPreAI - 1) * 100).toFixed(0);
+        
+        document.getElementById('stats').innerHTML = `
+            <div class="stat-box">
+                <div class="stat-value">${avgPreAI.toFixed(1)}</div>
+                <div class="stat-label">Avg PRs/Day<br>(Pre-AI)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${avgPostAI.toFixed(1)}</div>
+                <div class="stat-label">Avg PRs/Day<br>(AI-Powered)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value gain-positive">+${percentChange}%</div>
+                <div class="stat-label">Productivity<br>Gain</div>
+            </div>
+        `;
+    </script>
+</body>
+</html>

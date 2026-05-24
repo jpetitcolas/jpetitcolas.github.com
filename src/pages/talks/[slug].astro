@@ -1,0 +1,18 @@
+---
+import TalkLayout from '../../layouts/TalkLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const talks = await getCollection('talks');
+  return talks.map((talk) => ({
+    params: { slug: talk.id },
+    props: { talk },
+  }));
+}
+
+const { talk } = Astro.props;
+const { Content } = await render(talk);
+---
+<TalkLayout talk={talk}>
+  <Content />
+</TalkLayout>
