@@ -377,6 +377,17 @@ body > footer {
 }
 body > footer a { color: #ccc; }
 body > footer a:hover { color: #ccc; text-decoration: underline; }
+body > footer button#manage-cookies {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #ccc;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+body > footer button#manage-cookies:hover { text-decoration: underline; }
 body > footer .wrapper {
   max-width: 90%;
   width: 1400px;

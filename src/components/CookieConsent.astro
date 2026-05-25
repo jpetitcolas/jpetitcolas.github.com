@@ -1,0 +1,87 @@
+---
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID as string | undefined;
+---
+
+<div id="cc-data" data-ga-id={measurementId ?? ''} hidden></div>
+
+<script>
+import * as CookieConsent from 'vanilla-cookieconsent';
+
+const gaId = (document.getElementById('cc-data') as HTMLElement).dataset.gaId || '';
+
+// GA Consent Mode v2 — default-deny must fire before the GTM script loads.
+if (gaId) {
+  const dl: unknown[] = (window as Window & { dataLayer?: unknown[] }).dataLayer ?? [];
+  (window as Window & { dataLayer: unknown[] }).dataLayer = dl;
+
+  const gtag = (...args: unknown[]) => dl.push(args);
+  (window as Window & { gtag: typeof gtag }).gtag = gtag;
+
+  gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+  gtag('js', new Date());
+
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+  document.head.appendChild(s);
+
+  gtag('config', gaId, { anonymize_ip: true });
+}
+
+function updateConsent(accepted: boolean) {
+  if (!gaId) return;
+  const g = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+  g?.('consent', 'update', { analytics_storage: accepted ? 'granted' : 'denied' });
+}
+
+CookieConsent.run({
+  onConsent: () => updateConsent(CookieConsent.acceptedCategory('analytics')),
+  onChange: () => updateConsent(CookieConsent.acceptedCategory('analytics')),
+
+  categories: {
+    necessary: { readOnly: true },
+    analytics: {
+      autoClear: {
+        cookies: [{ name: /^_ga/ }, { name: '_gid' }],
+      },
+    },
+  },
+
+  language: {
+    default: 'en',
+    translations: {
+      en: {
+        consentModal: {
+          title: 'This site uses cookies',
+          description:
+            'We use Google Analytics to understand which content people read. No data leaves your browser until you consent. <a href="/privacy-policy" class="cc-link">Privacy policy</a>.',
+          acceptAllBtn: 'Accept all',
+          acceptNecessaryBtn: 'Reject all',
+          showPreferencesBtn: 'Manage preferences',
+        },
+        preferencesModal: {
+          title: 'Manage cookie preferences',
+          acceptAllBtn: 'Accept all',
+          acceptNecessaryBtn: 'Reject all',
+          savePreferencesBtn: 'Save preferences',
+          closeIconLabel: 'Close',
+          sections: [
+            {
+              title: 'Strictly necessary',
+              description: 'Required for the site to work. Cannot be disabled.',
+              linkedCategory: 'necessary',
+            },
+            {
+              title: 'Analytics',
+              description:
+                'Google Analytics counts page visits and shows which posts are read. No advertising data is collected.',
+              linkedCategory: 'analytics',
+            },
+          ],
+        },
+      },
+    },
+  },
+});
+</script>
