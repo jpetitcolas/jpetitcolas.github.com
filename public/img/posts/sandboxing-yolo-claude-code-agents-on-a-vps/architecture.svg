@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-label="Architecture: laptop reaches the Hetzner box via Tailscale; the Hetzner Cloud Firewall denies all other inbound; inside the box, Claude Code's outbound traffic is forced through iptables and Squid to a small whitelist of domains.">
+  <defs>
+    <marker id="cage-arr-teal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 z" fill="#31afc8"/>
+    </marker>
+    <marker id="cage-arr-orange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 z" fill="#f39313"/>
+    </marker>
+    <marker id="cage-arr-ink" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 z" fill="#2B3542"/>
+    </marker>
+    <filter id="cage-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#2B3542" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .slab { font-family: 'Roboto Slab', Georgia, serif; }
+      .sans { font-family: 'Roboto', system-ui, sans-serif; }
+      .mono { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="760" fill="#ffffff"/>
+
+  <g transform="translate(60, 380)">
+    <rect x="-2" y="62" width="124" height="8" rx="3" fill="#2B3542" opacity="0.18"/>
+    <path d="M -16 78 L 136 78 L 122 60 L 0 60 Z" fill="#2B3542"/>
+    <rect x="0" y="0" width="120" height="64" rx="4" fill="#2B3542"/>
+    <rect x="5" y="5" width="110" height="54" rx="2" fill="#f3f3f3"/>
+    <rect x="12" y="11" width="38" height="3" rx="1" fill="#31afc8"/>
+    <rect x="12" y="18" width="62" height="3" rx="1" fill="#cfcfcf"/>
+    <rect x="12" y="25" width="80" height="3" rx="1" fill="#cfcfcf"/>
+    <rect x="12" y="32" width="52" height="3" rx="1" fill="#cfcfcf"/>
+    <rect x="12" y="39" width="34" height="3" rx="1" fill="#f39313"/>
+    <rect x="12" y="46" width="68" height="3" rx="1" fill="#cfcfcf"/>
+    <text x="60" y="106" text-anchor="middle" class="slab" font-size="14" font-weight="700" fill="#2B3542">laptop</text>
+    <text x="60" y="124" text-anchor="middle" class="mono" font-size="11" fill="#888">tailnet · 100.x.y.z</text>
+  </g>
+
+  <g>
+    <path d="M 200 410 C 244 410, 256 410, 312 410" stroke="#31afc8" stroke-width="2.5" fill="none" stroke-dasharray="6 4" marker-end="url(#cage-arr-teal)"/>
+    <g transform="translate(259, 386)">
+      <rect x="-50" y="-13" width="100" height="22" rx="11" fill="#31afc8"/>
+      <text x="0" y="2" text-anchor="middle" class="slab" font-size="11" font-weight="700" letter-spacing="2" fill="#fff">TAILSCALE</text>
+    </g>
+    <text x="259" y="436" text-anchor="middle" class="sans" font-size="11" fill="#888">WireGuard mesh</text>
+  </g>
+
+  <g transform="translate(326, 124)">
+    <rect x="0" y="0" width="560" height="48" rx="8" fill="#fff" stroke="#f39313" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <text x="22" y="20" class="slab" font-size="11" font-weight="700" letter-spacing="2" fill="#f39313">HETZNER CLOUD FIREWALL</text>
+    <text x="22" y="38" class="sans" font-size="12" fill="#2B3542">inbound from the public internet</text>
+    <g transform="translate(440, 24)">
+      <rect x="0" y="-14" width="100" height="26" rx="13" fill="#f39313"/>
+      <text x="50" y="3" text-anchor="middle" class="slab" font-size="11" font-weight="700" letter-spacing="2" fill="#fff">DENY ALL</text>
+    </g>
+
+    <g stroke="#f39313" stroke-width="1.5" fill="none" opacity="0.85">
+      <path d="M 80 -56 L 80 -8" stroke-dasharray="4 3" marker-end="url(#cage-arr-orange)"/>
+      <path d="M 170 -64 L 170 -8" stroke-dasharray="4 3" marker-end="url(#cage-arr-orange)"/>
+      <path d="M 260 -56 L 260 -8" stroke-dasharray="4 3" marker-end="url(#cage-arr-orange)"/>
+      <path d="M 350 -64 L 350 -8" stroke-dasharray="4 3" marker-end="url(#cage-arr-orange)"/>
+    </g>
+    <g class="mono" font-size="11" fill="#f39313" text-anchor="middle">
+      <text x="80" y="-68">:22</text>
+      <text x="170" y="-76">scan</text>
+      <text x="260" y="-68">:80</text>
+      <text x="350" y="-76">:443</text>
+    </g>
+  </g>
+
+  <g transform="translate(326, 192)" filter="url(#cage-shadow)">
+    <rect x="0" y="0" width="560" height="540" rx="14" fill="#ffffff" stroke="#2B3542" stroke-width="1.5"/>
+
+    <g transform="translate(24, 28)">
+      <text class="slab" font-size="17" font-weight="700" fill="#2B3542">Hetzner CX33</text>
+      <text y="20" class="sans" font-size="12" fill="#888">Ubuntu 26.04, 4 vCPU, 8 GB RAM</text>
+
+      <g transform="translate(390, -8)">
+        <rect x="0" y="0" width="122" height="30" rx="15" fill="none" stroke="#f39313" stroke-width="1.5"/>
+        <text x="61" y="20" text-anchor="middle" class="slab" font-size="12" font-weight="700" letter-spacing="2" fill="#f39313">SANDBOX</text>
+      </g>
+    </g>
+
+    <line x1="24" y1="76" x2="536" y2="76" stroke="#eee" stroke-width="1"/>
+
+    <g transform="translate(36, 96)">
+      <rect x="0" y="0" width="488" height="84" rx="8" fill="#fff8ec" stroke="#f39313" stroke-width="1.5"/>
+      <text x="20" y="26" class="slab" font-size="14" font-weight="700" fill="#2B3542">Claude Code <tspan font-weight="400" fill="#888">(YOLO Mode)</tspan></text>
+      <text x="20" y="46" class="mono" font-size="11" fill="#888">uid: claude</text>
+      <text x="20" y="66" class="mono" font-size="11" fill="#31afc8">HTTPS_PROXY=http://127.0.0.1:4750</text>
+    </g>
+
+    <path d="M 280 196 L 280 220" stroke="#2B3542" stroke-width="1.5" marker-end="url(#cage-arr-ink)"/>
+
+    <g transform="translate(36, 228)">
+      <rect x="0" y="0" width="488" height="172" rx="8" fill="#fff" stroke="#2B3542" stroke-width="1.5"/>
+      <text x="20" y="26" class="slab" font-size="14" font-weight="700" fill="#2B3542">iptables OUTPUT <tspan class="sans" font-weight="400" font-style="italic" font-size="11" fill="#888">· enforced by the kernel</tspan></text>
+      <text x="20" y="44" class="mono" font-size="11" fill="#888">--uid-owner claude, IPv4 + IPv6</text>
+
+      <g transform="translate(20, 62)" class="mono" font-size="11">
+        <g>
+          <rect x="0" y="-2" width="14" height="14" rx="3" fill="#31afc8"/>
+          <text x="22" y="9" fill="#2B3542">→ 127.0.0.1:4750  (Squid proxy)</text>
+          <text x="390" y="9" fill="#31afc8" font-weight="700">ACCEPT</text>
+        </g>
+        <g transform="translate(0, 22)">
+          <rect x="0" y="-2" width="14" height="14" rx="3" fill="#31afc8"/>
+          <text x="22" y="9" fill="#2B3542">→ udp/tcp 53      (DNS)</text>
+          <text x="390" y="9" fill="#31afc8" font-weight="700">ACCEPT</text>
+        </g>
+        <g transform="translate(0, 44)">
+          <rect x="0" y="-2" width="14" height="14" rx="3" fill="#31afc8"/>
+          <text x="22" y="9" fill="#2B3542">→ lo              (loopback)</text>
+          <text x="390" y="9" fill="#31afc8" font-weight="700">ACCEPT</text>
+        </g>
+        <g transform="translate(0, 70)">
+          <rect x="0" y="-2" width="14" height="14" rx="3" fill="#f39313"/>
+          <text x="22" y="9" fill="#2B3542">→ everything else</text>
+          <text x="390" y="9" fill="#f39313" font-weight="700">REJECT</text>
+        </g>
+      </g>
+
+    </g>
+
+    <path d="M 280 412 L 280 434" stroke="#2B3542" stroke-width="1.5" marker-end="url(#cage-arr-ink)"/>
+
+    <g transform="translate(36, 444)">
+      <rect x="0" y="0" width="488" height="80" rx="8" fill="#e8f5f8" stroke="#31afc8" stroke-width="1.5"/>
+      <text x="20" y="26" class="slab" font-size="14" font-weight="700" fill="#2B3542">Squid <tspan class="sans" font-weight="400" font-style="italic" font-size="11" fill="#888">· matches destination domains</tspan></text>
+      <text x="20" y="44" class="mono" font-size="11" fill="#888">listening on 127.0.0.1:4750, loopback only</text>
+      <text x="20" y="62" class="sans" font-size="11" fill="#2B3542">checks the destination against a domain whitelist</text>
+    </g>
+  </g>
+
+  <g transform="translate(940, 230)">
+    <text class="slab" font-size="11" font-weight="700" letter-spacing="2" fill="#31afc8">ALLOWED</text>
+    <text y="14" class="sans" font-size="11" fill="#888">domain whitelist</text>
+
+    <g class="mono" font-size="12">
+      <g transform="translate(0, 28)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#31afc8" stroke-width="1.5"/>
+        <circle cx="18" cy="17" r="5" fill="#31afc8"/>
+        <text x="34" y="21" fill="#2B3542">.anthropic.com</text>
+      </g>
+      <g transform="translate(0, 70)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#31afc8" stroke-width="1.5"/>
+        <circle cx="18" cy="17" r="5" fill="#31afc8"/>
+        <text x="34" y="21" fill="#2B3542">.claude.com</text>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#31afc8" stroke-width="1.5"/>
+        <circle cx="18" cy="17" r="5" fill="#31afc8"/>
+        <text x="34" y="21" fill="#2B3542">.github.com</text>
+      </g>
+      <g transform="translate(0, 154)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#31afc8" stroke-width="1.5"/>
+        <circle cx="18" cy="17" r="5" fill="#31afc8"/>
+        <text x="34" y="21" fill="#2B3542">.npmjs.org / .pypi.org</text>
+      </g>
+      <g transform="translate(0, 196)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#31afc8" stroke-width="1.5"/>
+        <circle cx="18" cy="17" r="5" fill="#31afc8"/>
+        <text x="34" y="21" fill="#2B3542">.ubuntu.com</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 264)">
+      <text class="slab" font-size="11" font-weight="700" letter-spacing="2" fill="#f39313">DENIED</text>
+      <text y="14" class="sans" font-size="11" fill="#888">everything else</text>
+      <g transform="translate(0, 28)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#f39313" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <g transform="translate(18, 17)">
+          <line x1="-6" y1="-6" x2="6" y2="6" stroke="#f39313" stroke-width="2.2"/>
+          <line x1="-6" y1="6" x2="6" y2="-6" stroke="#f39313" stroke-width="2.2"/>
+        </g>
+        <text x="34" y="21" class="mono" font-size="12" fill="#2B3542">attacker.com</text>
+      </g>
+      <g transform="translate(0, 70)">
+        <rect x="0" y="0" width="220" height="34" rx="6" fill="#fff" stroke="#f39313" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <g transform="translate(18, 17)">
+          <line x1="-6" y1="-6" x2="6" y2="6" stroke="#f39313" stroke-width="2.2"/>
+          <line x1="-6" y1="6" x2="6" y2="-6" stroke="#f39313" stroke-width="2.2"/>
+        </g>
+        <text x="34" y="21" class="mono" font-size="12" fill="#2B3542">random ports / nc -e</text>
+      </g>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#31afc8" stroke-width="1.25">
+    <path d="M 886 660 C 916 660, 920 275, 940 275"/>
+    <path d="M 886 666 C 916 666, 920 317, 940 317"/>
+    <path d="M 886 672 C 916 672, 920 359, 940 359"/>
+    <path d="M 886 678 C 916 678, 920 401, 940 401"/>
+    <path d="M 886 684 C 916 684, 920 443, 940 443"/>
+  </g>
+  <g fill="none" stroke="#f39313" stroke-width="1.25" stroke-dasharray="4 3">
+    <path d="M 886 690 C 916 690, 920 539, 940 539"/>
+    <path d="M 886 696 C 916 696, 920 581, 940 581"/>
+  </g>
+
+</svg>
