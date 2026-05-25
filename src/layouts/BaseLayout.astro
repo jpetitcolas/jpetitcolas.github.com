@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title: string;
@@ -64,8 +65,14 @@ const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
       <p class="theme">
         Theme inspired by
         <a href="http://andersnoren.se/themes/baskerville/">Baskerville</a>.
+        &bull;
+        <a href="/privacy-policy">Privacy</a>
+        &bull;
+        <button id="manage-cookies" data-cc="show-preferencesModal">Manage cookies</button>
       </p>
     </div>
   </footer>
+
+  <CookieConsent />
 </body>
 </html>
