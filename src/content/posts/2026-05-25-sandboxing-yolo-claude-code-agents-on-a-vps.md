@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Sandboxing YOLO Claude Code Agents on a VPS"
-excerpt: "How I built an €8.65/month disposable Hetzner VPS where Claude Code runs with `--dangerously-skip-permissions` and physically can't phone home anywhere except api.anthropic.com and a handful of allowlisted registries."
+excerpt: "Running Claude Code in YOLO mode on a $10/month VPS, fully isolated at both the network and filesystem level. Here's how I got there, so you can too."
 illustration: "/img/posts/sandboxing-yolo-claude-code-agents-on-a-vps/banner.jpg"
 illustration_thumbnail: "/img/posts/sandboxing-yolo-claude-code-agents-on-a-vps/banner-small.jpg"
 tags: [infra, security, ai-agents, tailscale, squid]
