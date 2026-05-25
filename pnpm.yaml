@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
+
+overrides:
+  '@cloudflare/workers-types': 4.20260524.1
