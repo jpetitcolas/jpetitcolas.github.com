@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Giscus from '../components/Giscus.astro';
 import type { Post } from '../lib/posts';
 import { parsePostId } from '../lib/posts';
 
@@ -48,8 +47,5 @@ const formattedDate = date.toLocaleDateString('en-GB', {
       <slot />
     </section>
 
-    <div class="comments">
-      <Giscus />
-    </div>
   </article>
 </BaseLayout>

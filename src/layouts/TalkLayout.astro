@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import Giscus from '../components/Giscus.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -24,8 +23,5 @@ const formattedDate = talk.data.date.toLocaleDateString('en-GB', {
     <section class="content">
       <slot />
     </section>
-    <div class="comments">
-      <Giscus />
-    </div>
   </article>
 </BaseLayout>
