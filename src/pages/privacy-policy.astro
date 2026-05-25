@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How Jonathan Petitcolas's blog collects and uses data, and how you can control it."
+>
+  <article class="post-wrapper">
+    <h1>Privacy Policy</h1>
+    <p><em>Last updated: 25 May 2026</em></p>
+
+    <h2>Who we are</h2>
+    <p>
+      This site is a personal technical blog operated by Jonathan Petitcolas
+      (<a href="mailto:petitcolas.jonathan@gmail.com">petitcolas.jonathan@gmail.com</a>).
+      It is hosted on Cloudflare's global network.
+    </p>
+
+    <h2>What data is collected and why</h2>
+    <p>
+      This site uses <strong>Google Analytics 4 (GA4)</strong> to count page visits and
+      understand which posts are read. It collects:
+    </p>
+    <ul>
+      <li>Pages visited and time spent on each page</li>
+      <li>Approximate country/region (derived from IP address, which is never stored)</li>
+      <li>Browser type and device category</li>
+      <li>Referring URL</li>
+    </ul>
+    <p>No name, email address, or other identifying information is collected.</p>
+
+    <h2>Legal basis</h2>
+    <p>
+      Analytics is processed only with your explicit consent (GDPR Art. 6(1)(a)).
+      The consent banner appears on your first visit; nothing is tracked until you click
+      <em>Accept all</em>. The site also runs on Cloudflare infrastructure, which
+      processes network-layer data under its own
+      <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer" target="_blank">
+        privacy policy
+      </a>
+      as a legitimate-interest data processor for DDoS protection and CDN delivery.
+    </p>
+
+    <h2>Third parties that receive data</h2>
+    <ul>
+      <li>
+        <strong>Google LLC</strong> — receives anonymised analytics data when you consent.
+        GA4 is configured with IP anonymisation enabled and a 2-month data retention window.
+        Google's privacy policy: <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">policies.google.com/privacy</a>.
+      </li>
+      <li>
+        <strong>Cloudflare, Inc.</strong> — handles all HTTP traffic as the CDN and hosting
+        provider. Cloudflare's privacy policy:
+        <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer" target="_blank">cloudflare.com/privacypolicy</a>.
+      </li>
+    </ul>
+
+    <h2>Cookies</h2>
+    <p>
+      The consent library writes one first-party cookie (<code>cc_cookie</code>, SameSite=Lax)
+      to remember your choice. If you accept analytics, Google Analytics sets
+      <code>_ga</code> and related cookies that expire after 2 months.
+      No third-party advertising or tracking cookies are used.
+    </p>
+
+    <h2>Data retention</h2>
+    <p>
+      The GA4 property is configured with a 2-month data retention period, after which
+      aggregate event data is automatically deleted by Google. The <code>cc_cookie</code>
+      expires after 6 months and is renewed each time you revisit.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>Under GDPR you have the right to:</p>
+    <ul>
+      <li>Access the personal data held about you</li>
+      <li>Request correction or deletion of your data</li>
+      <li>Withdraw consent at any time without affecting the lawfulness of prior processing</li>
+      <li>Lodge a complaint with your local data protection authority</li>
+    </ul>
+
+    <h2>How to withdraw consent</h2>
+    <p>
+      Click the <strong>Manage cookies</strong> button in the site footer at any time,
+      toggle the Analytics switch off, and save. GA will immediately stop receiving data
+      from your browser and any <code>_ga*</code> cookies will be cleared.
+    </p>
+    <p>
+      You can also delete all cookies for this domain in your browser settings, which
+      resets the consent state entirely.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      For privacy-related questions, email
+      <a href="mailto:petitcolas.jonathan@gmail.com">petitcolas.jonathan@gmail.com</a>.
+    </p>
+  </article>
+</BaseLayout>
